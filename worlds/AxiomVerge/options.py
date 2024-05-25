@@ -55,6 +55,14 @@ class SecretWorlds(Options.Choice):
     default = 0
 
 
+class DroneFly(Options.Toggle):
+    display_name = "Drone Flight"
+
+
+class RoomRando(Options.Toggle):
+    display_name = "Room Rando"  # DO NOT SET TO TRUE OR GENERATION WILL FAIL
+
+
 @dataclass
 class AVOptions(Options.PerGameCommonOptions):
     progressive_coats: ProgressiveCoats
@@ -62,4 +70,6 @@ class AVOptions(Options.PerGameCommonOptions):
     progressive_drone: ProgressiveDrone
     grapple_clips: GrappleClips
     rocket_jumps: RocketJumps
+    drone_fly: DroneFly
     secret_worlds: SecretWorlds
+    room_rando: RoomRando
