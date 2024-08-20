@@ -807,6 +807,131 @@ class AVRegion(enum.Enum):
         AVDoor("Arterial Bypass Entrance Left Door", Orientation.Left),
     ]
 
+    # uppertube: 4 regions
+    UPPER_TUBE_LOWER = "Upper Tube_Lower", [
+        AVDoor("Upper Tube Bottom Door", Orientation.Down),
+        AVDoor("Upper Tube Inner BC")
+    ]
+
+    UPPER_TUBE_CENTER = "Upper Tube_Center", [
+        AVDoor("Upper Tube Lower Right Door", Orientation.Right),
+        AVDoor("Upper Tube Inner CB"),
+        AVDoor("Upper Tube Inner CS"),
+        AVDoor("Upper Tube Inner CU")
+    ]
+
+    UPPER_TUBE_SECRET = "Upper Tube_Secret", [
+        AVDoor("Upper Tube Lower Left Door", Orientation.Left),
+        AVDoor("Upper Tube Inner SC")
+    ]
+
+    UPPER_TUBE_UPPER = "Upper Tube_Upper", [
+        AVDoor("Upper Tube Upper Left Door", Orientation.Left),
+        AVDoor("Upper Tube Upper Right Door", Orientation.Right),
+        AVDoor("Upper Tube Inner UC")
+    ]
+
+    VENOUS_FILTRATION_ACCESS = "Venous Filtration Access", [
+        AVDoor("Venous Filtration Access Right Door", Orientation.Right),
+        AVDoor("Venous Filtration Access Left Door", Orientation.Left)
+    ]
+
+    VENOUS_FILTRATION = "Venous Filtration", [
+        AVDoor("Venous Filtration Right Door", Orientation.Right),
+        AVDoor("Venous Filtration Left Door", Orientation.Left)
+    ]
+
+    VENOUS_MAINTENANCE_ACCESS = "Venous Maintenance Access", [
+        AVDoor("Venous Maintenance Access Right Door", Orientation.Right),
+        AVDoor("Venous Maintenance Access Left Door", Orientation.Left)
+    ]
+
+    VENOUS_MAINTENANCE1 = "Venous Maintenance 1", [
+        AVDoor("Venous Maintenance 1 Right Door", Orientation.Right),
+        AVDoor("Venous Maintenance 1 Left Door", Orientation.Left)
+    ]
+
+    # venousmaintenance2: 3 regions
+    VENOUS_MAINTENANCE2_UPPER = "Venous Maintenance 2_Upper", [
+        AVDoor("Venous Maintenance 2 Upper Right Door", Orientation.Right),
+        AVDoor("Venous Maintenance 2 Inner UC"),
+        AVDoor("Venous Maintenance 2 Inner UB")
+    ]
+
+    VENOUS_MAINTENANCE2_CENTER = "Venous Maintenance 2_Center", [
+        AVDoor("Venous Maintenance 2 Center Right Door", Orientation.Right),
+        AVDoor("Venous Maintenance 2 Inner CU"),
+        AVDoor("Venous Maintenance 2 Inner CB")
+    ]
+
+    VENOUS_MAINTENANCE2_LOWER = "Venous Maintenance 2_Lower", [
+        AVDoor("Venous Maintenance 2 Lower Right Door", Orientation.Right),
+        AVDoor("Venous Maintenance 2 Inner BC"),
+        AVDoor("Venous Maintenance 2 Inner BU")
+    ]
+
+    VENOUS_MAINTENANCE3 = "Venous Maintenance 3", [
+        AVDoor("Venous Maintenance 3 Left Door", Orientation.Left)
+    ]
+
+    VENOUS_MAINTENANCE4 = "Venous Maintenance 4", [
+        AVDoor("Venous Maintenance 4 Right Door", Orientation.Right),
+        AVDoor("Venous Maintenance 4 Left Door", Orientation.Left)
+    ]
+
+    VENOUS_MAINTENANCE_SECRET = "Venous Maintenance Secret", [
+        AVDoor("Venous Maintenance Secret Left Door", Orientation.Left)
+    ]
+
+    ZI_SAVE2 = "Zi Save 2", [
+        AVDoor("Zi Save 2 Left Door", Orientation.Left),
+        AVDoor("Zi Save 2 Right Door", Orientation.Right),
+        AVDoor("Zi Save 2 Save", Orientation.Save)
+    ]
+
+    ZI_TO_INDI = "Zi to Indi", [
+        AVDoor("Zi to Indi Upper Door", Orientation.Up, BossDoor.Areatrans),
+        AVDoor("Zi to Indi Right Door", Orientation.Right)
+    ]
+
+    URUKU_FOYER = "Uruku Foyer", [
+        AVDoor("Uruku Foyer Left Door", Orientation.Left),
+        AVDoor("Uruki Foyer Right Door", Orientation.Right, BossDoor.Outer)
+    ]
+
+    # uruku: 2 regions
+    URUKU_MAIN = "Uruku_Main", [
+        AVDoor("Uruku Left Door", Orientation.Left, BossDoor.Inner),
+        AVDoor("Uruku Upper Right Door", Orientation.Right, BossDoor.Inner),
+        AVDoor("Uruku Inner MS")
+    ]
+
+    URUKU_SECRET = "Uruku_Secret", [
+        AVDoor("Uruku Lower Right Door", Orientation.Right, BossDoor.Inner),
+        AVDoor("Uruku Inner SM")
+    ]
+
+    # filtration: 3 regions
+    FILTRATION_UPPER = "Filtration_Upper", [
+        AVDoor("Filtration Upper Left Door", Orientation.Left, BossDoor.Outer),
+        AVDoor("Filtration Inner UE")
+    ]
+
+    FILTRATION_EAST = "Filtration_East", [
+        AVDoor("Filtration Right Door", Orientation.Right),
+        AVDoor("Filtration Inner EW"),
+        AVDoor("Filtration Inner EU")
+    ]
+
+    FILTRATION_WEST = "Filtration_West", [
+        AVDoor("Filtration Lower Left Door", Orientation.Left, BossDoor.Outer),
+        AVDoor("Filtration Inner WE")
+    ]
+
+    LABCOAT = "Labcoat Room", [
+        AVDoor("Labcoat Room Left Door", Orientation.Left)
+    ]
+
 
 class AVDoorID(NamedTuple):
     region: AVRegion
@@ -863,7 +988,16 @@ axiom_verge_connections = [
     AVConnection(AVDoorID(AVRegion.STEAM_ROOM2_EAST, 2), AVDoorID(AVRegion.STEAM_ROOM2_UPPER, 1)),
     AVConnection(AVDoorID(AVRegion.CENTRAL_TUBE_LOWER, 2), AVDoorID(AVRegion.CENTRAL_TUBE_SECRET, 1)),
     AVConnection(AVDoorID(AVRegion.CENTRAL_TUBE_LOWER, 3), AVDoorID(AVRegion.CENTRAL_TUBE_UPPER, 1)),
-    AVConnection(AVDoorID(AVRegion.ARTERIAL_FILTRATION, 1), AVDoorID(AVRegion.ARTERIAL_FILTRATION_UPPER, 1), False)
+    AVConnection(AVDoorID(AVRegion.ARTERIAL_FILTRATION, 1), AVDoorID(AVRegion.ARTERIAL_FILTRATION_UPPER, 1), False),
+    AVConnection(AVDoorID(AVRegion.UPPER_TUBE_LOWER, 1), AVDoorID(AVRegion.UPPER_TUBE_CENTER, 1)),
+    AVConnection(AVDoorID(AVRegion.UPPER_TUBE_CENTER, 2), AVDoorID(AVRegion.UPPER_TUBE_SECRET, 1)),
+    AVConnection(AVDoorID(AVRegion.UPPER_TUBE_CENTER, 3), AVDoorID(AVRegion.UPPER_TUBE_UPPER, 2)),
+    AVConnection(AVDoorID(AVRegion.VENOUS_MAINTENANCE2_UPPER, 1), AVDoorID(AVRegion.VENOUS_MAINTENANCE2_CENTER, 1)),
+    AVConnection(AVDoorID(AVRegion.VENOUS_MAINTENANCE2_UPPER, 2), AVDoorID(AVRegion.VENOUS_MAINTENANCE2_LOWER, 2)),
+    AVConnection(AVDoorID(AVRegion.VENOUS_MAINTENANCE2_CENTER, 2), AVDoorID(AVRegion.VENOUS_MAINTENANCE2_LOWER, 1)),
+    AVConnection(AVDoorID(AVRegion.URUKU_MAIN, 2), AVDoorID(AVRegion.URUKU_SECRET, 1)),
+    AVConnection(AVDoorID(AVRegion.FILTRATION_EAST, 1), AVDoorID(AVRegion.FILTRATION_WEST, 1)),
+    AVConnection(AVDoorID(AVRegion.FILTRATION_EAST, 2), AVDoorID(AVRegion.FILTRATION_UPPER, 1))
 ]
 
 axiom_verge_doors = [
@@ -986,7 +1120,24 @@ axiom_verge_doors = [
     AVConnection(AVDoorID(AVRegion.ARTERIAL_MAIN, 1), AVDoorID(AVRegion.ARTERIAL_BYPASS, 0)),
     AVConnection(AVDoorID(AVRegion.ARTERIAL_SHAFT, 2), AVDoorID(AVRegion.ARTERIAL_FILTRATION, 0)),
     AVConnection(AVDoorID(AVRegion.ARTERIAL_BYPASS, 2), AVDoorID(AVRegion.ARTERIAL_FILTRATION_UPPER, 0)),
-    AVConnection(AVDoorID(AVRegion.ARTERIAL_BYPASS, 1), AVDoorID(AVRegion.ARTERIAL_BYPASS_ENTRANCE, 0))
+    AVConnection(AVDoorID(AVRegion.ARTERIAL_BYPASS, 1), AVDoorID(AVRegion.ARTERIAL_BYPASS_ENTRANCE, 0)),
+    AVConnection(AVDoorID(AVRegion.UPPER_TUBE_LOWER, 0), AVDoorID(AVRegion.CENTRAL_TUBE_UPPER, 0)),
+    AVConnection(AVDoorID(AVRegion.UPPER_TUBE_CENTER, 0), AVDoorID(AVRegion.ARTERIAL_BYPASS_ENTRANCE, 1)),
+    AVConnection(AVDoorID(AVRegion.UPPER_TUBE_SECRET, 0), AVDoorID(AVRegion.VENOUS_FILTRATION_ACCESS, 0)),
+    AVConnection(AVDoorID(AVRegion.VENOUS_FILTRATION, 0), AVDoorID(AVRegion.VENOUS_FILTRATION_ACCESS, 1)),
+    AVConnection(AVDoorID(AVRegion.VENOUS_FILTRATION, 1), AVDoorID(AVRegion.VENOUS_MAINTENANCE_ACCESS, 0)),
+    AVConnection(AVDoorID(AVRegion.VENOUS_MAINTENANCE_ACCESS, 1), AVDoorID(AVRegion.VENOUS_MAINTENANCE1, 0)),
+    AVConnection(AVDoorID(AVRegion.VENOUS_MAINTENANCE1, 1), AVDoorID(AVRegion.VENOUS_MAINTENANCE2_UPPER, 0)),
+    AVConnection(AVDoorID(AVRegion.VENOUS_MAINTENANCE2_CENTER, 0), AVDoorID(AVRegion.VENOUS_MAINTENANCE3, 0)),
+    AVConnection(AVDoorID(AVRegion.VENOUS_MAINTENANCE2_LOWER, 0), AVDoorID(AVRegion.VENOUS_MAINTENANCE4, 1)),
+    AVConnection(AVDoorID(AVRegion.VENOUS_MAINTENANCE4, 0), AVDoorID(AVRegion.VENOUS_MAINTENANCE_SECRET, 0)),
+    AVConnection(AVDoorID(AVRegion.UPPER_TUBE_UPPER, 0), AVDoorID(AVRegion.ZI_SAVE2, 1)),
+    AVConnection(AVDoorID(AVRegion.ZI_SAVE2, 0), AVDoorID(AVRegion.ZI_TO_INDI, 1)),
+    AVConnection(AVDoorID(AVRegion.UPPER_TUBE_UPPER, 1), AVDoorID(AVRegion.URUKU_FOYER, 0)),
+    AVConnection(AVDoorID(AVRegion.URUKU_FOYER, 1), AVDoorID(AVRegion.URUKU_MAIN, 0)),
+    AVConnection(AVDoorID(AVRegion.FILTRATION_UPPER, 0), AVDoorID(AVRegion.URUKU_MAIN, 1)),
+    AVConnection(AVDoorID(AVRegion.FILTRATION_WEST, 0), AVDoorID(AVRegion.URUKU_SECRET, 0)),
+    AVConnection(AVDoorID(AVRegion.FILTRATION_EAST, 0), AVDoorID(AVRegion.LABCOAT, 0))
 ]
 
 region_name_to_connection: Dict[str, List[AVConnection]] = {}

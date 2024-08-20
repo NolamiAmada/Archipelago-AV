@@ -61,7 +61,12 @@ axiom_verge_locations = {
     "Veruska Secret": [AVLocation("Zi - Veruska Left Item", BASE_ID+48)],
     "Steam 1 Secret": [AVLocation("Zi - Past the Mutants", BASE_ID+49)],
     "Arterial Filtration": [AVLocation("Zi - Taunting Chamber", BASE_ID+50)],
-    "Arterial Bypass Entrance": [AVLocation("Zi - Purple Ceiling", BASE_ID+51)]
+    "Arterial Bypass Entrance": [AVLocation("Zi - Purple Ceiling", BASE_ID+51)],
+    "Venous Maintenance 3": [AVLocation("Zi - Drone Safari Upper Item", BASE_ID+52)],
+    "Venous Maintenance Secret": [AVLocation("Zi - Drone Safari Lower Item", BASE_ID+53)],
+    "Uruku_Main": [AVLocation("Zi - Uruku Box Item", BASE_ID+54)],
+    "Filtration_Upper": [AVLocation("Zi - Uruku Upper Item", BASE_ID+55)],
+    "Labcoat Room": [AVLocation("Zi - Uruku Lower Item", BASE_ID+56)]
 }
 
 av_locations_unpacked = {}

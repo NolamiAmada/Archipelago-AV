@@ -1,12 +1,14 @@
 from .items import axiom_verge_items, item_name_groups
 from BaseClasses import CollectionState
 from typing import TYPE_CHECKING
+
 if TYPE_CHECKING:
     from . import AVWorld
 
 
 def anycoat(state: CollectionState) -> bool:
-    return state.has("Modified Lab Coat") or state.has("Trenchcoat") or state.has("Red Coat") or state.has("Progressive Coat")
+    return state.has("Modified Lab Coat") or state.has("Trenchcoat") or state.has("Red Coat") or state.has(
+        "Progressive Coat")
 
 
 def trenchcoat(state: CollectionState) -> bool:
@@ -21,19 +23,20 @@ def drone(state: CollectionState) -> bool:
     return state.has("Remote Drone") or state.has("Progressive Drone")
 
 
-def dronelaunch(state:CollectionState) -> bool:
+def dronelaunch(state: CollectionState) -> bool:
     return state.has("Enhanced Drone Launch") or state.has("Progressive Drone", count=2)
 
 
-def dronetp(state:CollectionState) -> bool:
+def dronetp(state: CollectionState) -> bool:
     return state.has("Drone Teleport") or state.has("Progressive Drone", count=3)
 
 
 def anyglitch(state: CollectionState) -> bool:
-    return state.has("Address Disruptor") or state.has("Address Disruptor 2") or state.has("Address Bomb") or state.has("Progressive Glitch")
+    return state.has("Address Disruptor") or state.has("Address Disruptor 2") or state.has("Address Bomb") or state.has(
+        "Progressive Glitch")
 
 
-def glitch2(state:CollectionState) -> bool:
+def glitch2(state: CollectionState) -> bool:
     return state.has("Address Disruptor 2") or state.has("Address Bomb") or state.has("Progressive Glitch", count=2)
 
 
@@ -67,3 +70,7 @@ def longdrone(state: CollectionState) -> bool:
 
 def anyup(state: CollectionState) -> bool:
     return state.has("Field Disruptor") or state.has("Grapple") or trenchcoat(state) or shortdrone(state)
+
+
+def upplaceholder(state: CollectionState) -> bool:
+    return anyup(state)
