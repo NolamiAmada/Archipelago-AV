@@ -78,7 +78,7 @@ class AVRegion(enum.Enum):
     ]
     DISRUPTOR_ROOM_WEST = "Disruptor Room_West", [
         AVDoor("Disruptor Room Left Door", Orientation.Left),
-        AVDoor("Disruptor Room Top Door", Orientation.Up),
+        AVDoor("Disruptor Room Up Door", Orientation.Up),
         AVDoor("Disruptor Room Inner WE", logic=lambda state: logicfunction.drill(state))
     ]
 
@@ -93,7 +93,7 @@ class AVRegion(enum.Enum):
         AVDoor("Brinstar Shaft Lower Right Door", Orientation.Right),
         AVDoor("Brinstar Shaft Center Right Door", Orientation.Right),
         AVDoor("Brinstar Shaft Upper Right Door", Orientation.Right),
-        AVDoor("Brinstar Shaft Inner BC")
+        AVDoor("Brinstar Shaft Inner BC", logic=lambda state: state.has("CornerCut") or logicfunction.tempup(state) or logicfunction.trenchcoat(state) or logicfunction.drone(state))
     ]
     BRINSTAR_SHAFT_CENTER = "Brinstar Shaft_Center", [
         AVDoor("Brinstar Shaft Center Left Door", Orientation.Left),
@@ -106,41 +106,47 @@ class AVRegion(enum.Enum):
     ]
 
     NOVA_GATE = "Nova Gate", [
-        AVDoor("Nova Gate Left Door", Orientation.Left),
-        AVDoor("Nova Gate Right Door", Orientation.Right)
+        AVDoor("Nova Gate Left Door", Orientation.Left, logic=lambda state: state.has("CornerCut") or logicfunction.anycoat(state)),
+        AVDoor("Nova Gate Right Door", Orientation.Right, logic=lambda state: state.has("Weapon") or logicfunction.trenchcoat(state) or logicfunction.drone(state) or state.has("Laser Drill"))
     ]
 
     # spitbughall: 2 regions
     SPITBUG_HALL_WEST = "Spitbug Hall_West", [
         AVDoor("Spitbug Hall Left Door", Orientation.Left),
         AVDoor("Spitbug Hall Left Up Door", Orientation.Up),
-        AVDoor("Spitbug Hall Inner WE")
+        AVDoor("Spitbug Hall Inner WE", logic=lambda state: state.has("Weapon") or logicfunction.drone(state) or state.has("Laser Drill") or logicfunction.anycoat(state))
     ]
     SPITBUG_HALL_EAST = "Spitbug Hall_East", [
         AVDoor("Spitbug Hall Right Up Door", Orientation.Up),
-        AVDoor("Spitbug Hall Inner EW")
+        AVDoor("Spitbug Hall Inner EW", logic=lambda state: state.has("CornerCut") or logicfunction.anycoat(state))
     ]
 
     WRONG_TOWER = "Wrong Tower", [
-        AVDoor("Wrong Tower Upper Door", Orientation.Up),
-        AVDoor("Wrong Tower Lower Door", Orientation.Down)
+        AVDoor("Wrong Tower Up Door", Orientation.Up),
+        AVDoor("Wrong Tower Down Door", Orientation.Down)
     ]
 
-    FALSE_REFLECTOR_ACCESS = "False Reflector Access Lower", [
-        AVDoor("False Reflector Access Lower Door", Orientation.Down),
-        AVDoor("False Reflector Access Upper Door", Orientation.Up)
+    FALSE_REFLECTOR_ACCESS = "False Reflector Access", [
+        AVDoor("False Reflector Access Down Door", Orientation.Down, logic=lambda state: logicfunction.glitchnades(state)),
+        AVDoor("False Reflector Access Up Door", Orientation.Up, logic=lambda state: logicfunction.glitchnades(state) and logicfunction.anyupnoceiling(state))
     ]
 
-    FALSE_REFLECTOR = "False Reflector", [AVDoor("False Reflector Bottom Door", Orientation.Down)]
+    FALSE_REFLECTOR = "False Reflector", [
+        AVDoor("False Reflector Down Door", Orientation.Down)
+    ]
 
     NOVA_ACCESS = "Nova Access", [
-        AVDoor("Nova Access Upper Door", Orientation.Up),
-        AVDoor("Nova Access")
+        AVDoor("Nova Access Up Door", Orientation.Up),
+        AVDoor("Nova Access Down Door")
     ]
 
-    NOVA_ROOM = "Nova Room", [AVDoor("Nova Room Bottom Door", Orientation.Down)]
+    NOVA_ROOM = "Nova Room", [
+        AVDoor("Nova Room Down Door", Orientation.Down)
+    ]
 
-    BUBBLED_ALTAR = "Bubbled Altar", [AVDoor("Bubbled Altar Right Door", Orientation.Right)]
+    BUBBLED_ALTAR = "Bubbled Altar", [
+        AVDoor("Bubbled Altar Right Door", Orientation.Right)
+    ]
 
     BUOYG_HALL = "Buoyg Hall", [
         AVDoor("Buoyg Hall Right Door", Orientation.Right),
@@ -150,37 +156,38 @@ class AVRegion(enum.Enum):
     # multidisruptor: 2 regions
     MULTI_DISRUPTOR_LOWER = "Multi Disruptor_Lower", [
         AVDoor("Multi Disruptor Right Door", Orientation.Right),
-        AVDoor("Multi Disruptor Inner BU")
+        AVDoor("Multi Disruptor Inner BU", logic=lambda state: state.has("Grapple") or logicfunction.dronefly(state))
     ]
     MULTI_DISRUPTOR_UPPER = "Multi Disruptor_Upper", [
         AVDoor("Multi Disruptor Left Door", Orientation.Left),
-        AVDoor("Multi Disruptor Top Door", Orientation.Up),
+        AVDoor("Multi Disruptor Up Door", Orientation.Up),
         AVDoor("Multi Disruptor Inner UB")
     ]
 
+    #left door wonky in door rando
     CRYPTOGRAPHY = "Cryptography", [
-        AVDoor("Cryptography Bottom Door", Orientation.Down),
-        AVDoor("Cryptography Left Door", Orientation.Left)
+        AVDoor("Cryptography Down Door", Orientation.Down),
+        AVDoor("Cryptography Left Door", Orientation.Left, logic=lambda state: state.has("Passcode Tool"))
     ]
 
     THRILLER = "Thriller", [
-        AVDoor("Thriller Right Door", Orientation.Right),
-        AVDoor("Thriller Left Door", Orientation.Left)
+        AVDoor("Thriller Right Door", Orientation.Right, logic=lambda state: logicfunction.anyup(state)),
+        AVDoor("Thriller Left Door", Orientation.Left, logic=lambda state: logicfunction.anyup(state))
     ]
 
     FORBIDDEN_SHAFT = "Forbidden Shaft", [
-        AVDoor("Forbidden Shaft Upper Door", Orientation.Right),
-        AVDoor("Forbidden Shaft Lower Door", Orientation.Right)
+        AVDoor("Forbidden Shaft Up Door", Orientation.Right),
+        AVDoor("Forbidden Shaft Down Door", Orientation.Right)
     ]
 
     # forbiddencorridor: 2 regions
     FORBIDDEN_CORRIDOR_WEST = "Forbidden Corridor_West", [
         AVDoor("Forbidden Corridor Left Door", Orientation.Left),
-        AVDoor("Forbidden Corridor Inner WE")
+        AVDoor("Forbidden Corridor Inner WE", logic=lambda state: logicfunction.breakblock(state))
     ]
     FORBIDDEN_CORRIDOR_EAST = "Forbidden Corridor_East", [
         AVDoor("Forbidden Corridor Right Door", Orientation.Right),
-        AVDoor("Forbidden Corridor Inner EW")
+        AVDoor("Forbidden Corridor Inner EW", logic=lambda state: state.has("Fat Beam"))
     ]
 
     XEDUR_FOYER = "Xedur Foyer", [
@@ -196,33 +203,33 @@ class AVRegion(enum.Enum):
     ]
 
     XEDUR = "Xedur", [
-        AVDoor("Xedur Left Door", Orientation.Left, BossDoor.Inner),
-        AVDoor("Xedur Right Door", Orientation.Right, BossDoor.Inner)
+        AVDoor("Xedur Left Door", Orientation.Left, BossDoor.Inner, logic=lambda state: state.has("Weapon")),
+        AVDoor("Xedur Right Door", Orientation.Right, BossDoor.Inner, logic=lambda state: state.has("Weapon"))
     ]
 
     # drillroom: 2 regions
     DRILL_ROOM_UPPER = "Drill Room_Upper", [
-        AVDoor("Drill Room Upper Door", Orientation.Left, BossDoor.Outer),
-        AVDoor("Drill Room Inner UB")
+        AVDoor("Drill Room Up Door", Orientation.Left, BossDoor.Outer, logic=lambda state: logicfunction.shortdrone(state) or logicfunction.longwarp(state) or (state.has('Field Disruptor') and state.has("Grapple"))),
+        AVDoor("Drill Room Inner UB", logic=lambda state: logicfunction.drill(state))
     ]
     DRILL_ROOM_LOWER = "Drill Room_Lower", [
-        AVDoor("Drill Room Lower Door", Orientation.Left),
-        AVDoor("Drill Room Inner BU")
+        AVDoor("Drill Room Down Door", Orientation.Left),
+        AVDoor("Drill Room Inner BU", logic=lambda state: logicfunction.dronefly(state) or (logicfunction.longdrone(state)))
     ]
 
     # drillsecret: 2 regions
     XEDUR_BASEMENT_EAST = "Xedur Basement_East", [
         AVDoor("Xedur Basement Right Door", Orientation.Right),
-        AVDoor("Xedur Basement Inner EW")
+        AVDoor("Xedur Basement Inner EW", logic=lambda state: logicfunction.drill(state) and (state.has("CornerCut") or (state.has("Weapon") and logicfunction.tempup(state)) or state.has("LongKilver") or logicfunction.anycoat(state)))
     ]
     XEDUR_BASEMENT_WEST = "Xedur Basement_West", [
-        AVDoor("Xedur Basement Left Door", Orientation.Left),
-        AVDoor("Xedur Basement Inner WE")
+        AVDoor("Xedur Basement Left Door", Orientation.Left, logic=lambda state: logicfunction.drill(state)),
+        AVDoor("Xedur Basement Inner WE", logic=lambda state: logicfunction.drill(state) and state.has("Fat Beam"))
     ]
 
     DIGGY_HOLE = "Diggy Hole", [
-        AVDoor("Diggy Hole Upper Door", Orientation.Left),
-        AVDoor("Diggy Hole Lower Door", Orientation.Right)
+        AVDoor("Diggy Hole Up Door", Orientation.Left, logic=lambda state: logicfunction.drill(state)),
+        AVDoor("Diggy Hole Down Door", Orientation.Right, logic=lambda state: logicfunction.drill(state))
     ]
 
     # thedrop: 2 regions
@@ -230,12 +237,12 @@ class AVRegion(enum.Enum):
         AVDoor("The Drop Upper Left Door", Orientation.Left),
         AVDoor("The Drop Upper Right Door", Orientation.Right),
         AVDoor("The Drop Lower Right Door", Orientation.Right),
-        AVDoor("The Drop Bottom Door", Orientation.Down),
-        AVDoor("The Drop Inner MS")
+        AVDoor("The Drop Down Door", Orientation.Down),
+        AVDoor("The Drop Inner MS", logic=lambda state: (logicfunction.dronequest(state) or logicfunction.trenchcoat(state)) and logicfunction.glitchnades(state))
     ]
     THE_DROP_SECRET = "The Drop_Secret", [
         AVDoor("The Drop Lower Left Door", Orientation.Left),
-        AVDoor("The Drop Inner SM")
+        AVDoor("The Drop Inner SM", logic=lambda state: (logicfunction.dronequest(state) or logicfunction.trenchcoat(state)) and logicfunction.glitchnades(state))
     ]
 
     WEAPONS_VAULT = "Weapons Vault", [
@@ -243,43 +250,44 @@ class AVRegion(enum.Enum):
     ]
 
     BUBBLEWRAP = "Bubblewrap", [
-        AVDoor("Bubblewrap Top Door", Orientation.Up),
+        AVDoor("Bubblewrap Up Door", Orientation.Up),
         AVDoor("Bubblewrap Left Door", Orientation.Left),
         AVDoor("Bubblewrap Right Door", Orientation.Right)
     ]
 
     ERIBU_TO_ABSU = "Eribu to Absu", [
         AVDoor("Eribu to Absu Left Door", Orientation.Left),
-        AVDoor("Eribu to Absu Bottom Door", Orientation.Down, BossDoor.Areatrans)
+        AVDoor("Eribu to Absu Down Door", Orientation.Down, BossDoor.Areatrans)
     ]
 
     # secretchamber: 2 regions
     SECRET_CHAMBER_LOWER = "Secret Chamber_Lower", [
         AVDoor("Secret Chamber Right Door", Orientation.Right),
-        AVDoor("Secret Chamber Inner BU")
+        AVDoor("Secret Chamber Inner BU", logic=lambda state: (logicfunction.anyglitch(state) and (logicfunction.breakblock(state) or logicfunction.trenchcoat(state))) or state.has("Grapple") or logicfunction.shortdrone(state) or logicfunction.longwarp(state))
     ]
+    # up door is weird
     SECRET_CHAMBER_UPPER = "Secret Chamber_Upper", [
-        AVDoor("Secret Chamber Upper Door", Orientation.Up),
+        AVDoor("Secret Chamber Up Door", Orientation.Up, logic=lambda state: state.has("Passcode Tool") and logicfunction.anyup(state)),
         AVDoor("Secret Chamber Inner UB")
     ]
 
     DISCHARGE_CHAMBER = "Discharge Chamber", [
-        AVDoor("Discharge Chamber Bottom Door", Orientation.Down)
+        AVDoor("Discharge Chamber Down Door", Orientation.Down)
     ]
 
     ERIBU_TO_UKKINNA = "Eribu to Ukkin-Na", [
-        AVDoor("Eribu to Ukkin-Na Left Door", Orientation.Left),
-        AVDoor("Eribu to Ukkin-Na Right Door", Orientation.Right, BossDoor.Areatrans)
+        AVDoor("Eribu to Ukkin-Na Left Door", Orientation.Left, logic=lambda state: logicfunction.glitch2(state) or logicfunction.redcoat(state)),
+        AVDoor("Eribu to Ukkin-Na Right Door", Orientation.Right, BossDoor.Areatrans, logic=lambda state: logicfunction.glitch2(state) or logicfunction.redcoat(state))
     ]
 
     # eributoindi: 2 regions
     ERIBU_TO_INDI_WEST = "Eribu to Indi_West", [
         AVDoor("Eribu to Indi Left Door", Orientation.Left),
-        AVDoor("Eribu to Indi Inner WE")
+        AVDoor("Eribu to Indi Inner WE", logic=lambda state: logicfunction.trenchcoat(state) or logicfunction.shortdrone(state) or state.has("Grapple"))
     ]
     ERIBU_TO_INDI_EAST = "Eribu to Indi_East", [
         AVDoor("Eribu to Indi Right Door", Orientation.Right, BossDoor.Areatrans),
-        AVDoor("Eribu to Indi Inner EW")
+        AVDoor("Eribu to Indi Inner EW", logic=lambda state: logicfunction.anyup(state))
     ]
 
     PRIMORDIAL_ACCESS = "Primordial Access", [
@@ -298,26 +306,26 @@ class AVRegion(enum.Enum):
         AVDoor("Primordial Cavern Inner CE", logic=lambda state: logicfunction.drone(state))
     ]
     PRIMORDIAL_CAVERN_WEST = "Primordial Cavern_West", [
-        AVDoor("Primordial Cavern Top Door", Orientation.Up, logic=lambda state: logicfunction.redcoat(state) or logicfunction.shortdrone(state) or logicfunction.trenchcoat(state) and state.has("Grapple") or logicfunction.longwarp(state) or state.has("Grapple") and state.has("Field Disruptor")),
+        AVDoor("Primordial Cavern Up Door", Orientation.Up, logic=lambda state: logicfunction.redcoat(state) or logicfunction.shortdrone(state) or logicfunction.trenchcoat(state) and state.has("Grapple") or logicfunction.longwarp(state) or state.has("Grapple") and state.has("Field Disruptor")),
         AVDoor("Primordial Cavern Inner WE", logic=lambda state: logicfunction.redcoat(state)),
         AVDoor("Primordial Cavern Inner WC", logic=lambda state: logicfunction.drone(state))
     ]
 
     # flamethrower access: 2 regions
     FLAMETHROWER_ACCESS_WEST = "Flamethrower Access_West", [
-        AVDoor("Flamethrower Access Bottom Door", Orientation.Down),
+        AVDoor("Flamethrower Access Down Door", Orientation.Down),
         AVDoor("Flamethrower Access Inner WE", logic=lambda state: logicfunction.trenchcoat(state) and state.has("Grapple") or state.has("Grapple") and logicfunction.trenchcoat(state) or logicfunction.longdrone(state) or logicfunction.redcoat(state) and state.has("Grapple") and state.has("Field Disruptor"))
     ]
     FLAMETHROWER_ACCESS_EAST = "Flamethrower Access_East", [
-        AVDoor("Flamethrower Access Top Door", Orientation.Up),
-        AVDoor("Flamethrower Access Inner EW"),
+        AVDoor("Flamethrower Access Up Door", Orientation.Up),
+        AVDoor("Flamethrower Access Inner EW", logic=lambda state: logicfunction.longdrone(state) or state.has("Grapple")),
         AVDoor("Flamethrower Access - Slug in Room")
     ]
 
-    FLAMETHROWER_ROOM = "Flamethrower Room", [AVDoor("Flamethrower Room Bottom Door", Orientation.Down)]
+    FLAMETHROWER_ROOM = "Flamethrower Room", [AVDoor("Flamethrower Room Down Door", Orientation.Down)]
 
     BUBBLE_MAZE = "Bubble Maze", [
-        AVDoor("Bubble Maze Bottom Door", Orientation.Down, logic=lambda state: logicfunction.anycoat(state) and logicfunction.shortdrone(state)),
+        AVDoor("Bubble Maze Down Door", Orientation.Down, logic=lambda state: logicfunction.anycoat(state) and logicfunction.shortdrone(state)),
         AVDoor("Bubble Maze Right Door", Orientation.Right, logic=lambda state: logicfunction.anycoat(state) and logicfunction.shortdrone(state))
     ]
 
@@ -330,7 +338,7 @@ class AVRegion(enum.Enum):
 
     # absu shaft: 3 regions
     ABSU_SHAFT_UPPER = "Absu Shaft_Upper", [
-        AVDoor("Absu Shaft Top Door", Orientation.Up, BossDoor.Areatrans),
+        AVDoor("Absu Shaft Up Door", Orientation.Up, BossDoor.Areatrans),
         AVDoor("Absu Shaft Upper Left Door", Orientation.Left),
         AVDoor("Absu Shaft Upper Right Door", Orientation.Right),
         AVDoor("Absu Shaft Upper Center Left Door", Orientation.Left),
@@ -359,7 +367,7 @@ class AVRegion(enum.Enum):
         AVDoor("Ventilation Inner WC")
     ]
     VENTILATION_CENTER = "Ventilation_Center", [
-        AVDoor("Ventilation Top Door", Orientation.Up),
+        AVDoor("Ventilation Up Door", Orientation.Up),
         AVDoor("Ventilation Inner CW"),
         AVDoor("Ventilation Inner CE")
     ]
@@ -369,7 +377,7 @@ class AVRegion(enum.Enum):
     ]
 
     ATTIC_ACCESS = "Attic Access", [
-        AVDoor("Attic Access Bottom Door", Orientation.Down),
+        AVDoor("Attic Access Down Door", Orientation.Down),
         AVDoor("Attic Access Right Door", Orientation.Right)
     ]
 
@@ -387,7 +395,7 @@ class AVRegion(enum.Enum):
         AVDoor("Attic Inner CELE")
     ]
     ATTIC_LOWER_EAST = "Attic_Lower East", [
-        AVDoor("Attic Bottom Door", Orientation.Down),
+        AVDoor("Attic Down Door", Orientation.Down),
         AVDoor("Attic Inner LECE"),
         AVDoor("Attic Inner LEUE")
     ]
@@ -398,16 +406,16 @@ class AVRegion(enum.Enum):
     # pinkdiatoms2: 2 regions
     PINK_DIATOMS2_WEST = "Pink Diatoms 2_West", [
         AVDoor("Pink Diatoms 2 Left Door", Orientation.Left),
-        AVDoor("Pink Diatoms 2 Bottom Door", Orientation.Down),
+        AVDoor("Pink Diatoms 2 Down Door", Orientation.Down),
         AVDoor("Pink Diatoms 2 Inner WE")
     ]
     PINK_DIATOMS2_EAST = "Pink Diatoms 2_East", [
-        AVDoor("Pink Diatoms 2 Top Door", Orientation.Up),
+        AVDoor("Pink Diatoms 2 Up Door", Orientation.Up),
         AVDoor("Pink Diatoms 2 Inner EW")
     ]
 
     OVERGROWN_PRISON = "Overgrown Prison", [
-        AVDoor("Overgrown Prison Top Door", Orientation.Up),
+        AVDoor("Overgrown Prison Up Door", Orientation.Up),
         AVDoor("Overgrown Prison Upper Left Door", Orientation.Left),
         AVDoor("Overgrown Prison Lower Left Door", Orientation.Left),
         AVDoor("Overgrown Prison Right Door", Orientation.Right)
@@ -446,10 +454,10 @@ class AVRegion(enum.Enum):
 
     PRISON_CELLAR = "Prison Cellar", [
         AVDoor("Prison Cellar Left Door", Orientation.Left),
-        AVDoor("Prison Cellar Top Door", Orientation.Up)
+        AVDoor("Prison Cellar Up Door", Orientation.Up)
     ]
 
-    PRISON_CELLAR_SECRET = "Prison Cellar Secret", [AVDoor("Prison Cellar Bottom Door", Orientation.Down)]
+    PRISON_CELLAR_SECRET = "Prison Cellar Secret", [AVDoor("Prison Cellar Down Door", Orientation.Down)]
 
     ELSENOVA = "Elsenova", [
         AVDoor("Elsenova Right Door", Orientation.Right),
@@ -469,18 +477,18 @@ class AVRegion(enum.Enum):
 
     STORAGE1 = "Storage 1", [
         AVDoor("Storage 1 Left Door", Orientation.Left),
-        AVDoor("Storage 1 Bottom Door", Orientation.Down),
-        AVDoor("Storage 1 Top Door", Orientation.Up)
+        AVDoor("Storage 1 Down Door", Orientation.Down),
+        AVDoor("Storage 1 Up Door", Orientation.Up)
     ]
 
     STORAGE2 = "Storage 2", [
-        AVDoor("Storage 2 Bottom Door", Orientation.Down),
-        AVDoor("Storage 2 Top Door", Orientation.Up)
+        AVDoor("Storage 2 Down Door", Orientation.Down),
+        AVDoor("Storage 2 Up Door", Orientation.Up)
     ]
 
     TELAL_ACCESS_SHAFT = "Telal Access Shaft", [
-        AVDoor("Telal Access Shaft Bottom Door", Orientation.Down),
-        AVDoor("Telal Access Shaft Top Door", Orientation.Up)
+        AVDoor("Telal Access Shaft Down Door", Orientation.Down),
+        AVDoor("Telal Access Shaft Up Door", Orientation.Up)
     ]
 
     ABSU_SAVE3 = "Absu Save 3", [
@@ -489,19 +497,19 @@ class AVRegion(enum.Enum):
     ]
 
     TELAL_FOYER = "Telal Foyer", [
-        AVDoor("Telal Foyer Bottom Door", Orientation.Down),
+        AVDoor("Telal Foyer Down Door", Orientation.Down),
         AVDoor("Telal Foyer Left Door", Orientation.Left),
         AVDoor("Telal Foyer Right Door", Orientation.Right, BossDoor.Outer)
     ]
 
     TELAL = "Telal", [
         AVDoor("Telal Left Door", Orientation.Left, BossDoor.Inner),
-        AVDoor("Telal Bottom Door", Orientation.Down, BossDoor.Inner)
+        AVDoor("Telal Down Door", Orientation.Down, BossDoor.Inner)
     ]
 
     # telaltreasury: 4 regions
     TELAL_TREASURY_UPPER = "Telal Treasury_Upper", [
-        AVDoor("Telal Treasury Top Door", Orientation.Up, BossDoor.Outer),
+        AVDoor("Telal Treasury Up Door", Orientation.Up, BossDoor.Outer),
         AVDoor("Telal Treasury Inner UW"),
         AVDoor("Telal Treasury Inner UE")
     ]
@@ -521,22 +529,22 @@ class AVRegion(enum.Enum):
 
     TELAL_SECRET_ACCESS1 = "Telal Secret Access 1", [
         AVDoor("Telal Secret Access 1 Left Door", Orientation.Left),
-        AVDoor("Telal Secret Access 1 Bottom Door", Orientation.Down),
-        AVDoor("Telal Secret Access 1 Top Door", Orientation.Up)
+        AVDoor("Telal Secret Access 1 Down Door", Orientation.Down),
+        AVDoor("Telal Secret Access 1 Up Door", Orientation.Up)
     ]
 
     TELAL_SECRET_ACCESS2 = "Telal Secret Access 2", [
-        AVDoor("Telal Secret Access 2 Bottom Door", Orientation.Down),
-        AVDoor("Telal Secret Access 2 Top Door", Orientation.Up)
+        AVDoor("Telal Secret Access 2 Down Door", Orientation.Down),
+        AVDoor("Telal Secret Access 2 Up Door", Orientation.Up)
     ]
 
     TELAL_SECRET_ACCESS3 = "Telal Secret Access 3", [
-        AVDoor("Telal Secret Access 3 Bottom Door", Orientation.Down),
+        AVDoor("Telal Secret Access 3 Down Door", Orientation.Down),
         AVDoor("Telal Secret Access 3 Left Door", Orientation.Left)
     ]
 
     ABSU_TO_INDI = "Absu to Indi", [
-        AVDoor("Absu to Indi Top Door", Orientation.Up, BossDoor.Areatrans),
+        AVDoor("Absu to Indi Up Door", Orientation.Up, BossDoor.Areatrans),
         AVDoor("Absu to Indi Lower Right Door", Orientation.Right),
         AVDoor("Absu to Indi Upper Right Door", Orientation.Right)
     ]
@@ -544,13 +552,13 @@ class AVRegion(enum.Enum):
     TELAL_SECRET_ACCESS4 = "Telal Secret Access 4", [AVDoor("Telal Secret Access 4 Left Door", Orientation.Left)]
 
     TELAL_EXIT = "Telal Exit", [
-        AVDoor("Telal Exit Top Door", Orientation.Up),
-        AVDoor("Telal Exit Bottom Door", Orientation.Down)
+        AVDoor("Telal Exit Up Door", Orientation.Up),
+        AVDoor("Telal Exit Down Door", Orientation.Down)
     ]
 
     # ducts1: 3 regions
     DUCTS1_WEST = "Ducts 1_West", [
-        AVDoor("Ducts 1 Top Door", Orientation.Up),
+        AVDoor("Ducts 1 Up Door", Orientation.Up),
         AVDoor("Ducts 1 Inner WE"),
         AVDoor("Ducts 1 Inner WS")
     ]
@@ -559,12 +567,12 @@ class AVRegion(enum.Enum):
         AVDoor("Ducts 1 Inner EW")
     ]
     DUCTS1_SECRET = "Ducts 1_Secret", [
-        AVDoor("Ducts 1 Bottom Door", Orientation.Down),
+        AVDoor("Ducts 1 Down Door", Orientation.Down),
         AVDoor("Ducts 1 Inner SW")
     ]
 
     DUCTS1_SECRET1 = "Ducts 1 Secret 1", [
-        AVDoor("Ducts 1 Secret 1 Top Door", Orientation.Up),
+        AVDoor("Ducts 1 Secret 1 Up Door", Orientation.Up),
         AVDoor("Ducts 1 Secret 1 Left Door", Orientation.Left)
     ]
 
@@ -582,7 +590,7 @@ class AVRegion(enum.Enum):
 
     # purplediatoms1: 3 regions
     PURPLE_DIATOMS1_UPPER = "Purple Diatoms 1_Upper", [
-        AVDoor("Purple Diatoms 1 Top Door", Orientation.Up),
+        AVDoor("Purple Diatoms 1 Up Door", Orientation.Up),
         AVDoor("Purple Diatoms 1 Right Door", Orientation.Right),
         AVDoor("Purple Diatoms 1 Upper Left Door", Orientation.Left),
         AVDoor('Purple Diatoms 1 Inner UW'),
@@ -594,7 +602,7 @@ class AVRegion(enum.Enum):
         AVDoor("Purple Diatoms 1 Inner WE")
     ]
     PURPLEDIATOMS1_EAST = "Purple Diatoms 1_East", [
-        AVDoor("Purple Diatoms 1 Bottom Door", Orientation.Down),
+        AVDoor("Purple Diatoms 1 Down Door", Orientation.Down),
         AVDoor("Purple Diatoms 1 Inner EW"),
         AVDoor("Purple Diatoms 1 Inner EU")
     ]
@@ -605,7 +613,7 @@ class AVRegion(enum.Enum):
     ]
 
     PURPLEDIATOMS1_HIDDENACCESS1 = "Purple Diatoms 1 Hidden Access 1", [
-        AVDoor("Purple Diatoms 1 Hidden Access 1 Top Door", Orientation.Up),
+        AVDoor("Purple Diatoms 1 Hidden Access 1 Up Door", Orientation.Up),
         AVDoor("Purple Diatoms 1 Hidden Access 1 Right Door", Orientation.Right)
     ]
 
@@ -628,11 +636,11 @@ class AVRegion(enum.Enum):
         AVDoor("Green Fungus 1 Inner UB")
     ]
     GREEN_FUNGUS1_LOWER = "Green Fungus 1_Lower", [
-        AVDoor("Green Fungus 1 Bottom Door", Orientation.Down),
+        AVDoor("Green Fungus 1 Down Door", Orientation.Down),
         AVDoor("Green Fungus 1 Inner BU")
     ]
 
-    GREEN_FUNGUS1_SECRET1 = "Green Fungus 1 Secret 1", [AVDoor("Green Fungus 1 Secret 1 Top Door", Orientation.Up)]
+    GREEN_FUNGUS1_SECRET1 = "Green Fungus 1 Secret 1", [AVDoor("Green Fungus 1 Secret 1 Up Door", Orientation.Up)]
 
     CHASMS = "Chasms", [
         AVDoor("Chasms Left Door", Orientation.Left),
@@ -714,7 +722,7 @@ class AVRegion(enum.Enum):
         AVDoor("Central Tube Inner BU")
     ]
     CENTRAL_TUBE_UPPER = "Central Tube_Upper", [
-        AVDoor("Central Tube Top Door", Orientation.Up),
+        AVDoor("Central Tube Up Door", Orientation.Up),
         AVDoor("Central Tube Inner UB")
     ]
     CENTRAL_TUBE_SECRET = "Central Tube_Secret", [
@@ -758,11 +766,11 @@ class AVRegion(enum.Enum):
 
     VERUSKA_STORAGE = "Veruska Storage", [
         AVDoor("Veruska Storage Right Door", Orientation.Right),
-        AVDoor("Veruska Storage Bottom Door", Orientation.Down)
+        AVDoor("Veruska Storage Down Door", Orientation.Down)
     ]
 
     VERUSKA_BASEMENT = "Veruska Basement", [
-        AVDoor("Veruska Basement Top Door", Orientation.Up),
+        AVDoor("Veruska Basement Up Door", Orientation.Up),
         AVDoor("Veruska Basement Left Door", Orientation.Left)
     ]
 
@@ -788,7 +796,7 @@ class AVRegion(enum.Enum):
     ARTERIAL_BYPASS = "Arterial Bypass", [
         AVDoor("Arterial Bypass Right Door", Orientation.Right),
         AVDoor("Arterial Bypass Left Door", Orientation.Left),
-        AVDoor("Arterial Bypass Bottom Door", Orientation.Down)
+        AVDoor("Arterial Bypass Down Door", Orientation.Down)
     ]
 
     # arterialfiltration: technically 2 regions
@@ -798,7 +806,7 @@ class AVRegion(enum.Enum):
     ]
 
     ARTERIAL_FILTRATION_UPPER = "Arterial Filtration_Upper", [
-        AVDoor("Arterial Filtration Top Door", Orientation.Up),
+        AVDoor("Arterial Filtration Up Door", Orientation.Up),
         AVDoor("Arterial Filtration Inner SM")
     ]
 
@@ -809,7 +817,7 @@ class AVRegion(enum.Enum):
 
     # uppertube: 4 regions
     UPPER_TUBE_LOWER = "Upper Tube_Lower", [
-        AVDoor("Upper Tube Bottom Door", Orientation.Down),
+        AVDoor("Upper Tube Down Door", Orientation.Down),
         AVDoor("Upper Tube Inner BC")
     ]
 
@@ -890,7 +898,7 @@ class AVRegion(enum.Enum):
     ]
 
     ZI_TO_INDI = "Zi to Indi", [
-        AVDoor("Zi to Indi Upper Door", Orientation.Up, BossDoor.Areatrans),
+        AVDoor("Zi to Indi Up Door", Orientation.Up, BossDoor.Areatrans),
         AVDoor("Zi to Indi Right Door", Orientation.Right)
     ]
 
@@ -930,6 +938,121 @@ class AVRegion(enum.Enum):
 
     LABCOAT = "Labcoat Room", [
         AVDoor("Labcoat Room Left Door", Orientation.Left)
+    ]
+
+    #kurshaft: 5 regions
+    KUR_SHAFT_LOWER = "Kur Shaft_Lower", [
+        AVDoor("Kur Shaft Lower Left Door", Orientation.Left, BossDoor.Areatrans),
+        AVDoor("Kur Shaft Lower Right Door", Orientation.Right),
+        AVDoor("Kur Shaft Lower Center Right Door", Orientation.Right),
+        AVDoor("Kur Shaft Upper Center Right Door", Orientation.Right),
+        AVDoor("Kur Shaft Upper Right Door", Orientation.Right),
+        AVDoor("Kur Shaft Inner BC", logic=lambda state: logicfunction.anycoat(state)),
+        AVDoor("Kur Shaft Inner BT", logic=lambda state: logicfunction.tempup(state) and logicfunction.anycoat(state))
+    ]
+
+    KUR_SHAFT_CENTER = "Kur Shaft_Center", [
+        AVDoor("Kur Shaft Center Left Door", Orientation.Left),
+        AVDoor("Kur Shaft Inner CB", logic=lambda state: logicfunction.anycoat(state)),
+        AVDoor("Kur Shaft Inner CT", logic=lambda state: logicfunction.tempup(state) and logicfunction.anycoat(state))
+    ]
+
+    KUR_SHAFT_TRANSIT = "Kur Shaft_Transit", [
+        AVDoor("Kur Shaft Inner TB", logic=lambda state: logicfunction.anycoat(state)),
+        AVDoor("Kur Shaft Inner TC", logic=lambda state: logicfunction.anycoat(state)),
+        AVDoor("Kur Shaft Inner TU", logic=lambda state: logicfunction.tempup(state))
+    ]
+
+    KUR_SHAFT_UPPER = "Kur Shaft_Upper", [
+        AVDoor("Kur Shaft Up Door", Orientation.Up),
+        AVDoor("Kur Shaft Inner UT"),
+        AVDoor("Kur Shaft Inner US", logic=lambda state: logicfunction.glitch2(state) or logicfunction.trenchcoat(state))
+    ]
+
+    KUR_SHAFT_SECRET = "Kur Shaft_Secret", [
+        AVDoor("Kur Shaft Upper Left Door", Orientation.Left),
+        AVDoor("Kur Shaft Inner SU", logic=lambda state: logicfunction.glitch2(state) or logicfunction.trenchcoat(state))
+    ]
+
+    KUR_SAVE1 = "Kur Save 1", [
+        AVDoor("Kur Save 1 Left Door", Orientation.Left),
+        AVDoor("Kur Save 1 Save", Orientation.Save)
+    ]
+
+    TO_ADDRESS_DISRUPTOR = "To Address Disruptor", [
+        AVDoor("To Address Disruptor Left Door", Orientation.Left, logic=lambda state: logicfunction.trenchcoat(state) and logicfunction.breakblock(state)),
+        AVDoor("To Address Disruptor Down Door", Orientation.Down, logic=lambda state: logicfunction.anycoat(state) and (state.has("Fat Beam") or logicfunction.drone(state) or logicfunction.trenchcoat(state)))
+    ]
+
+    #addressdisruptor2: 3 regions
+    ADDRESS_DISRUPTOR2_MAIN = "Address Disruptor 2_Main", [
+        AVDoor("Address Disruptor 2 Up Door", Orientation.Up),
+        AVDoor("Address Disruptor 2 Inner MS", logic=lambda state: logicfunction.anycoat(state) and (state.has("Fat Beam") or logicfunction.drone(state) or logicfunction.trenchcoat(state)))
+    ]
+
+    ADDRESS_DISRUPTOR2_SECRET = "Address Disruptor 2_Secret", [
+        AVDoor("Address Disruptor 2 Inner SW", logic=lambda state: logicfunction.redcoat(state) or (logicfunction.glitch2(state) and logicfunction.breakblock(state))),
+        AVDoor("Address Disruptor 2 Inner SM", logic=lambda state: logicfunction.tempup(state) and logicfunction.anycoat(state) and (state.has("Fat Beam") or logicfunction.drone(state) or logicfunction.trenchcoat(state)))
+    ]
+
+    ADDRESS_DISRUPTOR2_WEST = "Address Disruptor 2_West", [
+        AVDoor("Address Disruptor 2 Left Door", Orientation.Left),
+        AVDoor("Address Disruptor 2 Inner WS", logic=lambda state: logicfunction.redcoat(state) or (logicfunction.glitch2(state) and logicfunction.breakblock(state)))
+
+    ]
+
+    SURFACE_SHAFT = "Surface Shaft", [
+        AVDoor("Surface Shaft Left Door", Orientation.Left),
+        AVDoor("Surface Shaft Right Door", Orientation.Right)
+    ]
+
+    #cavernaccess: 2 regions
+    CAVERN_ACCESS_MAIN = "Cavern Access_Main", [
+        AVDoor("Cavern Access Left Door", Orientation.Left),
+        AVDoor("Cavern Access Down Door", Orientation.Down),
+        AVDoor("Cavern Access Inner MS", logic=lambda state: logicfunction.tempup(state) and logicfunction.breakblock(state) and logicfunction.anycoat(state))
+    ]
+
+    CAVERN_ACCESS_SECRET = "Cavern Access_Secret", [
+        AVDoor("Cavern Access Right Door", Orientation.Right),
+        AVDoor("Cavern Access Inner SM", logic=lambda state: logicfunction.breakblock(state) and logicfunction.anycoat(state))
+    ]
+    
+    #highjumpaccess: 2 regions
+    HIGH_JUMP_ACCESS_UPPER = "High Jump Access_Upper", [
+        AVDoor("High Jump Access Up Door", Orientation.Up),
+        AVDoor("High Jump Access Inner UB")
+    ]
+
+    HIGH_JUMP_ACCESS_LOWER = "Hight Jump Access_Lower", [
+        AVDoor("High Jump Access Right Door", Orientation.Right),
+        AVDoor("High Jump Access Inner BU", logic=lambda state: logicfunction.anyup(state))
+    ]
+
+    HIGH_JUMP_ROOM_MAIN = "High Jump Room_Main", [
+        AVDoor("High Jump Room Left Door", Orientation.Left, logic=lambda state: logicfunction.anyup(state)),
+        AVDoor("High Jump Room Inner MS", logic=lambda state: logicfunction.trenchcoat(state))
+    ]
+
+    HIGH_JUMP_ROOM_SECRET = "High Jump Room_Secret", [
+        AVDoor("High Jump Room Right Door", Orientation.Right),
+        AVDoor("High Jumpt Room Inner SM", logic=lambda state: logicfunction.trenchcoat(state))
+    ]
+
+    #this room blows
+    STALAGMITE_MAZE = "Stalagmite Maze", [
+        AVDoor("Stalagmite Maze Left Door", Orientation.Left, logic=lambda state: logicfunction.dronefly(state) or ((logicfunction.shortdrone(state) and logicfunction.verylongwarp(state)) or (logicfunction.longdrone(state) and logicfunction.longwarp(state)))),
+        AVDoor("Stalagmite Maze Down Door", Orientation.Down, logic=lambda state: logicfunction.dronefly(state) or (logicfunction.anyglitch(state) and (logicfunction.drone(state) or logicfunction.redcoat(state))))
+    ]
+
+    TETHERED_CHARGE = "Tethered Charge", [
+        AVDoor("Tethered Charge Up Door", Orientation.Up, logic=lambda state: logicfunction.dronefly(state) and logicfunction.trenchcoat(state)),
+        AVDoor("Tethered Charge Left Door", Orientation.Left)
+    ]
+
+    SECRET_PASSAGE_TO_TETHERED_CHARGE = "Secret Passage To Tethered Charge", [
+        AVDoor("Secret Passage to Tethered Charge Right Door", Orientation.Right, logic=lambda state: state.has("Fat Beam")),
+        AVDoor("Secret Passage to Tethered Charge Left Door", Orientation.Left, logic=lambda state: logicfunction.breakblock(state))
     ]
 
 
@@ -997,7 +1120,17 @@ axiom_verge_connections = [
     AVConnection(AVDoorID(AVRegion.VENOUS_MAINTENANCE2_CENTER, 2), AVDoorID(AVRegion.VENOUS_MAINTENANCE2_LOWER, 1)),
     AVConnection(AVDoorID(AVRegion.URUKU_MAIN, 2), AVDoorID(AVRegion.URUKU_SECRET, 1)),
     AVConnection(AVDoorID(AVRegion.FILTRATION_EAST, 1), AVDoorID(AVRegion.FILTRATION_WEST, 1)),
-    AVConnection(AVDoorID(AVRegion.FILTRATION_EAST, 2), AVDoorID(AVRegion.FILTRATION_UPPER, 1))
+    AVConnection(AVDoorID(AVRegion.FILTRATION_EAST, 2), AVDoorID(AVRegion.FILTRATION_UPPER, 1)),
+    AVConnection(AVDoorID(AVRegion.KUR_SHAFT_LOWER, 5), AVDoorID(AVRegion.KUR_SHAFT_CENTER, 1)),
+    AVConnection(AVDoorID(AVRegion.KUR_SHAFT_LOWER, 6), AVDoorID(AVRegion.KUR_SHAFT_TRANSIT, 0)),
+    AVConnection(AVDoorID(AVRegion.KUR_SHAFT_CENTER, 2), AVDoorID(AVRegion.KUR_SHAFT_TRANSIT, 1)),
+    AVConnection(AVDoorID(AVRegion.KUR_SHAFT_TRANSIT, 2), AVDoorID(AVRegion.KUR_SHAFT_UPPER, 1)),
+    AVConnection(AVDoorID(AVRegion.KUR_SHAFT_UPPER, 2), AVDoorID(AVRegion.KUR_SHAFT_SECRET, 1)),
+    AVConnection(AVDoorID(AVRegion.ADDRESS_DISRUPTOR2_MAIN, 1), AVDoorID(AVRegion.ADDRESS_DISRUPTOR2_SECRET, 1)),
+    AVConnection(AVDoorID(AVRegion.ADDRESS_DISRUPTOR2_WEST, 1), AVDoorID(AVRegion.ADDRESS_DISRUPTOR2_SECRET, 0)),
+    AVConnection(AVDoorID(AVRegion.CAVERN_ACCESS_MAIN, 2), AVDoorID(AVRegion.CAVERN_ACCESS_SECRET, 1)),
+    AVConnection(AVDoorID(AVRegion.HIGH_JUMP_ACCESS_UPPER, 1), AVDoorID(AVRegion.HIGH_JUMP_ACCESS_LOWER, 1)),
+    AVConnection(AVDoorID(AVRegion.HIGH_JUMP_ROOM_MAIN, 1), AVDoorID(AVRegion.HIGH_JUMP_ROOM_SECRET, 1))
 ]
 
 axiom_verge_doors = [
@@ -1137,7 +1270,20 @@ axiom_verge_doors = [
     AVConnection(AVDoorID(AVRegion.URUKU_FOYER, 1), AVDoorID(AVRegion.URUKU_MAIN, 0)),
     AVConnection(AVDoorID(AVRegion.FILTRATION_UPPER, 0), AVDoorID(AVRegion.URUKU_MAIN, 1)),
     AVConnection(AVDoorID(AVRegion.FILTRATION_WEST, 0), AVDoorID(AVRegion.URUKU_SECRET, 0)),
-    AVConnection(AVDoorID(AVRegion.FILTRATION_EAST, 0), AVDoorID(AVRegion.LABCOAT, 0))
+    AVConnection(AVDoorID(AVRegion.FILTRATION_EAST, 0), AVDoorID(AVRegion.LABCOAT, 0)),
+    AVConnection(AVDoorID(AVRegion.ZI_TO_KUR, 1), AVDoorID(AVRegion.KUR_SHAFT_LOWER, 0)),
+    AVConnection(AVDoorID(AVRegion.KUR_SHAFT_LOWER, 1), AVDoorID(AVRegion.KUR_SAVE1, 0)),
+    AVConnection(AVDoorID(AVRegion.KUR_SHAFT_LOWER, 3), AVDoorID(AVRegion.TO_ADDRESS_DISRUPTOR, 0)),
+    AVConnection(AVDoorID(AVRegion.TO_ADDRESS_DISRUPTOR, 1), AVDoorID(AVRegion.ADDRESS_DISRUPTOR2_MAIN, 0)),
+    AVConnection(AVDoorID(AVRegion.KUR_SHAFT_LOWER, 2), AVDoorID(AVRegion.ADDRESS_DISRUPTOR2_WEST, 0)),
+    AVConnection(AVDoorID(AVRegion.KUR_SHAFT_LOWER, 4), AVDoorID(AVRegion.SURFACE_SHAFT, 0)),
+    AVConnection(AVDoorID(AVRegion.SURFACE_SHAFT, 1), AVDoorID(AVRegion.CAVERN_ACCESS_MAIN, 0)),
+    AVConnection(AVDoorID(AVRegion.CAVERN_ACCESS_MAIN, 1), AVDoorID(AVRegion.HIGH_JUMP_ACCESS_UPPER, 0)),
+    AVConnection(AVDoorID(AVRegion.HIGH_JUMP_ACCESS_LOWER, 0), AVDoorID(AVRegion.HIGH_JUMP_ROOM_MAIN, 0)),
+    AVConnection(AVDoorID(AVRegion.CAVERN_ACCESS_SECRET, 0), AVDoorID(AVRegion.STALAGMITE_MAZE, 0)),
+    AVConnection(AVDoorID(AVRegion.STALAGMITE_MAZE, 1), AVDoorID(AVRegion.TETHERED_CHARGE, 0)),
+    AVConnection(AVDoorID(AVRegion.TETHERED_CHARGE, 1), AVDoorID(AVRegion.SECRET_PASSAGE_TO_TETHERED_CHARGE, 0)),
+    AVConnection(AVDoorID(AVRegion.HIGH_JUMP_ROOM_SECRET, 0), AVDoorID(AVRegion.SECRET_PASSAGE_TO_TETHERED_CHARGE, 1))
 ]
 
 region_name_to_connection: Dict[str, List[AVConnection]] = {}

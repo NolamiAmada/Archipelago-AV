@@ -49,7 +49,7 @@ def drill(state: CollectionState) -> bool:
 
 
 def breakblock(state: CollectionState) -> bool:
-    return state.has("Weapon") or drill(state)
+    return state.has("Weapon") or drill(state) or redcoat(state)
 
 
 def longwarp(state: CollectionState) -> bool:
@@ -72,5 +72,18 @@ def anyup(state: CollectionState) -> bool:
     return state.has("Field Disruptor") or state.has("Grapple") or trenchcoat(state) or shortdrone(state)
 
 
-def upplaceholder(state: CollectionState) -> bool:
+def anyupnoceiling(state: CollectionState) -> bool:
+    return state.has("Field Disruptor") or trenchcoat(state) or shortdrone(state)
+
+
+def tempup(state: CollectionState) -> bool:
     return anyup(state)
+
+
+def dronefly(state: CollectionState) -> bool:
+    return dronelaunch(state) and dronetp(state) and (state.has("Address Disruptor") or state.has("Address Disruptor 2") or state.has("Progressive Glitch") or state.has("Laser Drill")) and False
+# ADD DRONEFLY YAML OPTION AND REMOVE "and False"
+
+def dronequest(state: CollectionState) -> bool:
+    return drone(state) and (False or dronetp(state))
+# ADD ROOM RANDO YAML OPTION AND REMOVE "False"
