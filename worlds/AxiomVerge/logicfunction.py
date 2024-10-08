@@ -76,6 +76,10 @@ def anyupnoceiling(state: CollectionState) -> bool:
     return state.has("Field Disruptor") or trenchcoat(state) or shortdrone(state)
 
 
+def sevenblockup(state: CollectionState) -> bool:
+    return state.has("Grapple") or trenchcoat(state) or shortdrone(state)
+
+
 def tempup(state: CollectionState) -> bool:
     return anyup(state)
 
