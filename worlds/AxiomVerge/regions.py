@@ -699,8 +699,8 @@ class AVRegion(enum.Enum):
     ]
     STEAM_ROOM2_EAST = "Steam Room 2_East", [
         AVDoor("Steam Room 2 Right Door", Orientation.Right),
-        AVDoor("Steam Room 2 Inner EW"),
-        AVDoor("Steam Room 2 Inner EU")
+        AVDoor("Steam Room 2 Inner EW", logic = lambda state: state.has("Grapple") or logicfunction.trenchcoat(state) or logicfunction.shortdrone(state)),
+        AVDoor("Steam Room 2 Inner EU", logic=lambda state: logicfunction.anyup(state))
     ]
     STEAM_ROOM2_UPPER = "Steam Room 2_Upper", [
         AVDoor("Steam Room 2 Upper Left Door", Orientation.Left),
@@ -709,7 +709,7 @@ class AVRegion(enum.Enum):
 
     HIDDEN_MUTANTS = "Hidden Mutants", [
         AVDoor('Hidden Mutants Lower Right Door', Orientation.Right),
-        AVDoor("Hidden Mutants Upper Right Door", Orientation.Right)
+        AVDoor("Hidden Mutants Upper Right Door", Orientation.Right, logic=lambda state: logicfunction.anyupnoceiling(state))
     ]
 
     STEAM1_SECRET = "Steam 1 Secret", [AVDoor("Steam 1 Secret Left Door", Orientation.Left)]
@@ -729,8 +729,8 @@ class AVRegion(enum.Enum):
     CENTRAL_TUBE_LOWER = "Central Tube_Lower", [
         AVDoor("Central Tube Lower Left Door", Orientation.Left),
         AVDoor("Central Tube Right Door", Orientation.Right),
-        AVDoor("Central Tube Inner BS"),
-        AVDoor("Central Tube Inner BU")
+        AVDoor("Central Tube Inner BS", logic=lambda state: (logicfunction.anyup(state) and logicfunction.glitch2(state)) or logicfunction.trenchcoat(state)),
+        AVDoor("Central Tube Inner BU", logic=lambda state: logicfunction.anyupnoceiling(state))
     ]
     CENTRAL_TUBE_UPPER = "Central Tube_Upper", [
         AVDoor("Central Tube Up Door", Orientation.Up),
@@ -738,24 +738,24 @@ class AVRegion(enum.Enum):
     ]
     CENTRAL_TUBE_SECRET = "Central Tube_Secret", [
         AVDoor("Central Tube Upper Left Door", Orientation.Left),
-        AVDoor("Central Tube Inner SB")
+        AVDoor("Central Tube Inner SB", logic=lambda state: logicfunction.glitch2(state) or logicfunction.anycoat(state))
     ]
 
     EYE_STALK_TUNNEL = "Eye Stalk Tunnel", [
-        AVDoor("Eye Stalk Tunnel Left Door", Orientation.Left),
-        AVDoor("Eye Stalk Tunnel Right Door", Orientation.Right)
+        AVDoor("Eye Stalk Tunnel Left Door", Orientation.Left, logic=lambda state: logicfunction.anycoat(state) or state.has("Weapon")),
+        AVDoor("Eye Stalk Tunnel Right Door", Orientation.Right, logic=lambda state: logicfunction.anycoat(state) or state.has("Weapon"))
     ]
 
     EYE_STALK_SECRET1 = "Eye Stalk Secret 1", [
-        AVDoor("Eye Stalk Secret 1 Left Door", Orientation.Left),
-        AVDoor("Eye Stalk Secret 1 Right Door", Orientation.Right)
+        AVDoor("Eye Stalk Secret 1 Left Door", Orientation.Left, logic=lambda state: logicfunction.anycoat(state) or state.has("Weapon")),
+        AVDoor("Eye Stalk Secret 1 Right Door", Orientation.Right, logic=lambda state: logicfunction.anycoat(state) or state.has("Weapon"))
     ]
 
     EYE_STALK_SECRET2 = "Eye Stalk Secret 2", [AVDoor("Eye Stalk Secret 2 Right Door", Orientation.Right)]
 
     ARTERIAL_ACCESS = "Arterial Access", [
-        AVDoor("Arterial Access Left Door", Orientation.Left),
-        AVDoor("Arterial Access Right Door", Orientation.Right)
+        AVDoor("Arterial Access Left Door", Orientation.Left, logic=lambda state: state.has("Weapon") or logicfunction.trenchcoat(state)),
+        AVDoor("Arterial Access Right Door", Orientation.Right, logic=lambda state: state.has("Weapon") or logicfunction.trenchcoat(state))
     ]
 
     ARTERIAL_SHAFT = "Arterial Shaft", [
@@ -771,8 +771,8 @@ class AVRegion(enum.Enum):
     ]
 
     VERUSKA = "Veruska", [
-        AVDoor("Veruska Right Door", Orientation.Right),
-        AVDoor("Veruska Left Door", Orientation.Left)
+        AVDoor("Veruska Right Door", Orientation.Right, logic=lambda state: logicfunction.shortdrone(state) or logicfunction.trenchcoat(state)),
+        AVDoor("Veruska Left Door", Orientation.Left, logic=lambda state: logicfunction.dronequest(state) or logicfunction.trenchcoat(state))
     ]
 
     VERUSKA_STORAGE = "Veruska Storage", [
@@ -795,7 +795,7 @@ class AVRegion(enum.Enum):
 
     ARTERIAL_MAIN = "Arterial Main", [
         AVDoor("Arterial Main Lower Left Door", Orientation.Left),
-        AVDoor("Arterial Main Upper Left Door", Orientation.Left),
+        AVDoor("Arterial Main Upper Left Door", Orientation.Left, logic=lambda state: logicfunction.anyupnoceiling(state)),
         AVDoor("Arterial Main Right Door", Orientation.Right)
     ]
 
@@ -813,12 +813,12 @@ class AVRegion(enum.Enum):
     # arterialfiltration: technically 2 regions
     ARTERIAL_FILTRATION = "Arterial Filtration", [
         AVDoor("Arterial Filtration Right Door", Orientation.Right),
-        AVDoor("Arterial Filtration Inner MS")
+        AVDoor("Arterial Filtration Inner MS", logic=lambda state: logicfunction.redcoat(state) and state.has("Grapple"))
     ]
 
     ARTERIAL_FILTRATION_UPPER = "Arterial Filtration_Upper", [
         AVDoor("Arterial Filtration Up Door", Orientation.Up),
-        AVDoor("Arterial Filtration Inner SM")
+        AVDoor("Arterial Filtration Inner SM", logic=lambda state: False)
     ]
 
     ARTERIAL_BYPASS_ENTRANCE = "Arterial Bypass Entrance", [
@@ -829,19 +829,19 @@ class AVRegion(enum.Enum):
     # uppertube: 4 regions
     UPPER_TUBE_LOWER = "Upper Tube_Lower", [
         AVDoor("Upper Tube Down Door", Orientation.Down),
-        AVDoor("Upper Tube Inner BC")
+        AVDoor("Upper Tube Inner BC", logic=lambda state: logicfunction.anyupnoceiling(state))
     ]
 
     UPPER_TUBE_CENTER = "Upper Tube_Center", [
         AVDoor("Upper Tube Lower Right Door", Orientation.Right),
         AVDoor("Upper Tube Inner CB"),
-        AVDoor("Upper Tube Inner CS"),
-        AVDoor("Upper Tube Inner CU")
+        AVDoor("Upper Tube Inner CS", logic=lambda state: logicfunction.dronequest(state)),
+        AVDoor("Upper Tube Inner CU", logic=lambda state: logicfunction.anyupnoceiling(state))
     ]
 
     UPPER_TUBE_SECRET = "Upper Tube_Secret", [
         AVDoor("Upper Tube Lower Left Door", Orientation.Left),
-        AVDoor("Upper Tube Inner SC")
+        AVDoor("Upper Tube Inner SC", logic=lambda state: logicfunction.shortdrone(state))
     ]
 
     UPPER_TUBE_UPPER = "Upper Tube_Upper", [
@@ -856,8 +856,8 @@ class AVRegion(enum.Enum):
     ]
 
     VENOUS_FILTRATION = "Venous Filtration", [
-        AVDoor("Venous Filtration Right Door", Orientation.Right),
-        AVDoor("Venous Filtration Left Door", Orientation.Left)
+        AVDoor("Venous Filtration Right Door", Orientation.Right, logic=lambda state: logicfunction.drill(state)),
+        AVDoor("Venous Filtration Left Door", Orientation.Left, logic=lambda state: logicfunction.drill(state))
     ]
 
     VENOUS_MAINTENANCE_ACCESS = "Venous Maintenance Access", [
@@ -879,14 +879,14 @@ class AVRegion(enum.Enum):
 
     VENOUS_MAINTENANCE2_CENTER = "Venous Maintenance 2_Center", [
         AVDoor("Venous Maintenance 2 Center Right Door", Orientation.Right),
-        AVDoor("Venous Maintenance 2 Inner CU"),
+        AVDoor("Venous Maintenance 2 Inner CU", logic=lambda state: logicfunction.dronefly(state) or (state.has("Grapple") and logicfunction.trenchcoat(state))),
         AVDoor("Venous Maintenance 2 Inner CB")
     ]
 
     VENOUS_MAINTENANCE2_LOWER = "Venous Maintenance 2_Lower", [
         AVDoor("Venous Maintenance 2 Lower Right Door", Orientation.Right),
-        AVDoor("Venous Maintenance 2 Inner BC"),
-        AVDoor("Venous Maintenance 2 Inner BU")
+        AVDoor("Venous Maintenance 2 Inner BC", logic=lambda state: logicfunction.dronefly(state) or (state.has("Grapple") and logicfunction.redcoat(state))),
+        AVDoor("Venous Maintenance 2 Inner BU", logic=lambda state: logicfunction.drill(state))
     ]
 
     VENOUS_MAINTENANCE3 = "Venous Maintenance 3", [
@@ -909,8 +909,8 @@ class AVRegion(enum.Enum):
     ]
 
     ZI_TO_INDI = "Zi to Indi", [
-        AVDoor("Zi to Indi Up Door", Orientation.Up, BossDoor.Areatrans),
-        AVDoor("Zi to Indi Right Door", Orientation.Right)
+        AVDoor("Zi to Indi Up Door", Orientation.Up, BossDoor.Areatrans, logic=lambda state: logicfunction.redcoat(state) or logicfunction.shortdrone(state) or (state.has("Field Disruptor") and (logicfunction.trenchcoat(state) or state.has("Grapple")))),
+        AVDoor("Zi to Indi Right Door", Orientation.Right, logic=lambda state: logicfunction.anyup(state))
     ]
 
     URUKU_FOYER = "Uruku Foyer", [
@@ -918,33 +918,43 @@ class AVRegion(enum.Enum):
         AVDoor("Uruki Foyer Right Door", Orientation.Right, BossDoor.Outer)
     ]
 
-    # uruku: 2 regions
+    # uruku: 3 regions
     URUKU_MAIN = "Uruku_Main", [
-        AVDoor("Uruku Left Door", Orientation.Left, BossDoor.Inner),
+        AVDoor("Uruku Left Door", Orientation.Left, BossDoor.Inner, logic=lambda state: state.has("RangeWeapon")),
+        AVDoor("Uruku Inner MU", logic=lambda state: ((logicfunction.trenchcoat(state) or (state.has("Field Disruptor") and state.has("RangeWeapon"))) and logicfunction.anyglitch(state)) or logicfunction.longwarp(state) or (logicfunction.shortdrone(state) and state.has("RangeWeapon"))),
+        AVDoor("Uruku Inner MS", logic=lambda state: logicfunction.trenchcoat(state) or logicfunction.anycoat(state) and logicfunction.anyglitch(state))
+    ]
+
+    URUKU_UPPER = "Uruku_Upper", [
         AVDoor("Uruku Upper Right Door", Orientation.Right, BossDoor.Inner),
-        AVDoor("Uruku Inner MS")
+        AVDoor("Uruku Inner UM", logic=lambda state: logicfunction.anycoat(state))
     ]
 
     URUKU_SECRET = "Uruku_Secret", [
         AVDoor("Uruku Lower Right Door", Orientation.Right, BossDoor.Inner),
-        AVDoor("Uruku Inner SM")
+        AVDoor("Uruku Inner SM", logic=lambda state: logicfunction.anycoat(state))
     ]
 
-    # filtration: 3 regions
+    # filtration: 4 regions
     FILTRATION_UPPER = "Filtration_Upper", [
         AVDoor("Filtration Upper Left Door", Orientation.Left, BossDoor.Outer),
-        AVDoor("Filtration Inner UE")
+        AVDoor("Filtration Inner UC")
     ]
 
-    FILTRATION_EAST = "Filtration_East", [
-        AVDoor("Filtration Right Door", Orientation.Right),
-        AVDoor("Filtration Inner EW"),
-        AVDoor("Filtration Inner EU")
+    FILTRATION_CENTER = "Filtration_Center", [
+        AVDoor("Filtration Inner CE", logic=lambda state: logicfunction.anycoat(state) or logicfunction.breakblock(state)),
+        AVDoor("Filtration Inner CW", logic=lambda state: logicfunction.anycoat(state)),
+        AVDoor("Filtration Inner CU", logic=lambda state: logicfunction.dronefly(state) or (logicfunction.longdrone(state) and (logicfunction.redcoat(state) or (logicfunction.trenchcoat(state) and state.has("Field Disruptor")) or state.has("Grapple"))))
     ]
 
     FILTRATION_WEST = "Filtration_West", [
         AVDoor("Filtration Lower Left Door", Orientation.Left, BossDoor.Outer),
-        AVDoor("Filtration Inner WE")
+        AVDoor("Filtration Inner WC", logic=lambda state: logicfunction.anycoat(state))
+    ]
+
+    FILTRATION_EAST = "Filtration_East", [
+        AVDoor("Filtration Right Door", Orientation.Right),
+        AVDoor("Filtration Inner EC", logic=lambda state: logicfunction.anycoat(state) or state.has("Fat Beam"))
     ]
 
     LABCOAT = "Labcoat Room", [
@@ -1131,8 +1141,10 @@ axiom_verge_connections = [
     AVConnection(AVDoorID(AVRegion.VENOUS_MAINTENANCE2_UPPER, 2), AVDoorID(AVRegion.VENOUS_MAINTENANCE2_LOWER, 2)),
     AVConnection(AVDoorID(AVRegion.VENOUS_MAINTENANCE2_CENTER, 2), AVDoorID(AVRegion.VENOUS_MAINTENANCE2_LOWER, 1)),
     AVConnection(AVDoorID(AVRegion.URUKU_MAIN, 2), AVDoorID(AVRegion.URUKU_SECRET, 1)),
-    AVConnection(AVDoorID(AVRegion.FILTRATION_EAST, 1), AVDoorID(AVRegion.FILTRATION_WEST, 1)),
-    AVConnection(AVDoorID(AVRegion.FILTRATION_EAST, 2), AVDoorID(AVRegion.FILTRATION_UPPER, 1)),
+    AVConnection(AVDoorID(AVRegion.URUKU_MAIN, 1), AVDoorID(AVRegion.URUKU_UPPER, 1)),
+    AVConnection(AVDoorID(AVRegion.FILTRATION_CENTER, 0), AVDoorID(AVRegion.FILTRATION_EAST, 1)),
+    AVConnection(AVDoorID(AVRegion.FILTRATION_CENTER, 1), AVDoorID(AVRegion.FILTRATION_WEST, 1)),
+    AVConnection(AVDoorID(AVRegion.FILTRATION_CENTER, 2), AVDoorID(AVRegion.FILTRATION_UPPER, 1)),
     AVConnection(AVDoorID(AVRegion.KUR_SHAFT_LOWER, 5), AVDoorID(AVRegion.KUR_SHAFT_CENTER, 1)),
     AVConnection(AVDoorID(AVRegion.KUR_SHAFT_LOWER, 6), AVDoorID(AVRegion.KUR_SHAFT_TRANSIT, 0)),
     AVConnection(AVDoorID(AVRegion.KUR_SHAFT_CENTER, 2), AVDoorID(AVRegion.KUR_SHAFT_TRANSIT, 1)),
@@ -1280,7 +1292,7 @@ axiom_verge_doors = [
     AVConnection(AVDoorID(AVRegion.ZI_SAVE2, 0), AVDoorID(AVRegion.ZI_TO_INDI, 1)),
     AVConnection(AVDoorID(AVRegion.UPPER_TUBE_UPPER, 1), AVDoorID(AVRegion.URUKU_FOYER, 0)),
     AVConnection(AVDoorID(AVRegion.URUKU_FOYER, 1), AVDoorID(AVRegion.URUKU_MAIN, 0)),
-    AVConnection(AVDoorID(AVRegion.FILTRATION_UPPER, 0), AVDoorID(AVRegion.URUKU_MAIN, 1)),
+    AVConnection(AVDoorID(AVRegion.FILTRATION_UPPER, 0), AVDoorID(AVRegion.URUKU_UPPER, 0)),
     AVConnection(AVDoorID(AVRegion.FILTRATION_WEST, 0), AVDoorID(AVRegion.URUKU_SECRET, 0)),
     AVConnection(AVDoorID(AVRegion.FILTRATION_EAST, 0), AVDoorID(AVRegion.LABCOAT, 0)),
     AVConnection(AVDoorID(AVRegion.ZI_TO_KUR, 1), AVDoorID(AVRegion.KUR_SHAFT_LOWER, 0)),
