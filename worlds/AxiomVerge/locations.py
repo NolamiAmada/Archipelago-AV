@@ -72,7 +72,9 @@ axiom_verge_locations = {
     "Address Disruptor 2_Secret": [AVLocation("Kur - Address Disruptor 2", BASE_ID+58)],
     "Cavern Access_Main": [AVLocation("Kur - Tunnel Bore", BASE_ID+59, logic=lambda state: logicfunction.drone(state))],
     "High Jump Access_Upper": [AVLocation("Kur - Firewall", BASE_ID+60, logic=lambda state: logicfunction.anyup(state) or logicfunction.drone(state))],
-    "Tethered Charge": [AVLocation("Kur - Tethered Charge", BASE_ID+61)]
+    "Tethered Charge": [AVLocation("Kur - Tethered Charge", BASE_ID+61)],
+    "Indi to Eribu": [AVLocation("Indi - Ceiling", BASE_ID+62, logic=lambda state: logicfunction.drone(state))],
+    "Indi to Edin": [AVLocation("Indi - Box", BASE_ID+63, logic=lambda state: logicfunction.trenchcoat(state))]
 }
 
 av_locations_unpacked = {}

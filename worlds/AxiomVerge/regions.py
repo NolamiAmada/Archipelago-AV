@@ -53,7 +53,10 @@ class AVRegion(enum.Enum):
 
     # non location regions
     MENU = "Menu", [AVDoor("To Start")]
-    SLUG = "Slug", [AVDoor("Enemy Slug")]
+    SLUG = "Slug", [
+        AVDoor("Slug in Eribu", logic=lambda state: False),
+        AVDoor("Slug in Indi", logic=lambda state: False)
+    ]
 
     # eribusave1: 2 regions
     ERIBU_SAVE1_WEST = "Eribu Save 1_West", [
@@ -973,7 +976,7 @@ class AVRegion(enum.Enum):
     ]
 
     KUR_SHAFT_CENTER = "Kur Shaft_Center", [
-        AVDoor("Kur Shaft Center Left Door", Orientation.Left),
+        AVDoor("Kur Shaft Center Left Door", Orientation.Left, BossDoor.Areatrans),
         AVDoor("Kur Shaft Inner CB", logic=lambda state: logicfunction.anycoat(state)),
         AVDoor("Kur Shaft Inner CT", logic=lambda state: logicfunction.tempup(state) and logicfunction.anycoat(state))
     ]
@@ -991,7 +994,7 @@ class AVRegion(enum.Enum):
     ]
 
     KUR_SHAFT_SECRET = "Kur Shaft_Secret", [
-        AVDoor("Kur Shaft Upper Left Door", Orientation.Left),
+        AVDoor("Kur Shaft Upper Left Door", Orientation.Left, BossDoor.Areatrans),
         AVDoor("Kur Shaft Inner SU", logic=lambda state: logicfunction.glitch2(state) or logicfunction.trenchcoat(state))
     ]
 
@@ -1071,9 +1074,81 @@ class AVRegion(enum.Enum):
         AVDoor("Tethered Charge Left Door", Orientation.Left)
     ]
 
-    SECRET_PASSAGE_TO_TETHERED_CHARGE = "Secret Passage To Tethered Charge", [
+    SECRET_PASSAGE_TO_TETHERED_CHARGE = "Secret Passage to Tethered Charge", [
         AVDoor("Secret Passage to Tethered Charge Right Door", Orientation.Right, logic=lambda state: state.has("Fat Beam")),
         AVDoor("Secret Passage to Tethered Charge Left Door", Orientation.Left, logic=lambda state: logicfunction.breakblock(state))
+    ]
+
+    INDI_TO_ERIBU = "Indi to Eribu", [
+        AVDoor("Indi to Eribu Left Door", Orientation.Left, BossDoor.Areatrans),
+        AVDoor("Indi to Eribu Right Door", Orientation.Right)
+    ]
+
+    INDI_TO_ABSU = "Indi to Absu", [
+        AVDoor("Indi to Absu Down Door", Orientation.Down, BossDoor.Areatrans),
+        AVDoor("Indi to Absu Up Door", Orientation.Up)
+    ]
+
+    INDI_TO_UKKINNA = "Indi to Ukkin-Na", [
+        AVDoor("Indi to Ukkin-Na Up Door", Orientation.Up, BossDoor.Areatrans, logic=lambda state: logicfunction.trenchcoat(state)),
+        AVDoor("Indi to Ukkin-Na Down Door", Orientation.Down, logic=lambda state: logicfunction.anycoat(state))
+    ]
+
+    INDI_TO_ZI = "Indi to Zi", [
+        AVDoor("Indi to Zi Down Door", Orientation.Down, BossDoor.Areatrans),
+        AVDoor("Indi to Zi Up Door", Orientation.Up, logic=lambda state: logicfunction.anyup(state))
+    ]
+
+    INDI_TO_EDIN = "Indi to Edin", [
+        AVDoor("Indi to Edin Up Door", Orientation.Up, BossDoor.Areatrans, logic=lambda state: logicfunction.tempup(state)),
+        AVDoor("Indi to Edin Down Door", Orientation.Down),
+        AVDoor("Indi to Edin Right Door", Orientation.Right)
+    ]
+
+    INDI_SAVE = "Indi Save", [
+        AVDoor("Indi Save Left Door", Orientation.Left),
+        AVDoor("Indi Save Save", Orientation.Save)
+    ]
+
+    INDI_TO_KUR = "Indi to Kur", [
+        AVDoor("Indi to Kur Right Door", Orientation.Right, BossDoor.Areatrans),
+        AVDoor("Indi to Kur Left Door", Orientation.Left)
+    ]
+
+    #oracaroom: 5 regions
+    ORACA_ROOM_EAST = "Oraca Room_East", [
+        AVDoor("Oraca Room Right Door", Orientation.Right),
+        AVDoor("Oraca Room Inner EU", logic=lambda state: logicfunction.tempup(state))
+    ]
+
+    ORACA_ROOM_UPPER = "Oraca Room_Upper", [
+        AVDoor("Oraca Room Right Up Door", Orientation.Up),
+        AVDoor("Oraca Room Left Up Door", Orientation.Up),
+        AVDoor("Oraca Room - Slug in Room"),
+        AVDoor("Oraca Room Inner UE"),
+        AVDoor("Oraca Room Inner ULE"),
+        AVDoor("Oraca Room Inner ULW"),
+        AVDoor("Oraca Room Inner UW", logic=lambda state: logicfunction.anyup(state))
+    ]
+
+    ORACA_ROOM_LOWEREAST = "Oraca Room_Lower_East", [
+        AVDoor("Oraca Room Right Down Door", Orientation.Down),
+        AVDoor("Oraca Room Inner LEU", logic=lambda state: logicfunction.anyupnoceiling(state))
+    ]
+
+    ORACA_ROOM_LOWERWEST = "Oraca Room_Lower_West", [
+        AVDoor("Oraca Room Left Down Door", Orientation.Down),
+        AVDoor("Oraca Room Inner LWU", logic=lambda state: logicfunction.anyupnoceiling(state))
+    ]
+
+    ORACA_ROOM_WEST = "Oraca Room_West", [
+        AVDoor("Oraca Room Left Door", Orientation.Left),
+        AVDoor("Oraca Room Inner WU", logic=lambda state: logicfunction.anyup(state))
+    ]
+
+    UKKINNA_TO_ERIBU = "Ukkin-Na to Eribu", [
+        AVDoor("Ukkin-Na to Eribu Left Door", Orientation.Left, BossDoor.Areatrans, logic=lambda state: logicfunction.trenchcoat(state)),
+        AVDoor("Ukkin-Na to Eribu Right Door", Orientation.Right, logic=lambda state: logicfunction.anycoat(state))
     ]
 
 
@@ -1154,7 +1229,12 @@ axiom_verge_connections = [
     AVConnection(AVDoorID(AVRegion.ADDRESS_DISRUPTOR2_WEST, 1), AVDoorID(AVRegion.ADDRESS_DISRUPTOR2_SECRET, 0)),
     AVConnection(AVDoorID(AVRegion.CAVERN_ACCESS_MAIN, 2), AVDoorID(AVRegion.CAVERN_ACCESS_SECRET, 1)),
     AVConnection(AVDoorID(AVRegion.HIGH_JUMP_ACCESS_UPPER, 1), AVDoorID(AVRegion.HIGH_JUMP_ACCESS_LOWER, 1)),
-    AVConnection(AVDoorID(AVRegion.HIGH_JUMP_ROOM_MAIN, 1), AVDoorID(AVRegion.HIGH_JUMP_ROOM_SECRET, 1))
+    AVConnection(AVDoorID(AVRegion.HIGH_JUMP_ROOM_MAIN, 1), AVDoorID(AVRegion.HIGH_JUMP_ROOM_SECRET, 1)),
+    AVConnection(AVDoorID(AVRegion.ORACA_ROOM_UPPER, 3), AVDoorID(AVRegion.ORACA_ROOM_EAST, 1)),
+    AVConnection(AVDoorID(AVRegion.ORACA_ROOM_UPPER, 4), AVDoorID(AVRegion.ORACA_ROOM_LOWEREAST, 1)),
+    AVConnection(AVDoorID(AVRegion.ORACA_ROOM_UPPER, 5), AVDoorID(AVRegion.ORACA_ROOM_LOWERWEST, 1)),
+    AVConnection(AVDoorID(AVRegion.ORACA_ROOM_UPPER, 6), AVDoorID(AVRegion.ORACA_ROOM_WEST, 1)),
+    AVConnection(AVDoorID(AVRegion.ORACA_ROOM_UPPER, 2), AVDoorID(AVRegion.SLUG, 1), False)
 ]
 
 axiom_verge_doors = [
@@ -1307,7 +1387,19 @@ axiom_verge_doors = [
     AVConnection(AVDoorID(AVRegion.CAVERN_ACCESS_SECRET, 0), AVDoorID(AVRegion.STALAGMITE_MAZE, 0)),
     AVConnection(AVDoorID(AVRegion.STALAGMITE_MAZE, 1), AVDoorID(AVRegion.TETHERED_CHARGE, 0)),
     AVConnection(AVDoorID(AVRegion.TETHERED_CHARGE, 1), AVDoorID(AVRegion.SECRET_PASSAGE_TO_TETHERED_CHARGE, 0)),
-    AVConnection(AVDoorID(AVRegion.HIGH_JUMP_ROOM_SECRET, 0), AVDoorID(AVRegion.SECRET_PASSAGE_TO_TETHERED_CHARGE, 1))
+    AVConnection(AVDoorID(AVRegion.HIGH_JUMP_ROOM_SECRET, 0), AVDoorID(AVRegion.SECRET_PASSAGE_TO_TETHERED_CHARGE, 1)),
+    AVConnection(AVDoorID(AVRegion.ERIBU_TO_INDI_EAST, 0), AVDoorID(AVRegion.INDI_TO_ERIBU, 0)),
+    AVConnection(AVDoorID(AVRegion.ABSU_TO_INDI_UPPER, 0), AVDoorID(AVRegion.INDI_TO_ABSU, 0)),
+    AVConnection(AVDoorID(AVRegion.ZI_TO_INDI, 0), AVDoorID(AVRegion.INDI_TO_ZI, 0)),
+    AVConnection(AVDoorID(AVRegion.INDI_TO_EDIN, 2), AVDoorID(AVRegion.INDI_SAVE, 0)),
+    AVConnection(AVDoorID(AVRegion.KUR_SHAFT_CENTER, 0), AVDoorID(AVRegion.INDI_TO_KUR, 0)),
+    AVConnection(AVDoorID(AVRegion.ORACA_ROOM_EAST, 0), AVDoorID(AVRegion.INDI_TO_KUR, 1)),
+    AVConnection(AVDoorID(AVRegion.ORACA_ROOM_UPPER, 0), AVDoorID(AVRegion.INDI_TO_EDIN, 1)),
+    AVConnection(AVDoorID(AVRegion.ORACA_ROOM_UPPER, 1), AVDoorID(AVRegion.INDI_TO_UKKINNA, 1)),
+    AVConnection(AVDoorID(AVRegion.ORACA_ROOM_LOWEREAST, 0), AVDoorID(AVRegion.INDI_TO_ZI, 1)),
+    AVConnection(AVDoorID(AVRegion.ORACA_ROOM_LOWERWEST, 0), AVDoorID(AVRegion.INDI_TO_ABSU, 1)),
+    AVConnection(AVDoorID(AVRegion.ORACA_ROOM_WEST, 0), AVDoorID(AVRegion.INDI_TO_ERIBU, 1)),
+    AVConnection(AVDoorID(AVRegion.ERIBU_TO_UKKINNA, 1), AVDoorID(AVRegion.UKKINNA_TO_ERIBU, 0))
 ]
 
 region_name_to_connection: Dict[str, List[AVConnection]] = {}
