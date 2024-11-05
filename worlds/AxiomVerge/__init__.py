@@ -1,15 +1,14 @@
 import settings
-import typing
+from typing import List
 from .options import AVOptions
-from .items import axiom_verge_items, AVItem, BASE_ID  # data used below to add items to the World
-from .locations import axiom_verge_locations, av_locations_unpacked  # same as above
+from .items import axiom_verge_items, AVItem, BASE_ID, setup_events
+from .locations import axiom_verge_locations, av_locations_unpacked
 from .regions import create_region
 from worlds.AutoWorld import World
 from BaseClasses import Region, Location, Entrance, Item, ItemClassification
 
 
 class AVWorld(World):
-    """Insert description of the world/game here."""
     game = "Axiom Verge"  # name of the game/world
     options_dataclass = AVOptions  # options the player can set
     options: AVOptions
@@ -19,12 +18,17 @@ class AVWorld(World):
                        axiom_verge_item in axiom_verge_items}
     location_name_to_id = av_locations_unpacked
 
+    def __init__(self, multiworld, player):
+        super().__init__(multiworld, player)
+        self.locations: List[Location] = []
+
     def create_regions(self) -> None:
         create_region(self)
         print(f"Locations: {self.multiworld.regions.location_cache}")
         print(f"Regions: {self.multiworld.regions.region_cache}")
 
     def create_items(self) -> None:
+        setup_events(self.player, self.locations)
         if self.options.progressive_coats:
             axiom_verge_items.append(AVItem("Progressive Coat", ItemClassification.progression, BASE_ID + 45, 3))
         else:

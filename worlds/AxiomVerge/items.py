@@ -1,11 +1,11 @@
-from BaseClasses import Item, ItemClassification
-from typing import NamedTuple
+from BaseClasses import Item, ItemClassification, Location
+from typing import NamedTuple, Optional, List
 
 
 class AVItem(NamedTuple):
     name: str
     classification: ItemClassification
-    code: int
+    code: Optional[int]
     quantity: int
 
 
@@ -82,3 +82,14 @@ item_name_groups = {
         "Heat Seekers", "Nova", "Orbital Discharge", "Hypo-Atomizer", "Reflector", "Fat Beam"
     }
 }
+
+axiom_verge_events = {  # location: item
+    'Infection Sequence': 'Infection Cleared'
+}
+
+
+def setup_events(player: int, location_cache: List[Location]):
+    for location in location_cache:
+        if location.address is None:
+            item = Item(axiom_verge_events[location.name], ItemClassification.progression, None, player)
+            location.place_locked_item(item)

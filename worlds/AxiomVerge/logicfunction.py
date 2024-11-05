@@ -76,6 +76,10 @@ def anyupnoceiling(state: CollectionState) -> bool:
     return state.has("Field Disruptor") or trenchcoat(state) or shortdrone(state)
 
 
+def anyupnodrone(state: CollectionState) -> bool:
+    return state.has("Field Disruptor") or trenchcoat(state) or state.has("Grapple") or (shortdrone(state) and infectiondone(state))
+
+
 def sevenblockup(state: CollectionState) -> bool:
     return state.has("Grapple") or trenchcoat(state) or shortdrone(state)
 
@@ -88,6 +92,11 @@ def dronefly(state: CollectionState) -> bool:
     return dronelaunch(state) and dronetp(state) and (state.has("Address Disruptor") or state.has("Address Disruptor 2") or state.has("Progressive Glitch") or state.has("Laser Drill")) and False
 # ADD DRONEFLY YAML OPTION AND REMOVE "and False"
 
+
 def dronequest(state: CollectionState) -> bool:
     return drone(state) and (False or dronetp(state))
 # ADD ROOM RANDO YAML OPTION AND REMOVE "False"
+
+
+def infectiondone(state: CollectionState) -> bool:
+    return state.has("Infection Cleared")

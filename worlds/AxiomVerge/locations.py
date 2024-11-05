@@ -1,16 +1,17 @@
 from BaseClasses import Location, CollectionState, Entrance
 from . import logicfunction
-from typing import NamedTuple, Callable
+from typing import NamedTuple, Callable, Optional
 
 
 class AVLocation(NamedTuple):
     name: str
-    code: int
+    code: Optional[int]
     logic: Callable[[CollectionState], bool] = Entrance.access_rule
 
 
 BASE_ID = 332200000
 axiom_verge_locations = {
+    "Infection Sequence": [AVLocation("Infection Sequence", None, logic=lambda state: state.has("Weapon") and (logicfunction.trenchcoat(state) or (state.has("Field Disruptor") and logicfunction.anycoat(state))))],
     "Disruptor Room_East": [AVLocation("Eribu - Starter Weapon", BASE_ID+0)],
     "Nova Room": [AVLocation("Eribu - Nova", BASE_ID+1, logic=lambda state: logicfunction.breakblock(state))],
     "False Reflector": [AVLocation("Eribu - Corrupted Tower", BASE_ID+2, logic=lambda state: logicfunction.trenchcoat(state) or logicfunction.shortdrone(state) or state.has("Grapple"))],
@@ -74,7 +75,11 @@ axiom_verge_locations = {
     "High Jump Access_Upper": [AVLocation("Kur - Firewall", BASE_ID+60, logic=lambda state: logicfunction.anyup(state) or logicfunction.drone(state))],
     "Tethered Charge": [AVLocation("Kur - Tethered Charge", BASE_ID+61)],
     "Indi to Eribu": [AVLocation("Indi - Ceiling", BASE_ID+62, logic=lambda state: logicfunction.drone(state))],
-    "Indi to Edin": [AVLocation("Indi - Box", BASE_ID+63, logic=lambda state: logicfunction.trenchcoat(state))]
+    "Indi to Edin": [AVLocation("Indi - Box", BASE_ID+63, logic=lambda state: logicfunction.trenchcoat(state))],
+    "Left Leg Shaft_Lower_Upper": [AVLocation("Ukkin-Na - Robot Step Stool", BASE_ID+64)],
+    "Left Leg Shaft_Transit": [AVLocation("Ukkin-Na - A Long Fall", BASE_ID+65, logic=lambda state: logicfunction.breakblock(state) or logicfunction.infectiondone(state))],
+    "Left Leg Shaft_Upper_Center": [AVLocation("Ukkin-Na - After Infection", BASE_ID+66, logic=lambda state: logicfunction.infectiondone(state))],
+    "Ophelia's Attic": [AVLocation("Ukkin-Na - Above Ophelia", BASE_ID+67, logic=lambda state: logicfunction.infectiondone(state) and (logicfunction.redcoat(state) or logicfunction.shortdrone(state) or (logicfunction.longwarp(state) or (state.has("Grapple") and (state.has("Field Disruptor") or logicfunction.trenchcoat(state))))))]
 }
 
 av_locations_unpacked = {}

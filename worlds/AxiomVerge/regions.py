@@ -1151,6 +1151,127 @@ class AVRegion(enum.Enum):
         AVDoor("Ukkin-Na to Eribu Right Door", Orientation.Right, logic=lambda state: logicfunction.anycoat(state))
     ]
 
+    INFECTION_SEQUENCE = "Infection Sequence", [
+        AVDoor("Infection Beginning")
+    ]
+
+    #leftlegshaft: 7 regions
+    LEFT_LEG_SHAFT_LOWER_LOWER = "Left Leg Shaft_Lower_Lower", [
+        AVDoor("Left Leg Shaft Lower Left Door", Orientation.Left),
+        AVDoor("Left Leg Shaft Lower Right Door", Orientation.Right),
+        AVDoor("Left Leg Shaft Inner LlLu", logic=lambda state: logicfunction.redcoat(state) or logicfunction.shortdrone(state) or (logicfunction.trenchcoat(state) and (state.has("Grapple") or state.has("Field Disruptor"))) or (state.has("Grapple") and state.has("Field Disruptor") and logicfunction.anyglitch(state)))
+    ]
+
+    LEFT_LEG_SHAFT_LOWER_UPPER = "Left Leg Shaft_Lower_Upper", [
+        AVDoor("Left Leg Shaft Inner LuLl"),
+        AVDoor("Left Leg Shaft Inner LuT", logic=lambda state: logicfunction.trenchcoat(state))
+    ]
+
+    LEFT_LEG_SHAFT_TRANSIT = "Left Leg Shaft_Transit", [
+        AVDoor("Left Leg Shaft Inner TLu", logic=lambda state: logicfunction.trenchcoat(state)),
+        AVDoor("Left Leg Shaft Inner TUl", logic=lambda state: logicfunction.dronefly(state) and logicfunction.redcoat(state) and state.has("Grapple"))
+    ]
+
+    LEFT_LEG_SHAFT_UPPER_LOWER = "Left Leg Shaft_Upper_Lower", [
+        AVDoor("Left Leg Shaft Center Left Door", Orientation.Left),
+        AVDoor("Left Leg Shaft Center Right Door", Orientation.Right),
+        AVDoor("Left Leg Shaft Inner UlT", logic=lambda state: logicfunction.trenchcoat(state)),
+        AVDoor("Left Leg Shaft Inner UlUc", logic=lambda state: logicfunction.redcoat(state) or logicfunction.shortdrone(state) or logicfunction.trenchcoat(state) and (state.has("Grapple") or state.has("Field Disruptor") or logicfunction.infectiondone(state)) or ((state.has("Grapple") or logicfunction.infectiondone(state)) and state.has("Field Disruptor")))
+    ]
+
+    LEFT_LEG_SHAFT_UPPER_SECRET = "Left Leg Shaft_Upper_Secret", [
+        AVDoor("Left Leg Shaft Upper Left Door", Orientation.Left),
+        AVDoor("Left Leg Shaft Inner UsUc")
+    ]
+
+    LEFT_LEG_SHAFT_UPPER_CENTER = "Left Leg Shaft_Upper_Center", [
+        AVDoor("Left Leg Shaft Inner UcUl"),
+        AVDoor("Left Leg Shaft Inner UcUs", logic=lambda state: logicfunction.trenchcoat(state) or logicfunction.shortdrone(state) or state.has("Grapple")),
+        AVDoor("Left Leg Shaft Inner UcUu", logic=lambda state: logicfunction.longwarp(state) or logicfunction.shortdrone(state) or logicfunction.redcoat(state) or (state.has("Grapple") and (logicfunction.trenchcoat(state) or state.has("Field Disruptor"))) or (logicfunction.infectiondone(state) and (logicfunction.trenchcoat(state) or state.has("Field Disruptor"))))
+    ]
+
+    LEFT_LEG_SHAFT_UPPER_UPPER = "Left Leg Shaft_Upper_Upper", [
+        AVDoor("Left Leg Shaft Upper Right Door", Orientation.Right),
+        AVDoor("Left Leg Shaft Inner UuUc")
+    ]
+
+    OPHELIAS_ATTIC = "Ophelia's Attic", [
+        AVDoor("Ophelias Attic Right Door", Orientation.Right)
+    ]
+
+    OPHELIA = "Ophelia", [
+        AVDoor("Ophelia Right Door", Orientation.Right)
+    ]
+
+    UKKINNA_SAVE_3 = "Ukkin-Na Save 3", [
+        AVDoor("Ukkin-Na Save 3 Left Door", Orientation.Left),
+        AVDoor("Ukkin-Na Save 3 Save", Orientation.Save)
+    ]
+
+    VISON_EXIT = "Vision Exit", [
+        AVDoor("Vision Exit Left Door", Orientation.Left),
+        AVDoor("Vision Exit Right Door", Orientation.Right, logic=lambda state: logicfunction.redcoat(state) or logicfunction.shortdrone(state) or (logicfunction.longwarp(state) or (state.has("Grapple") and (state.has("Field Disruptor") or logicfunction.trenchcoat(state)))) or (logicfunction.infectiondone(state) and (logicfunction.trenchcoat(state) or state.has("Field Disruptor"))))
+    ]
+
+    FEETCONNECTOR = "Feet Connector", [
+        AVDoor("Feet Connector Left Door", Orientation.Left, logic=lambda state: logicfunction.trenchcoat(state)),
+        AVDoor("Feet Connector Right Door", Orientation.Right, logic=lambda state: logicfunction.anycoat(state))
+    ]
+
+    # ukkinnasave1: 2 regions
+    UKKINNA_SAVE_1_LOWER = "Ukkin-Na Save 1_Lower", [
+        AVDoor("Ukkin-Na Save 1 Lower Left Door", Orientation.Left),
+        AVDoor("Ukkin-Na Save 1 Right Door", Orientation.Right),
+        AVDoor("Ukkin-Na Save 1 Inner BU", logic=lambda state: logicfunction.trenchcoat(state) or state.has("Field Disruptor") or (logicfunction.shortdrone(state) and logicfunction.infectiondone(state))),
+        AVDoor("Ukkin-Na Save 1 Save", Orientation.Save)
+    ]
+
+    UKKINNA_SAVE_1_UPPER = "Ukkin-Na Save 1_Upper", [
+        AVDoor("Ukkin-Na Save 1 Upper Left Door", Orientation.Left, logic=lambda state: logicfunction.infectiondone(state)),
+        AVDoor("Ukkin-Na Save 1 Inner UB"),
+        AVDoor("Into Infection")
+    ]
+
+    # rightlegbottomshaft: 4 regions
+    RIGHT_LEG_BOTTOM_SHAFT_WEST = "Right Leg Bottom Shaft_West", [
+        AVDoor("Right Leg Bottom Shaft Left Door", Orientation.Left),
+        AVDoor("Right Leg Bottom Shaft Inner WE"),
+        AVDoor("Right Leg Bottom Shaft Inner WC", logic=lambda state: logicfunction.anyupnoceiling(state) and logicfunction.infectiondone(state))
+    ]
+
+    RIGHT_LEG_BOTTOM_SHAFT_EAST = "Right Leg Bottom Shaft_East", [
+        AVDoor("Right Leg Bottom Shaft Lower Right Door", Orientation.Right),
+        AVDoor("Right Leg Bottom Shaft Inner EW", logic=lambda state: logicfunction.trenchcoat(state) or state.has("Field Disruptor") or state.has("Grapple") or (logicfunction.shortdrone(state) and logicfunction.infectiondone(state)))
+    ]
+
+    RIGHT_LEG_BOTTOM_SHAFT_CENTER = "Right Leg Bottom Shaft_Center", [
+        AVDoor("Right Leg Bottom Shaft Center Right Door", Orientation.Right),
+        AVDoor("Right Leg Bottom Shaft Inner CW", logic=lambda state: logicfunction.infectiondone(state)),
+        AVDoor("Right Leg Bottom Shaft Inner CU", logic=lambda state: logicfunction.anyupnoceiling(state) and logicfunction.infectiondone(state))
+    ]
+
+    RIGHT_LEG_BOTTOM_SHAFT_UPPER = "Right Leg Bottom Shaft_Upper", [
+        AVDoor("Right Leg Bottom Shaft Upper Right Door", Orientation.Right),
+        AVDoor("Right Leg Bottom Shaft Inner UC")
+    ]
+
+    # ukkinnatoindi: 2 regions
+    UKKINNA_TO_INDI_WEST = "Ukkin-Na to Indi_West", [
+        AVDoor("Ukkin-Na to Indi Left Door", Orientation.Left),
+        AVDoor("Ukkin-Na to Indi Inner WE", logic=lambda state: logicfunction.trenchcoat(state))
+    ]
+
+    UKKINNA_TO_INDI_EAST = "Ukkin-Na to Indi_East", [
+        AVDoor("Ukkin-Na to Indi Down Door", Orientation.Down, BossDoor.Areatrans),
+        AVDoor("Ukkin-Na to Indi Right Door", Orientation.Right),
+        AVDoor("Ukkin-Na to Indi Inner EW", logic=lambda state: logicfunction.anycoat(state))
+    ]
+
+    UKKINNA_TO_EDIN = "Ukkin-Na to Edin", [
+        AVDoor("Ukkin-Na to Edin Right Door", Orientation.Right, BossDoor.Areatrans, logic=lambda state: logicfunction.trenchcoat(state)),
+        AVDoor("Ukkin-Na to Edin Left Door", Orientation.Left, logic=lambda state: logicfunction.trenchcoat(state))
+    ]
+
 
 class AVDoorID(NamedTuple):
     region: AVRegion
@@ -1234,7 +1355,19 @@ axiom_verge_connections = [
     AVConnection(AVDoorID(AVRegion.ORACA_ROOM_UPPER, 4), AVDoorID(AVRegion.ORACA_ROOM_LOWEREAST, 1)),
     AVConnection(AVDoorID(AVRegion.ORACA_ROOM_UPPER, 5), AVDoorID(AVRegion.ORACA_ROOM_LOWERWEST, 1)),
     AVConnection(AVDoorID(AVRegion.ORACA_ROOM_UPPER, 6), AVDoorID(AVRegion.ORACA_ROOM_WEST, 1)),
-    AVConnection(AVDoorID(AVRegion.ORACA_ROOM_UPPER, 2), AVDoorID(AVRegion.SLUG, 1), False)
+    AVConnection(AVDoorID(AVRegion.ORACA_ROOM_UPPER, 2), AVDoorID(AVRegion.SLUG, 1), False),
+    AVConnection(AVDoorID(AVRegion.LEFT_LEG_SHAFT_LOWER_LOWER, 2), AVDoorID(AVRegion.LEFT_LEG_SHAFT_LOWER_UPPER, 0)),
+    AVConnection(AVDoorID(AVRegion.LEFT_LEG_SHAFT_LOWER_UPPER, 1), AVDoorID(AVRegion.LEFT_LEG_SHAFT_TRANSIT, 0)),
+    AVConnection(AVDoorID(AVRegion.LEFT_LEG_SHAFT_TRANSIT, 1), AVDoorID(AVRegion.LEFT_LEG_SHAFT_UPPER_LOWER, 2)),
+    AVConnection(AVDoorID(AVRegion.LEFT_LEG_SHAFT_UPPER_LOWER, 3), AVDoorID(AVRegion.LEFT_LEG_SHAFT_UPPER_CENTER, 0)),
+    AVConnection(AVDoorID(AVRegion.LEFT_LEG_SHAFT_UPPER_CENTER, 1), AVDoorID(AVRegion.LEFT_LEG_SHAFT_UPPER_SECRET, 1)),
+    AVConnection(AVDoorID(AVRegion.LEFT_LEG_SHAFT_UPPER_CENTER, 2), AVDoorID(AVRegion.LEFT_LEG_SHAFT_UPPER_UPPER, 1)),
+    AVConnection(AVDoorID(AVRegion.UKKINNA_SAVE_1_LOWER, 2), AVDoorID(AVRegion.UKKINNA_SAVE_1_UPPER, 1)),
+    AVConnection(AVDoorID(AVRegion.UKKINNA_SAVE_1_UPPER, 2), AVDoorID(AVRegion.INFECTION_SEQUENCE, 0)),
+    AVConnection(AVDoorID(AVRegion.RIGHT_LEG_BOTTOM_SHAFT_WEST, 1), AVDoorID(AVRegion.RIGHT_LEG_BOTTOM_SHAFT_EAST, 1)),
+    AVConnection(AVDoorID(AVRegion.RIGHT_LEG_BOTTOM_SHAFT_WEST, 2), AVDoorID(AVRegion.RIGHT_LEG_BOTTOM_SHAFT_CENTER, 1)),
+    AVConnection(AVDoorID(AVRegion.RIGHT_LEG_BOTTOM_SHAFT_CENTER, 2), AVDoorID(AVRegion.RIGHT_LEG_BOTTOM_SHAFT_UPPER, 1)),
+    AVConnection(AVDoorID(AVRegion.UKKINNA_TO_INDI_WEST, 1), AVDoorID(AVRegion.UKKINNA_TO_INDI_EAST, 2))
 ]
 
 axiom_verge_doors = [
@@ -1399,7 +1532,19 @@ axiom_verge_doors = [
     AVConnection(AVDoorID(AVRegion.ORACA_ROOM_LOWEREAST, 0), AVDoorID(AVRegion.INDI_TO_ZI, 1)),
     AVConnection(AVDoorID(AVRegion.ORACA_ROOM_LOWERWEST, 0), AVDoorID(AVRegion.INDI_TO_ABSU, 1)),
     AVConnection(AVDoorID(AVRegion.ORACA_ROOM_WEST, 0), AVDoorID(AVRegion.INDI_TO_ERIBU, 1)),
-    AVConnection(AVDoorID(AVRegion.ERIBU_TO_UKKINNA, 1), AVDoorID(AVRegion.UKKINNA_TO_ERIBU, 0))
+    AVConnection(AVDoorID(AVRegion.ERIBU_TO_UKKINNA, 1), AVDoorID(AVRegion.UKKINNA_TO_ERIBU, 0)),
+    AVConnection(AVDoorID(AVRegion.LEFT_LEG_SHAFT_LOWER_LOWER, 0), AVDoorID(AVRegion.UKKINNA_TO_ERIBU, 1)),
+    AVConnection(AVDoorID(AVRegion.LEFT_LEG_SHAFT_UPPER_SECRET, 0), AVDoorID(AVRegion.OPHELIAS_ATTIC, 0)),
+    AVConnection(AVDoorID(AVRegion.LEFT_LEG_SHAFT_UPPER_LOWER, 0), AVDoorID(AVRegion.OPHELIA, 0)),
+    AVConnection(AVDoorID(AVRegion.LEFT_LEG_SHAFT_UPPER_LOWER, 1), AVDoorID(AVRegion.UKKINNA_SAVE_3, 0)),
+    AVConnection(AVDoorID(AVRegion.LEFT_LEG_SHAFT_UPPER_UPPER, 0), AVDoorID(AVRegion.VISON_EXIT, 0)),
+    AVConnection(AVDoorID(AVRegion.LEFT_LEG_SHAFT_LOWER_LOWER, 1), AVDoorID(AVRegion.FEETCONNECTOR, 0)),
+    AVConnection(AVDoorID(AVRegion.FEETCONNECTOR, 1), AVDoorID(AVRegion.RIGHT_LEG_BOTTOM_SHAFT_WEST, 0)),
+    AVConnection(AVDoorID(AVRegion.UKKINNA_SAVE_1_LOWER, 0), AVDoorID(AVRegion.RIGHT_LEG_BOTTOM_SHAFT_EAST, 0)),
+    AVConnection(AVDoorID(AVRegion.UKKINNA_SAVE_1_UPPER, 0), AVDoorID(AVRegion.RIGHT_LEG_BOTTOM_SHAFT_CENTER, 0)),
+    AVConnection(AVDoorID(AVRegion.UKKINNA_SAVE_1_LOWER, 1), AVDoorID(AVRegion.UKKINNA_TO_INDI_WEST, 0)),
+    AVConnection(AVDoorID(AVRegion.INDI_TO_UKKINNA, 0), AVDoorID(AVRegion.UKKINNA_TO_INDI_EAST, 0)),
+    AVConnection(AVDoorID(AVRegion.UKKINNA_TO_INDI_EAST, 1), AVDoorID(AVRegion.UKKINNA_TO_EDIN, 1))
 ]
 
 region_name_to_connection: Dict[str, List[AVConnection]] = {}
@@ -1439,6 +1584,7 @@ def create_region(world: "AVWorld") -> None:
         region = Region(avregion.title, world.player, world.multiworld)
         created_regions[region.name] = region
         region.add_locations({location.name: location.code for location in axiom_verge_locations.get(region.name, {})})
+        world.locations.extend(region.locations)
         world.multiworld.regions.append(region)
     create_connections(axiom_verge_connections, world)
     if not world.options.room_rando:
