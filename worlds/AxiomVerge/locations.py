@@ -79,7 +79,14 @@ axiom_verge_locations = {
     "Left Leg Shaft_Lower_Upper": [AVLocation("Ukkin-Na - Robot Step Stool", BASE_ID+64)],
     "Left Leg Shaft_Transit": [AVLocation("Ukkin-Na - A Long Fall", BASE_ID+65, logic=lambda state: logicfunction.breakblock(state) or logicfunction.infectiondone(state))],
     "Left Leg Shaft_Upper_Center": [AVLocation("Ukkin-Na - After Infection", BASE_ID+66, logic=lambda state: logicfunction.infectiondone(state))],
-    "Ophelia's Attic": [AVLocation("Ukkin-Na - Above Ophelia", BASE_ID+67, logic=lambda state: logicfunction.infectiondone(state) and (logicfunction.redcoat(state) or logicfunction.shortdrone(state) or (logicfunction.longwarp(state) or (state.has("Grapple") and (state.has("Field Disruptor") or logicfunction.trenchcoat(state))))))]
+    "Ophelia's Attic": [AVLocation("Ukkin-Na - Above Ophelia", BASE_ID+67, logic=lambda state: logicfunction.infectiondone(state) and (logicfunction.redcoat(state) or logicfunction.shortdrone(state) or (logicfunction.longwarp(state) or (state.has("Grapple") and (state.has("Field Disruptor") or logicfunction.trenchcoat(state))))))],
+    "Entrance to Madness_Lower": [AVLocation("Ukkin-Na - Start of Infection", BASE_ID+68, logic=lambda state: logicfunction.redcoat(state) or logicfunction.trenchcoat(state) and (state.has("Scissor Beam") or state.has("Fat Beam")))],
+    "Ukkin-Na Hidden Item": [AVLocation("Ukkin-Na - Past the Slugs", BASE_ID+69, logic=lambda state: logicfunction.drone(state))],
+    "Trenchcoat Chamber_Upper": [AVLocation("Ukkin-Na - Trenchcoat", BASE_ID+70)],
+    "Trenchcoat Chamber_Lower": [AVLocation("Ukkin-Na - Under Trenchcoat", BASE_ID+71, logic=lambda state: logicfunction.trenchcoat(state))],
+    "Living Room of Illusion": [AVLocation("Ukkin-NA - Floorbreakers", BASE_ID+72, logic=lambda state: logicfunction.anyup(state) and logicfunction.drone(state) and (logicfunction.redcoat(state) or logicfunction.glitch2(state)))],
+    "Vision_Lower": [AVLocation("Ukkin-Na - Definetely a Boss Room", BASE_ID+73, logic=lambda state: logicfunction.trenchcoat(state) and logicfunction.drone(state))],
+    "Peak": [AVLocation("Ukkin-Na - Turbine Pulse", BASE_ID+74, logic=lambda state: logicfunction.drill(state))]
 }
 
 av_locations_unpacked = {}

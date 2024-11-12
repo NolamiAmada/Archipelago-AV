@@ -77,7 +77,7 @@ def anyupnoceiling(state: CollectionState) -> bool:
 
 
 def anyupnodrone(state: CollectionState) -> bool:
-    return state.has("Field Disruptor") or trenchcoat(state) or state.has("Grapple") or (shortdrone(state) and infectiondone(state))
+    return state.has("Field Disruptor") or trenchcoat(state) or state.has("Grapple")
 
 
 def sevenblockup(state: CollectionState) -> bool:

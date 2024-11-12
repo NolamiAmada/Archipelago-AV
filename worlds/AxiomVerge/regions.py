@@ -55,7 +55,9 @@ class AVRegion(enum.Enum):
     MENU = "Menu", [AVDoor("To Start")]
     SLUG = "Slug", [
         AVDoor("Slug in Eribu", logic=lambda state: False),
-        AVDoor("Slug in Indi", logic=lambda state: False)
+        AVDoor("Slug in Indi", logic=lambda state: False),
+        AVDoor("Slug in Lower Ukkin-Na", logic=lambda state: False),
+        AVDoor("Slug in Upper Ukkin-Na", logic=lambda state: False)
     ]
 
     # eribusave1: 2 regions
@@ -1272,6 +1274,122 @@ class AVRegion(enum.Enum):
         AVDoor("Ukkin-Na to Edin Left Door", Orientation.Left, logic=lambda state: logicfunction.trenchcoat(state))
     ]
 
+    MUDROOM_OF_NEUROSIS = "Mudroom of Neurosis", [
+        AVDoor("Mudroom of Neurosis Left Door", Orientation.Left),
+        AVDoor("Mudroom of Neurosis Right Door", Orientation.Right)
+    ]
+
+    # entrancetomadness: 3 regions
+    ENTRANCE_TO_MADNESS_LOWER = "Entrance to Madness_Lower", [
+        AVDoor("Entrance to Madness Lower Left Door", Orientation.Left),
+        AVDoor("Entrance to Madness Inner BU", logic=lambda state: logicfunction.anyup(state))
+    ]
+
+    ENTRANCE_TO_MADNESS_UPPER = "Entrance to Madness_Upper", [
+        AVDoor("Entrance to Madness Up Door", Orientation.Up, logic=lambda state: logicfunction.anyup(state)),
+        AVDoor("Entrance to Madness Inner US", logic=lambda state: logicfunction.trenchcoat(state)),
+        AVDoor("Entrance to Madness Inner UB")
+    ]
+
+    ENTRANCE_TO_MADNESS_SECRET = "Entrance to Madness_Secret", [
+        AVDoor("Entrance to Madness Upper Left Door", Orientation.Left),
+        AVDoor("Entrance to Madness Inner SU", logic=lambda state: logicfunction.anycoat(state))
+    ]
+
+    UKKINNA_HIDDEN_ITEM = "Ukkin-Na Hidden Item", [
+        AVDoor("Ukkin-Na Hidden Item Right Door", Orientation.Right),
+        AVDoor("Ukkin-Na Hidden Item - Slug in Room")
+    ]
+
+    FOYER_OF_INSANITY = "Foyer of Insanity", [
+        AVDoor("Foyer of Insanity Down Door", Orientation.Down),
+        AVDoor("Foyer of Insanity Left Up Door", Orientation.Up, logic=lambda state: logicfunction.anyupnoceiling(state)),
+        AVDoor("Foyer of Insanity Right Up Door", Orientation.Right, logic=lambda state: logicfunction.anyupnoceiling(state))
+    ]
+
+    # trenchcoatchamber: 2 regions
+    TRENCHCOAT_CHAMBER_LOWER = "Trenchcoat Chamber_Lower", [
+        AVDoor("Trenchcoat Chamber Down Door", Orientation.Down),
+        AVDoor("Trenchcoat Chamber Inner BU", logic=lambda state: logicfunction.anyupnoceiling(state))
+    ]
+
+    TRENCHCOAT_CHAMBER_UPPER = "Trenchcoat Chamber_Upper", [
+        AVDoor("Trenchcoat Chamber Right Door", Orientation.Right),
+        AVDoor("Trenchcoat Chamber Inner UB")
+    ]
+
+    # shaftoflaughingfaces: 3 regions
+    SHAFT_OF_LAUGHING_FACES_LOWER = "Shaft of Laughing Faces_Lower", [
+        AVDoor("Shaft of Laughing Faces Down Door", Orientation.Down),
+        AVDoor("Shaft of Laughing Faces Inner BU", logic=lambda state: logicfunction.anyupnoceiling(state))
+    ]
+
+    SHAFT_OF_LAUGHING_FACES_UPPER = "Shaft of Laughing Faces_Upper", [
+        AVDoor("Shaft of Laughing Faces Up Door", Orientation.Up),
+        AVDoor("Shaft of Laughing Faces Inner UB"),
+        AVDoor("Shaft of Laughing Faces Inner US", logic=lambda state: logicfunction.trenchcoat(state))
+    ]
+
+    SHAFT_OF_LAUGHING_FACES_SECRET = "Shaft of Laughing Faces_Secret", [
+        AVDoor("Shaft of Laughing Faces Left Door", Orientation.Left),
+        AVDoor("Shaft of Laughing Faces Inner SU", logic=lambda state: logicfunction.trenchcoat(state))
+    ]
+
+    CORRIDOR_OF_PSYCHOSIS = "Corridor of Psychosis", [
+        AVDoor("Corridor of Psychosis Down Door", Orientation.Down),
+        AVDoor("Corridor of Psychosis Up Door", Orientation.Up, logic=lambda state: logicfunction.anyupnodrone(state))
+    ]
+
+    LIVING_ROOM_OF_ILLUSION = "Living Room of Illusion", [
+        AVDoor('Living Room of Illusion Down Door', Orientation.Down, logic=lambda state: logicfunction.anyup(state)),
+        AVDoor("Living Room of Illusion Up Door", Orientation.Up, logic=lambda state: logicfunction.anyup(state))
+    ]
+
+    GUEST_ROOM_OF_MENTAL_ILLNESS = "Guest Room of Mental Illness", [
+        AVDoor("Guest Room of Mental Illness Down Door", Orientation.Down),
+        AVDoor("Guest Room of Mental Illness Up Door", Orientation.Up, logic=lambda state: logicfunction.anyupnoceiling(state))
+    ]
+
+    VISION_FOYER = "Vision Foyer", [
+        AVDoor("Vision Foyer Down Door", Orientation.Down),
+        AVDoor("Vision Foyer Right Door", Orientation.Right),
+        AVDoor("Vision Foyer Left Door", Orientation.Left)  # DOES THIS COUNT AS A BOSS DOOR??????
+    ]
+
+    UKKINNA_SAVE_2 = "Ukkin-Na Save 2", [
+        AVDoor("Ukkin-Na Save 2 Left Door", Orientation.Left),
+        AVDoor("Ukkin-Na Save 2 Save", Orientation.Save)
+    ]
+
+    # vison: 2 regions
+    VISION_LOWER = "Vision_Lower", [
+        AVDoor("Vision Left Door", Orientation.Left),  # DOES THIS COUNT AS A BOSS DOOR??????
+        AVDoor("Vision Lower Right Door", Orientation.Right),  # DOES THIS COUNT AS A BOSS DOOR??????
+        AVDoor("Vision Inner BU", logic=lambda state: logicfunction.dronequest(state))  # assuming the head stays after redcoat
+    ]
+
+    VISION_UPPER = "Vision_Upper", [
+        AVDoor('Vision Upper Right Door', Orientation.Right),  # DOES THIS COUNT AS A BOSS DOOR??????
+        AVDoor("Vision Inner UB")
+    ]
+
+    # ukkinnatomaruru: 2 regions
+    UKKINNA_TO_MARURU_LOWER = "Ukkin-Na to Mar-Uru_Lower", [
+        AVDoor("Ukkin-Na to Mar-Uru Right Door", Orientation.Right),  # DOES THIS COUNT AS A BOSS DOOR??????
+        AVDoor("Ukkin-Na to Mar-Uru Left Door", Orientation.Left),
+        AVDoor("Ukkin-Na to Mar-Uru Inner BU", logic=lambda state: logicfunction.redcoat(state) and ((logicfunction.shortdrone(state) and state.has("Grapple") and state.has("Field Disruptor")) or logicfunction.longdrone(state)))
+    ]
+
+    UKKINNA_TO_MARURU_UPPER = "Ukkin-Na to Mar-Uru_Upper", [
+        AVDoor("Ukkin-Na to Mar-Uru Up Door", Orientation.Up, BossDoor.Areatrans),
+        AVDoor("Ukkin-Na to Mar-Uru Inner UB", logic=lambda state: logicfunction.redcoat(state))
+    ]
+
+    PEAK = "Peak", [
+        AVDoor("Peak Left Door", Orientation.Left),
+        AVDoor("Peak - Slug in Room", logic=lambda state: logicfunction.drill(state))
+    ]
+
 
 class AVDoorID(NamedTuple):
     region: AVRegion
@@ -1367,7 +1485,13 @@ axiom_verge_connections = [
     AVConnection(AVDoorID(AVRegion.RIGHT_LEG_BOTTOM_SHAFT_WEST, 1), AVDoorID(AVRegion.RIGHT_LEG_BOTTOM_SHAFT_EAST, 1)),
     AVConnection(AVDoorID(AVRegion.RIGHT_LEG_BOTTOM_SHAFT_WEST, 2), AVDoorID(AVRegion.RIGHT_LEG_BOTTOM_SHAFT_CENTER, 1)),
     AVConnection(AVDoorID(AVRegion.RIGHT_LEG_BOTTOM_SHAFT_CENTER, 2), AVDoorID(AVRegion.RIGHT_LEG_BOTTOM_SHAFT_UPPER, 1)),
-    AVConnection(AVDoorID(AVRegion.UKKINNA_TO_INDI_WEST, 1), AVDoorID(AVRegion.UKKINNA_TO_INDI_EAST, 2))
+    AVConnection(AVDoorID(AVRegion.UKKINNA_TO_INDI_WEST, 1), AVDoorID(AVRegion.UKKINNA_TO_INDI_EAST, 2)),
+    AVConnection(AVDoorID(AVRegion.ENTRANCE_TO_MADNESS_LOWER, 1), AVDoorID(AVRegion.ENTRANCE_TO_MADNESS_UPPER, 2)),
+    AVConnection(AVDoorID(AVRegion.ENTRANCE_TO_MADNESS_SECRET, 1), AVDoorID(AVRegion.ENTRANCE_TO_MADNESS_UPPER, 1)),
+    AVConnection(AVDoorID(AVRegion.UKKINNA_HIDDEN_ITEM, 1), AVDoorID(AVRegion.SLUG, 2), False),
+    AVConnection(AVDoorID(AVRegion.SHAFT_OF_LAUGHING_FACES_LOWER, 1), AVDoorID(AVRegion.SHAFT_OF_LAUGHING_FACES_UPPER, 1)),
+    AVConnection(AVDoorID(AVRegion.SHAFT_OF_LAUGHING_FACES_UPPER, 2), AVDoorID(AVRegion.SHAFT_OF_LAUGHING_FACES_SECRET, 1)),
+    AVConnection(AVDoorID(AVRegion.VISION_LOWER, 2), AVDoorID(AVRegion.VISION_UPPER, 1))
 ]
 
 axiom_verge_doors = [
@@ -1544,7 +1668,22 @@ axiom_verge_doors = [
     AVConnection(AVDoorID(AVRegion.UKKINNA_SAVE_1_UPPER, 0), AVDoorID(AVRegion.RIGHT_LEG_BOTTOM_SHAFT_CENTER, 0)),
     AVConnection(AVDoorID(AVRegion.UKKINNA_SAVE_1_LOWER, 1), AVDoorID(AVRegion.UKKINNA_TO_INDI_WEST, 0)),
     AVConnection(AVDoorID(AVRegion.INDI_TO_UKKINNA, 0), AVDoorID(AVRegion.UKKINNA_TO_INDI_EAST, 0)),
-    AVConnection(AVDoorID(AVRegion.UKKINNA_TO_INDI_EAST, 1), AVDoorID(AVRegion.UKKINNA_TO_EDIN, 1))
+    AVConnection(AVDoorID(AVRegion.UKKINNA_TO_INDI_EAST, 1), AVDoorID(AVRegion.UKKINNA_TO_EDIN, 1)),
+    AVConnection(AVDoorID(AVRegion.RIGHT_LEG_BOTTOM_SHAFT_UPPER, 0), AVDoorID(AVRegion.MUDROOM_OF_NEUROSIS, 0)),
+    AVConnection(AVDoorID(AVRegion.MUDROOM_OF_NEUROSIS, 1), AVDoorID(AVRegion.ENTRANCE_TO_MADNESS_LOWER, 0)),
+    AVConnection(AVDoorID(AVRegion.ENTRANCE_TO_MADNESS_SECRET, 0), AVDoorID(AVRegion.UKKINNA_HIDDEN_ITEM, 0)),
+    AVConnection(AVDoorID(AVRegion.ENTRANCE_TO_MADNESS_UPPER, 0), AVDoorID(AVRegion.FOYER_OF_INSANITY, 0)),
+    AVConnection(AVDoorID(AVRegion.FOYER_OF_INSANITY, 1), AVDoorID(AVRegion.TRENCHCOAT_CHAMBER_LOWER, 0)),
+    AVConnection(AVDoorID(AVRegion.FOYER_OF_INSANITY, 2), AVDoorID(AVRegion.SHAFT_OF_LAUGHING_FACES_LOWER, 0)),
+    AVConnection(AVDoorID(AVRegion.SHAFT_OF_LAUGHING_FACES_SECRET, 0), AVDoorID(AVRegion.TRENCHCOAT_CHAMBER_UPPER, 0)),
+    AVConnection(AVDoorID(AVRegion.SHAFT_OF_LAUGHING_FACES_UPPER, 0), AVDoorID(AVRegion.CORRIDOR_OF_PSYCHOSIS, 0)),
+    AVConnection(AVDoorID(AVRegion.CORRIDOR_OF_PSYCHOSIS, 1), AVDoorID(AVRegion.LIVING_ROOM_OF_ILLUSION, 0)),
+    AVConnection(AVDoorID(AVRegion.LIVING_ROOM_OF_ILLUSION, 1), AVDoorID(AVRegion.GUEST_ROOM_OF_MENTAL_ILLNESS, 0)),
+    AVConnection(AVDoorID(AVRegion.GUEST_ROOM_OF_MENTAL_ILLNESS, 1), AVDoorID(AVRegion.VISION_FOYER, 0)),
+    AVConnection(AVDoorID(AVRegion.VISION_FOYER, 1), AVDoorID(AVRegion.UKKINNA_SAVE_2, 0)),
+    AVConnection(AVDoorID(AVRegion.VISION_FOYER, 2), AVDoorID(AVRegion.VISION_LOWER, 1)),
+    AVConnection(AVDoorID(AVRegion.VISION_LOWER, 0), AVDoorID(AVRegion.UKKINNA_TO_MARURU_LOWER, 0)),
+    AVConnection(AVDoorID(AVRegion.UKKINNA_TO_MARURU_LOWER, 1), AVDoorID(AVRegion.VISON_EXIT, 1))
 ]
 
 region_name_to_connection: Dict[str, List[AVConnection]] = {}
