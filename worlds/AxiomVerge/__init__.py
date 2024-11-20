@@ -23,7 +23,7 @@ class AVWorld(World):
 
     item_name_to_id = {axiom_verge_item.name: axiom_verge_item.code for
                        axiom_verge_item in axiom_verge_items}
-    location_name_to_id = av_locations_unpacked
+    location_name_to_id = {name: location.code for name, location in av_locations_unpacked.items()}
 
     def __init__(self, multiworld, player):
         super().__init__(multiworld, player)
