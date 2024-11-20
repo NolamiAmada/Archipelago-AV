@@ -5,7 +5,14 @@ from .items import axiom_verge_items, AVItem, BASE_ID, setup_events
 from .locations import axiom_verge_locations, av_locations_unpacked
 from .regions import create_region
 from worlds.AutoWorld import World
-from BaseClasses import Region, Location, Entrance, Item, ItemClassification
+from BaseClasses import Region, Location, Entrance, Item, ItemClassification, CollectionState
+
+
+class VictoryCondition:
+    def __init__(self, player: int) -> None:
+        self.player = player
+    def victory(self, state: CollectionState) -> bool:
+        return state.has("Victory", self.player)
 
 
 class AVWorld(World):
@@ -54,3 +61,6 @@ class AVWorld(World):
                 itempool_data.append(item)
         items = [Item(item.name, item.classification, item.code, self.player) for item in itempool_data]
         self.multiworld.itempool += items
+
+        # should be its own function but im lazy as hell
+        self.multiworld.completion_condition[self.player] = VictoryCondition(self.player).victory

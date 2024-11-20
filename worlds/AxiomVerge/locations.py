@@ -12,6 +12,7 @@ class AVLocation(NamedTuple):
 BASE_ID = 332200000
 axiom_verge_locations = {
     "Infection Sequence": [AVLocation("Infection Sequence", None, logic=lambda state: state.has("Weapon") and (logicfunction.trenchcoat(state) or (state.has("Field Disruptor") and logicfunction.anycoat(state))))],
+    "Athetos": [AVLocation("Athetos Defeated", None, logic=lambda state: state.has("LongWeapon") and logicfunction.anyupnoceiling(state))],
     "Disruptor Room_East": [AVLocation("Eribu - Starter Weapon", BASE_ID+0)],
     "Nova Room": [AVLocation("Eribu - Nova", BASE_ID+1, logic=lambda state: logicfunction.breakblock(state))],
     "False Reflector": [AVLocation("Eribu - Corrupted Tower", BASE_ID+2, logic=lambda state: logicfunction.trenchcoat(state) or logicfunction.shortdrone(state) or state.has("Grapple"))],
@@ -86,7 +87,17 @@ axiom_verge_locations = {
     "Trenchcoat Chamber_Lower": [AVLocation("Ukkin-Na - Under Trenchcoat", BASE_ID+71, logic=lambda state: logicfunction.trenchcoat(state))],
     "Living Room of Illusion": [AVLocation("Ukkin-NA - Floorbreakers", BASE_ID+72, logic=lambda state: logicfunction.anyup(state) and logicfunction.drone(state) and (logicfunction.redcoat(state) or logicfunction.glitch2(state)))],
     "Vision_Lower": [AVLocation("Ukkin-Na - Definetely a Boss Room", BASE_ID+73, logic=lambda state: logicfunction.trenchcoat(state) and logicfunction.drone(state))],
-    "Peak": [AVLocation("Ukkin-Na - Turbine Pulse", BASE_ID+74, logic=lambda state: logicfunction.drill(state))]
+    "Peak": [AVLocation("Ukkin-Na - Turbine Pulse", BASE_ID+74, logic=lambda state: logicfunction.drill(state))],
+    "Bioflux Shaft 1_Upper": [AVLocation("Mar-Uru - After Sentinel", BASE_ID+75, logic=lambda state: logicfunction.anyup(state))],
+    "Bioflux 2 Secret": [
+        AVLocation("Mar-Uru - Quantum Turret", BASE_ID+76, logic=lambda state: logicfunction.glitch2(state)),
+        AVLocation("Mar-Uru - Quantum Turret Basement", BASE_ID+77, logic=lambda state: logicfunction.glitch2(state) and logicfunction.redcoat(state)),
+        AVLocation("Mar-Uru - Quantum Turret Secret", BASE_ID+78, logic=lambda state: logicfunction.glitch2(state) and logicfunction.redcoat(state))
+    ],
+    "Hybrid Room": [AVLocation("Mar-Uru - Hallway Floor", BASE_ID+79, logic=lambda state: logicfunction.redcoat(state))],
+    "Blue and Purple Corridor_West": [AVLocation("Mar-Uru - Before Reverse Slicer", BASE_ID+80)],
+    "Secret Item": [AVLocation("Mar-Uru - Reverse Slicer", BASE_ID+81)],
+    "Athetos Foyer Shaft_Center": [AVLocation("Mar-Uru - Before Athetos", BASE_ID+82, logic=lambda state: logicfunction.drone(state))]
 }
 
 av_locations_unpacked = {}

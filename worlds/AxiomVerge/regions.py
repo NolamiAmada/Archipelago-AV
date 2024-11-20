@@ -1390,6 +1390,148 @@ class AVRegion(enum.Enum):
         AVDoor("Peak - Slug in Room", logic=lambda state: logicfunction.drill(state))
     ]
 
+    MARURU_TO_UKKINNA = "Mar-Uru to Ukkin-Na", [
+        AVDoor("Mar-Uru to Ukkin-Na Down Door", Orientation.Down, BossDoor.Areatrans),
+        AVDoor("Mar-Uru to Ukkin-Na Left Door", Orientation.Left)
+    ]
+
+    ATHETOS_FOYER1 = "Athetos Foyer 1", [
+        AVDoor("Athetos Foyer 1 Lower Right Door", Orientation.Right),
+        AVDoor("Athetos Foyer 1 Upper Right Door", Orientation.Right, logic=lambda state: (logicfunction.trenchcoat(state) and logicfunction.shortdrone(state)) or logicfunction.longdrone(state) or logicfunction.dronefly(state))
+    ]
+
+    #athetosfoyer2: 2 regions
+    ATHETOS_FOYER2_LOWER = "Athetos Foyer 2_Lower", [
+        AVDoor("Athetos Foyer 2 Lower Left Door", Orientation.Left),
+        AVDoor("Athetos Foyer 2 Right Door", Orientation.Right),
+        AVDoor("Athetos Foyer 2 Inner BU", logic=lambda state: logicfunction.shortdrone(state) or logicfunction.trenchcoat(state))
+    ]
+
+    ATHETOS_FOYER2_UPPER = "Athetos Foyer 2_Upper", [
+        AVDoor("Athetos Foyer 2 Upper Left Door", Orientation.Left),
+        AVDoor("Athetos Foyer 2 Inner UB")
+    ]
+
+    MARURU_SAVE1 = "Mar-Uru Save 1", [
+        AVDoor("Mar-Uru Save 1 Right Door", Orientation.Right),
+        AVDoor("Mar-Uru Save 1 Save", Orientation.Save)
+    ]
+
+    ATHETOS_FOYER3 = "Athetos Foyer 3", [
+        AVDoor("Athetos Foyer 3 Lower Left Door", Orientation.Left, logic=lambda state: logicfunction.redcoat(state)),
+        AVDoor("Athetos Foyer 3 Upper Left Door", Orientation.Left, BossDoor.Outer, logic=lambda state: logicfunction.redcoat(state) and logicfunction.shortdrone(state))
+    ]
+
+    SENTINEL_SHAFT = "Sentinen Shaft", [
+        AVDoor("Sentinel Shaft Right Door", Orientation.Right, BossDoor.Inner, logic=lambda state: state.has("Weapon") and ((((logicfunction.redcoat(state) and logicfunction.shortdrone(state)) or (logicfunction.longdrone(state))) and state.has("Grapple")) or (logicfunction.trenchcoat(state) and logicfunction.longdrone(state)) or logicfunction.dronefly(state))),
+        AVDoor("Sentinel Shaft Left Door", Orientation.Left, BossDoor.Inner, logic=lambda state: False)
+    ]
+
+    #biofluxshaft1: 2 regions
+    BIOFLUX_SHAFT1_LOWER = "Bioflux Shaft 1_Lower", [
+        AVDoor("Bioflux Shaft 1 Lower Right Door", Orientation.Right, BossDoor.Outer),
+        AVDoor("Bioflux Shaft 1 Inner BU", logic=lambda state: logicfunction.longdrone(state) or ((logicfunction.longwarp(state) or (logicfunction.trenchcoat(state) and state.has("Grapple"))) and logicfunction.shortdrone(state))),
+    ]
+
+    BIOFLUX_SHAFT1_UPPER = "Bioflux Shaft 1_Upper", [
+        AVDoor("Bioflux Shaft 1 Upper Right Door", Orientation.Right),
+        AVDoor("Bioflux Shaft 1 Inner UB")
+    ]
+
+    BIOFLUX_SHAFT2 = "Bioflux Shaft 2", [
+        AVDoor("Bioflux Shaft 2 Left Door", Orientation.Left),
+        AVDoor("Bioflux Shaft 2 Right Door", Orientation.Right),
+        AVDoor("Bioflux Shaft 2 Up Door", Orientation.Up, logic=lambda state: (logicfunction.redcoat(state) and logicfunction.shortdrone(state)) or ((state.has("Grapple") or state.has("Field Disruptor") or logicfunction.longdrone(state)) and logicfunction.trenchcoat(state)))
+    ]
+
+    BIOFLUX2_SECRET = "Bioflux 2 Secret", [
+        AVDoor("Bioflux 2 Secret Left Door", Orientation.Left)
+    ]
+
+    #redgooroom: 2 regions
+    RED_GOO_ROOM_LOWER = "Red Goo Room_Lower", [
+        AVDoor("Red Goo Room Down Door", Orientation.Down),
+        AVDoor("Red Goo Room Inner BU", logic=lambda state: logicfunction.tempup(state))
+    ]
+
+    RED_GOO_ROOM_UPPER = "Red Goo Room_Upper", [
+        AVDoor("Red Goo Room Right Door", Orientation.Right, logic=lambda state: logicfunction.tempup(state)),
+        AVDoor("Red Goo Room Left Door", Orientation.Left, logic=lambda state: logicfunction.tempup(state)),
+        AVDoor("Red Goo Room Inner UB")
+    ]
+
+    MARURU_SAVE2 = "Mar-Uru Save 2", [
+        AVDoor("Mar-Uru Save 2 Right Door", Orientation.Right),
+        AVDoor("Mar-Uru Save 2 Save", Orientation.Save)
+    ]
+
+    HYBRID_ROOM = "Hybrid Room", [
+        AVDoor('Hybrid Room Left Door', Orientation.Left),
+        AVDoor("Hybrid Room Right Door", Orientation.Right)
+    ]
+
+    ORANGE_NICKNACKS = "Orange Nicknacks", [
+        AVDoor("Orange Nicknacks Lower Left Door", Orientation.Left),
+        AVDoor("Orange Nicknacks Upper Left Door", Orientation.Left, BossDoor.Outer, logic=lambda state: logicfunction.tempup(state)),
+    ]
+
+    XEDUR_HUL = "Xedur Hul", [
+        AVDoor("Xedur Hul Right Door", Orientation.Right, BossDoor.Inner),
+        AVDoor("Xedur Hul Left Door", Orientation.Left, BossDoor.Inner)
+    ]
+
+    #blueandpurplecorridor: 2 regions
+    BLUE_AND_PURPLE_CORRIDOR_EAST = "Blue and Purple Corridor_East", [
+        AVDoor("Blue and Purple Corridor Right Door", Orientation.Right),
+        AVDoor("Blue and Purple Corridor Up Door", Orientation.Up, logic=lambda state: logicfunction.anyup(state)),
+        AVDoor("Blue and Purple Corridor Inner EW", logic=lambda state: logicfunction.redcoat(state))
+    ]
+
+    BLUE_AND_PURPLE_CORRIDOR_WEST = "Blue and Purple Corridor_West", [
+        AVDoor("Blue and Purple Corridor Left Door", Orientation.Left),
+        AVDoor("Blue and Purple Corridor Inner WE", logic=lambda state: logicfunction.redcoat(state))
+    ]
+
+    HIDDEN_AREA_ENTRANCE = "Hidden Area Entrance", [
+        AVDoor("Hidden Area Entrance Right Door", Orientation.Right),
+        AVDoor("Hidden Area Entrance Left Door", Orientation.Left)
+    ]
+
+    HIDDEN_AREA_SHAFT = "Hidden Area Shaft", [
+        AVDoor("Hidden Area Shaft Upper Right Door", Orientation.Right, logic=lambda state: logicfunction.redcoat(state) or (logicfunction.trenchcoat(state) and (logicfunction.shortdrone(state) or state.hasa("Field Disruptor")))),
+        AVDoor("Hidden Area Shaft Lower Right Door", Orientation.Right, logic=lambda state: logicfunction.trenchcoat(state) and ((logicfunction.anyglitch(state) and state.has("Weapon")) or state.has("Fat Beam")))
+    ]
+
+    SECRET_ITEM = "Secret Item", [
+        AVDoor("Secret Item Left Door", Orientation.Left)
+    ]
+
+    # athetosfoyershaft: 3 regions
+    ATHETOS_FOYER_SHAFT_LOWER = "Athetos Foyer Shaft_Lower", [
+        AVDoor("Athetos Foyer Shaft Down Door", Orientation.Down),
+        AVDoor("Athetos Foyer Shaft Inner BC", logic=lambda state: logicfunction.tempup(state))
+    ]
+
+    ATHETOS_FOYER_SHAFT_CENTER = "Athetos Foyer Shaft_Center", [
+        AVDoor("Athetos Foyer Shaft Left Door", Orientation.Left),
+        AVDoor("Athetos Foyer Shaft Inner CB"),
+        AVDoor("Athetos Foyer Shaft Inner CU", logic=lambda state: logicfunction.redcoat(state) or (logicfunction.trenchcoat(state) and state.has("Grapple")))
+    ]
+
+    ATHETOS_FOYER_SHAFT_UPPER = "Athetos Foyer Shaft_Upper", [
+        AVDoor("Athetos Foyer Up Door", Orientation.Up, BossDoor.Outer),
+        AVDoor("Athetos Foyer Inner UC", logic=lambda state: logicfunction.redcoat(state))
+    ]
+
+    MARURU_SAVE3 = "Mar-Uru Save 3", [
+        AVDoor("Mar-Uru Save 3 Right Door", Orientation.Right),
+        AVDoor("Mar-Uru Save 3 Save", Orientation.Save)
+    ]
+
+    ATHETOS = "Athetos", [
+        AVDoor("Athetos Down Door", Orientation.Down)
+    ]
+
 
 class AVDoorID(NamedTuple):
     region: AVRegion
@@ -1491,7 +1633,13 @@ axiom_verge_connections = [
     AVConnection(AVDoorID(AVRegion.UKKINNA_HIDDEN_ITEM, 1), AVDoorID(AVRegion.SLUG, 2), False),
     AVConnection(AVDoorID(AVRegion.SHAFT_OF_LAUGHING_FACES_LOWER, 1), AVDoorID(AVRegion.SHAFT_OF_LAUGHING_FACES_UPPER, 1)),
     AVConnection(AVDoorID(AVRegion.SHAFT_OF_LAUGHING_FACES_UPPER, 2), AVDoorID(AVRegion.SHAFT_OF_LAUGHING_FACES_SECRET, 1)),
-    AVConnection(AVDoorID(AVRegion.VISION_LOWER, 2), AVDoorID(AVRegion.VISION_UPPER, 1))
+    AVConnection(AVDoorID(AVRegion.VISION_LOWER, 2), AVDoorID(AVRegion.VISION_UPPER, 1)),
+    AVConnection(AVDoorID(AVRegion.ATHETOS_FOYER2_LOWER, 2), AVDoorID(AVRegion.ATHETOS_FOYER2_UPPER, 1)),
+    AVConnection(AVDoorID(AVRegion.BIOFLUX_SHAFT1_LOWER, 1), AVDoorID(AVRegion.BIOFLUX_SHAFT1_UPPER, 1)),
+    AVConnection(AVDoorID(AVRegion.RED_GOO_ROOM_LOWER, 1), AVDoorID(AVRegion.RED_GOO_ROOM_UPPER, 2)),
+    AVConnection(AVDoorID(AVRegion.BLUE_AND_PURPLE_CORRIDOR_EAST, 2), AVDoorID(AVRegion.BLUE_AND_PURPLE_CORRIDOR_WEST, 1)),
+    AVConnection(AVDoorID(AVRegion.ATHETOS_FOYER_SHAFT_LOWER, 1), AVDoorID(AVRegion.ATHETOS_FOYER_SHAFT_CENTER, 1)),
+    AVConnection(AVDoorID(AVRegion.ATHETOS_FOYER_SHAFT_CENTER, 2), AVDoorID(AVRegion.ATHETOS_FOYER_SHAFT_UPPER, 1))
 ]
 
 axiom_verge_doors = [
@@ -1683,7 +1831,28 @@ axiom_verge_doors = [
     AVConnection(AVDoorID(AVRegion.VISION_FOYER, 1), AVDoorID(AVRegion.UKKINNA_SAVE_2, 0)),
     AVConnection(AVDoorID(AVRegion.VISION_FOYER, 2), AVDoorID(AVRegion.VISION_LOWER, 1)),
     AVConnection(AVDoorID(AVRegion.VISION_LOWER, 0), AVDoorID(AVRegion.UKKINNA_TO_MARURU_LOWER, 0)),
-    AVConnection(AVDoorID(AVRegion.UKKINNA_TO_MARURU_LOWER, 1), AVDoorID(AVRegion.VISON_EXIT, 1))
+    AVConnection(AVDoorID(AVRegion.UKKINNA_TO_MARURU_LOWER, 1), AVDoorID(AVRegion.VISON_EXIT, 1)),
+    AVConnection(AVDoorID(AVRegion.MARURU_TO_UKKINNA, 0), AVDoorID(AVRegion.UKKINNA_TO_MARURU_UPPER, 0)),
+    AVConnection(AVDoorID(AVRegion.MARURU_TO_UKKINNA, 1), AVDoorID(AVRegion.ATHETOS_FOYER1, 0)),
+    AVConnection(AVDoorID(AVRegion.ATHETOS_FOYER1, 1), AVDoorID(AVRegion.ATHETOS_FOYER2_LOWER, 0)),
+    AVConnection(AVDoorID(AVRegion.ATHETOS_FOYER2_UPPER, 0), AVDoorID(AVRegion.MARURU_SAVE1, 0)),
+    AVConnection(AVDoorID(AVRegion.ATHETOS_FOYER2_LOWER, 1), AVDoorID(AVRegion.ATHETOS_FOYER3, 0)),
+    AVConnection(AVDoorID(AVRegion.ATHETOS_FOYER3, 1), AVDoorID(AVRegion.SENTINEL_SHAFT, 0)),
+    AVConnection(AVDoorID(AVRegion.BIOFLUX_SHAFT1_LOWER, 0), AVDoorID(AVRegion.SENTINEL_SHAFT, 1)),
+    AVConnection(AVDoorID(AVRegion.BIOFLUX_SHAFT1_UPPER, 0), AVDoorID(AVRegion.BIOFLUX_SHAFT2, 0)),
+    AVConnection(AVDoorID(AVRegion.BIOFLUX_SHAFT2, 1), AVDoorID(AVRegion.BIOFLUX2_SECRET, 0)),  # exempt from room rando?
+    AVConnection(AVDoorID(AVRegion.BIOFLUX_SHAFT2, 2), AVDoorID(AVRegion.RED_GOO_ROOM_LOWER, 0)),
+    AVConnection(AVDoorID(AVRegion.RED_GOO_ROOM_UPPER, 1), AVDoorID(AVRegion.MARURU_SAVE2, 0)),
+    AVConnection(AVDoorID(AVRegion.RED_GOO_ROOM_UPPER, 0), AVDoorID(AVRegion.HYBRID_ROOM, 0)),
+    AVConnection(AVDoorID(AVRegion.HYBRID_ROOM, 1), AVDoorID(AVRegion.ORANGE_NICKNACKS, 0)),
+    AVConnection(AVDoorID(AVRegion.ORANGE_NICKNACKS, 1), AVDoorID(AVRegion.XEDUR_HUL, 0)),
+    AVConnection(AVDoorID(AVRegion.XEDUR_HUL, 1), AVDoorID(AVRegion.BLUE_AND_PURPLE_CORRIDOR_EAST, 0)),
+    AVConnection(AVDoorID(AVRegion.BLUE_AND_PURPLE_CORRIDOR_WEST, 0), AVDoorID(AVRegion.HIDDEN_AREA_ENTRANCE, 0)),
+    AVConnection(AVDoorID(AVRegion.HIDDEN_AREA_ENTRANCE, 1), AVDoorID(AVRegion.HIDDEN_AREA_SHAFT, 0)),
+    AVConnection(AVDoorID(AVRegion.HIDDEN_AREA_SHAFT, 1), AVDoorID(AVRegion.SECRET_ITEM, 0)),
+    AVConnection(AVDoorID(AVRegion.BLUE_AND_PURPLE_CORRIDOR_EAST, 1), AVDoorID(AVRegion.ATHETOS_FOYER_SHAFT_LOWER, 0)),
+    AVConnection(AVDoorID(AVRegion.ATHETOS_FOYER_SHAFT_CENTER, 0), AVDoorID(AVRegion.MARURU_SAVE3, 0)),
+    AVConnection(AVDoorID(AVRegion.ATHETOS_FOYER_SHAFT_UPPER, 0), AVDoorID(AVRegion.ATHETOS, 0))
 ]
 
 region_name_to_connection: Dict[str, List[AVConnection]] = {}

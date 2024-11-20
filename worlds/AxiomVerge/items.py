@@ -84,7 +84,8 @@ item_name_groups = {
 }
 
 axiom_verge_events = {  # location: item
-    'Infection Sequence': 'Infection Cleared'
+    'Infection Sequence': 'Infection Cleared',
+    'Athetos Defeated': 'Victory'
 }
 
 
