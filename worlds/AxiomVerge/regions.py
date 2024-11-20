@@ -99,7 +99,7 @@ class AVRegion(enum.Enum):
         AVDoor("Brinstar Shaft Lower Right Door", Orientation.Right),
         AVDoor("Brinstar Shaft Center Right Door", Orientation.Right),
         AVDoor("Brinstar Shaft Upper Right Door", Orientation.Right),
-        AVDoor("Brinstar Shaft Inner BC", logic=state.has("CornerCut") or logicfunction.tempup or logicfunction.trenchcoat or logicfunction.drone)
+        AVDoor("Brinstar Shaft Inner BC", logic=logicfunction.cornercut or logicfunction.tempup or logicfunction.trenchcoat or logicfunction.drone)
     ]
     BRINSTAR_SHAFT_CENTER = "Brinstar Shaft_Center", [
         AVDoor("Brinstar Shaft Center Left Door", Orientation.Left),
@@ -112,7 +112,7 @@ class AVRegion(enum.Enum):
     ]
 
     NOVA_GATE = "Nova Gate", [
-        AVDoor("Nova Gate Left Door", Orientation.Left, logic=state.has("CornerCut") or logicfunction.anycoat),
+        AVDoor("Nova Gate Left Door", Orientation.Left, logic=logicfunction.cornercut or logicfunction.anycoat),
         AVDoor("Nova Gate Right Door", Orientation.Right, logic=logicfunction.anyweapon or logicfunction.trenchcoat or logicfunction.drone or logicfunction.justdrill)
     ]
 
@@ -124,7 +124,7 @@ class AVRegion(enum.Enum):
     ]
     SPITBUG_HALL_EAST = "Spitbug Hall_East", [
         AVDoor("Spitbug Hall Right Up Door", Orientation.Up),
-        AVDoor("Spitbug Hall Inner EW", logic=state.has("CornerCut") or logicfunction.anycoat)
+        AVDoor("Spitbug Hall Inner EW", logic=logicfunction.cornercut or logicfunction.anycoat)
     ]
 
     WRONG_TOWER = "Wrong Tower", [
@@ -215,7 +215,7 @@ class AVRegion(enum.Enum):
 
     # drillroom: 2 regions
     DRILL_ROOM_UPPER = "Drill Room_Upper", [
-        AVDoor("Drill Room Up Door", Orientation.Left, BossDoor.Outer, logic=logicfunction.shortdrone or logicfunction.longwarp or (state.has('Field Disruptor') and logicfunction.grapple)),
+        AVDoor("Drill Room Up Door", Orientation.Left, BossDoor.Outer, logic=logicfunction.shortdrone or logicfunction.longwarp or (logicfunction.fielddisruptor and logicfunction.grapple)),
         AVDoor("Drill Room Inner UB", logic=logicfunction.drill)
     ]
     DRILL_ROOM_LOWER = "Drill Room_Lower", [
@@ -226,7 +226,7 @@ class AVRegion(enum.Enum):
     # drillsecret: 2 regions
     XEDUR_BASEMENT_EAST = "Xedur Basement_East", [
         AVDoor("Xedur Basement Right Door", Orientation.Right),
-        AVDoor("Xedur Basement Inner EW", logic=logicfunction.drill and (state.has("CornerCut") or (logicfunction.anyweapon and logicfunction.tempup) or state.has("LongKilver") or logicfunction.anycoat))
+        AVDoor("Xedur Basement Inner EW", logic=logicfunction.drill and (logicfunction.cornercut or (logicfunction.anyweapon and logicfunction.tempup) or logicfunction.longpierce or logicfunction.anycoat))
     ]
     XEDUR_BASEMENT_WEST = "Xedur Basement_West", [
         AVDoor("Xedur Basement Left Door", Orientation.Left, logic=logicfunction.drill),

@@ -214,3 +214,9 @@ def rangeweapon(logic_info: LogicInfo) -> Callable[[CollectionState], bool]:
     def _rangeweapon(state: CollectionState) -> bool:
         return state.has("RangeWeapon", logic_info.player)
     return _rangeweapon
+
+
+def cornercut(logic_info: LogicInfo) -> Callable[[CollectionState], bool]:
+    def _cornercut(state: CollectionState) -> bool:
+        return state.has("CornerCut", logic_info.player)
+    return _cornercut
