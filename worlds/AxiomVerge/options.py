@@ -20,6 +20,12 @@ class ProgressiveDrone(Options.Toggle):
     display_name = "Progressive Drone"
 
 
+class GuaranteeStartWeapon(Options.DefaultOnToggle):
+    """Whether you're guaranteed a starting weapon where the Axiom Disruptor should be
+    (note that this will likely have no effect in room rando)"""
+    display_name = "Guarantee Starting Weapon"
+
+
 class GrappleClips(Options.Choice):
     """Whether Grapple Clips should be considered for logic
     standard: only require clips within the room
@@ -68,6 +74,7 @@ class AVOptions(Options.PerGameCommonOptions):
     progressive_coats: ProgressiveCoats
     progressive_glitch: ProgressiveGlitch
     progressive_drone: ProgressiveDrone
+    guarantee_starting_weapon: GuaranteeStartWeapon
     grapple_clips: GrappleClips
     rocket_jumps: RocketJumps
     drone_fly: DroneFly

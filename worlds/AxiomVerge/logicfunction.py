@@ -1,5 +1,5 @@
 from .items import axiom_verge_items, item_name_groups
-from BaseClasses import CollectionState
+from BaseClasses import CollectionState, Location
 from typing import TYPE_CHECKING, NamedTuple, Callable
 
 if TYPE_CHECKING:
@@ -8,6 +8,8 @@ if TYPE_CHECKING:
 
 class LogicInfo(NamedTuple):
     player: int
+    yamldronefly: bool
+    yamlroomrando: bool
 
 
 def anycoat(logic_info: LogicInfo) -> Callable[[CollectionState], bool]:
@@ -48,7 +50,7 @@ def dronetp(logic_info: LogicInfo) -> Callable[[CollectionState], bool]:
 
 def anyglitch(logic_info: LogicInfo) -> Callable[[CollectionState], bool]:
     def _anyglitch(state: CollectionState) -> bool:
-        return state.has("Address Disruptor", logic_info.player) or state.has("Address Disruptor 2", logic_info.player) or state.has("Address Bomb", logic_info.player) or state.has("Progressive Glitch"), logic_info.player
+        return state.has("Address Disruptor", logic_info.player) or state.has("Address Disruptor 2", logic_info.player) or state.has("Address Bomb", logic_info.player) or state.has("Progressive Glitch", logic_info.player)
     return _anyglitch
 
 
@@ -72,7 +74,7 @@ def drill(logic_info: LogicInfo) -> Callable[[CollectionState], bool]:
 
 def breakblock(logic_info: LogicInfo) -> Callable[[CollectionState], bool]:
     def _breakblock(state: CollectionState) -> bool:
-        return state.has("Weapon", logic_info.player) or drill(logic_info)(state) or redcoat(logic_info)(state)
+        return anyweapon(logic_info)(state) or drill(logic_info)(state) or redcoat(logic_info)(state)
     return _breakblock
 
 
@@ -176,7 +178,7 @@ def justdrill(logic_info: LogicInfo) -> Callable[[CollectionState], bool]:
 
 def anyweapon(logic_info: LogicInfo) -> Callable[[CollectionState], bool]:
     def _anyweapon(state: CollectionState) -> bool:
-        return state.has("Weapon", logic_info.player)
+        return state.has_group("Weapon", logic_info.player)
     return _anyweapon
 
 
@@ -194,29 +196,35 @@ def scissorbeam(logic_info: LogicInfo) -> Callable[[CollectionState], bool]:
 
 def shortpierce(logic_info: LogicInfo) -> Callable[[CollectionState], bool]:
     def _shortpierce(state: CollectionState) -> bool:
-        return state.has("ShortPierce", logic_info.player)
+        return state.has_group("ShortPierce", logic_info.player)
     return _shortpierce
 
 
 def longpierce(logic_info: LogicInfo) -> Callable[[CollectionState], bool]:
     def _longpierce(state: CollectionState) -> bool:
-        return state.has("LongPierce", logic_info.player)
+        return state.has_group("LongPierce", logic_info.player)
     return _longpierce
 
 
 def longweapon(logic_info: LogicInfo) -> Callable[[CollectionState], bool]:
     def _longweapon(state: CollectionState) -> bool:
-        return state.has("LongWeapon", logic_info.player)
+        return state.has_group("LongWeapon", logic_info.player)
     return _longweapon
 
 
 def rangeweapon(logic_info: LogicInfo) -> Callable[[CollectionState], bool]:
     def _rangeweapon(state: CollectionState) -> bool:
-        return state.has("RangeWeapon", logic_info.player)
+        return state.has_group("RangeWeapon", logic_info.player)
     return _rangeweapon
 
 
 def cornercut(logic_info: LogicInfo) -> Callable[[CollectionState], bool]:
     def _cornercut(state: CollectionState) -> bool:
-        return state.has("CornerCut", logic_info.player)
+        return state.has_group("CornerCut", logic_info.player)
     return _cornercut
+
+
+def no(logic_info: LogicInfo) -> Callable[[CollectionState], bool]:
+    def _no(state: CollectionState) -> bool:
+        return False
+    return _no

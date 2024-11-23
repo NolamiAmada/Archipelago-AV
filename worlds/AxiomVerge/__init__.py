@@ -24,6 +24,7 @@ class AVWorld(World):
     item_name_to_id = {axiom_verge_item.name: axiom_verge_item.code for
                        axiom_verge_item in axiom_verge_items}
     location_name_to_id = {name: location.code for name, location in av_locations_unpacked.items()}
+    item_name_groups = items.item_name_groups
 
     def __init__(self, multiworld, player):
         super().__init__(multiworld, player)
@@ -60,7 +61,17 @@ class AVWorld(World):
             for _ in range(item.quantity):
                 itempool_data.append(item)
         items = [Item(item.name, item.classification, item.code, self.player) for item in itempool_data]
+        if self.options.guarantee_starting_weapon and not self.options.room_rando:
+            for loc in self.locations:
+                if loc.name == "Eribu - Starter Weapon":
+                    wepchoice = self.random.choice(["Axiom Disruptor", "Multi Disruptor", "Lightning Gun", "Inertial Pulse", "Data Bomb", "Voranj", "Firewall", "Ion Beam", "Tethered Charge", "Turbine Pulse", "Shards", "Quantum Variegator", "Heat Seekers", "Nova", "Orbital Discharge", "Hypo-Atomizer", "Reflector", "Kilver", "Distortion Field", "Reverse Slicer", "Fat Beam", "Scissor Beam", "Flamethrower"])
+                    print(wepchoice)
+                    wep = [item for item in items if item.name == wepchoice]
+                    assert len(wep) == 1
+                    loc.place_locked_item(wep[0])
+                    items.remove(wep[0])
         self.multiworld.itempool += items
 
         # should be its own function but im lazy as hell
         self.multiworld.completion_condition[self.player] = VictoryCondition(self.player).victory
+
