@@ -65,7 +65,7 @@ item_name_groups = {
         "Fat Beam", "Scissor Beam", "Flamethrower"
     },
     "Weapon": {
-        "Axiom Disruptor", "Multi Disruptor", "Lightning Gun", "Inertial Pulse", "Data Bomb",
+        "Axiom Disruptor", "Multi-Disruptor", "Lightning Gun", "Inertial Pulse", "Data Bomb",
         "Voranj", "Firewall", "Ion Beam", "Tethered Charge", "Turbine Pulse", "Shards",
         "Quantum Variegator", "Heat Seekers",
         "Nova", "Orbital Discharge", "Hypo-Atomizer", "Reflector",
@@ -75,7 +75,7 @@ item_name_groups = {
     "LongWeapon": {
         "Axiom Disruptor", "Inertial Pulse", "Data Bomb", "Voranj", "Ion Beam", "Tethered Charge", "Turbine Pulse",
         "Heat Seekers", "Nova", "Orbital Discharge", "Hypo-Atomizer", "Reflector", "Fat Beam", "Scissor Beam",
-        "Flamethrower", "Multi Disruptor", "Lightning Gun", "Shards", "Quantum Variegator", "Reverse Slicer"
+        "Flamethrower", "Multi-Disruptor", "Lightning Gun", "Shards", "Quantum Variegator", "Reverse Slicer"
     },
     "RangeWeapon": {
         "Axiom Disruptor", "Inertial Pulse", "Data Bomb", "Ion Beam", "Turbine Pulse",
