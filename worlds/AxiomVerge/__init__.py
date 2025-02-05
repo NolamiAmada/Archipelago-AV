@@ -11,9 +11,9 @@ from BaseClasses import Region, Location, Entrance, Item, ItemClassification, Co
 class VictoryCondition:
     def __init__(self, player: int) -> None:
         self.player = player
+
     def victory(self, state: CollectionState) -> bool:
         return state.has("Victory", self.player)
-
 
 
 class AVWorld(World):

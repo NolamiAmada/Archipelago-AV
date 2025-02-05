@@ -98,7 +98,12 @@ axiom_verge_locations = {
     "Hybrid Room": [AVLocation("Mar-Uru - Hallway Floor", BASE_ID+79, logic=lambda logic_info: (lambda state: logicfunction.redcoat(logic_info)(state)))],
     "Blue and Purple Corridor_West": [AVLocation("Mar-Uru - Before Reverse Slicer", BASE_ID+80)],
     "Secret Item": [AVLocation("Mar-Uru - Reverse Slicer", BASE_ID+81)],
-    "Athetos Foyer Shaft_Center": [AVLocation("Mar-Uru - Before Athetos", BASE_ID+82, logic=lambda logic_info: (lambda state: logicfunction.drone(logic_info)(state)))]
+    "Athetos Foyer Shaft_Center": [AVLocation("Mar-Uru - Before Athetos", BASE_ID+82, logic=lambda logic_info: (lambda state: logicfunction.drone(logic_info)(state)))],
+    "Edin to Ukkin-Na_West": [AVLocation("Edin - Near Ukkin-Na", BASE_ID+83, logic=lambda logic_info: (lambda state: logicfunction.dronefly(logic_info)(state) or (logicfunction.tempup(logic_info)(state) and logicfunction.grapple(logic_info)(state))))],
+    "Edin to Ukkin-Na_East": [AVLocation("Edin - Shards", BASE_ID+84, logic=lambda logic_info: (lambda state: logicfunction.glitchnades(logic_info)(state)))],
+    "Edin to Ukkin-Na_Center": [AVLocation("Edin - Upper Bioflux Accellerator", BASE_ID+85, logic=lambda logic_info: (lambda state: logicfunction.tempup(logic_info)(state)))],
+    "Edin to Ukkin-Na_Secret": [AVLocation("Edin - Near Indi", BASE_ID+86)],
+    "Hangar Basement Entrance_Upper": [AVLocation("Edin - Near Hangar", BASE_ID+87, logic=lambda logic_info: (lambda state: logicfunction.redcoat(logic_info)(state) or (logicfunction.anyglitch(logic_info)(state) and logicfunction.sevenblockup(logic_info)(state))))]
 }
 
 av_locations_unpacked = {}

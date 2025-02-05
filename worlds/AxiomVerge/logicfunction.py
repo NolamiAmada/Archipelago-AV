@@ -134,15 +134,13 @@ def tempup(logic_info: LogicInfo) -> Callable[[CollectionState], bool]:
 
 def dronefly(logic_info: LogicInfo) -> Callable[[CollectionState], bool]:
     def _dronefly(state: CollectionState) -> bool:
-        return dronelaunch(logic_info)(state) and dronetp(logic_info)(state) and (state.has("Address Disruptor", logic_info.player) or state.has("Address Disruptor 2", logic_info.player) or state.has("Progressive Glitch", logic_info.player) or justdrill(logic_info)(state)) and False
-        # ADD DRONEFLY YAML OPTION AND REMOVE "and False"
+        return shortdrone(logic_info)(state) and (state.has("Address Disruptor", logic_info.player) or state.has("Address Disruptor 2", logic_info.player) or state.has("Progressive Glitch", logic_info.player) or justdrill(logic_info)(state)) and logic_info.yamldronefly
     return _dronefly
 
 
 def dronequest(logic_info: LogicInfo) -> Callable[[CollectionState], bool]:
     def _dronequest(state: CollectionState) -> bool:
-        return drone(logic_info)(state) and (False or dronetp(logic_info)(state))
-        # ADD ROOM RANDO YAML OPTION AND REMOVE "False"
+        return drone(logic_info)(state) and ((not logic_info.yamlroomrando) or dronetp(logic_info)(state))
     return _dronequest
 
 
