@@ -1591,6 +1591,107 @@ class AVRegion(enum.Enum):
         AVDoor("Hangar Basement Entrance Inner UE", logic=lambda logic_info: (lambda state: logicfunction.trenchcoat(logic_info)(state) and logicfunction.glitchnades(logic_info)(state)))
     ]
 
+    #westernhangarentrance: 3 regions
+    WESTERN_HANGAR_ENTRANCE_LOWER = "Western Hangar Entrace_Lower", [
+        AVDoor("Western Hangar Entrance Lower Right Door", Orientation.Right),
+        AVDoor("Western Hangar Entrance Inner BC", logic=lambda logic_info: (lambda state: logicfunction.anyupnoceiling(logic_info)(state)))
+    ]
+
+    WESTERN_HANGAR_ENTRANCE_CENTER = "Western Hangar Entrance_Center", [
+        AVDoor("Western Hangar Entrance Inner CB"),
+        AVDoor("Western Hangar Entrance Inner CU", logic=lambda logic_info: (lambda state: logicfunction.longwarp(logic_info)(state) or logicfunction.shortdrone(logic_info)(state)))
+    ]
+
+    WESTERN_HANGAR_ENTRANCE_UPPER = "Western Hangar Entrance_Upper", [
+        AVDoor("Western Hangar Entrance Upper Right Door", Orientation.Right),
+        AVDoor("Western Hangar Entrance Inner UC")
+    ]
+
+    HANGAR_FOYER = "Hangar Foyer", [
+        AVDoor("Hangar Foyer Left Door", Orientation.Left),
+        AVDoor("Hangar Foyer Right Door", Orientation.Right)
+    ]
+
+    EDIN_SAVE1 = "Edin Save 1", [
+        AVDoor("Edin Save 1 Left Door", Orientation.Left),
+        AVDoor("Edin Save 1 Right Door", Orientation.Right),
+        AVDoor("Edin Save 1 Save", Orientation.Save)
+    ]
+
+    DEFORMED_TRACE_BOSS_FOYER = "Deformed Trace Boss Foyer", [
+        AVDoor("Deformed Trace Boss Foyer Left Door", Orientation.Left),
+        AVDoor("Deformed Trace Boss Foyer Down Door", Orientation.Down, bossdoor=BossDoor.Outer)
+    ]
+
+    DEFORMED_TRACE_BOSS_ROOM = "Deformed Trace Boss Room", [
+        AVDoor("Deformed Trace Boss Room Upper Door", Orientation.Up, bossdoor=BossDoor.Inner, logic=lambda logic_info: (lambda state: logicfunction.anyweapon(logic_info)(state) and (logicfunction.trenchcoat(logic_info)(state) and logicfunction.dronefly(logic_info)(state)) or (logicfunction.longdrone(logic_info)(state) and logicfunction.redcoat(logic_info)(state)))),
+        AVDoor("Deformed Trace Boss Room Left Door", Orientation.Left, bossdoor=BossDoor.Inner)
+    ]
+
+    HANGAR_ACCESS = "Hangar Access", [
+        AVDoor("Hangar Access Right Door", Orientation.Right, bossdoor=BossDoor.Outer, logic=lambda logic_info: (lambda state: logicfunction.longwarp(logic_info)(state) or logicfunction.shortdrone(logic_info)(state) or (logicfunction.grapple(logic_info)(state) and logicfunction.anyupnoceiling(logic_info)(state)))),
+        AVDoor("Hangar Access Down Door", Orientation.Down)
+    ]
+
+    #hangar: 3 regions
+    HANGAR_EAST = "Hangar_East", [
+        AVDoor("Hangar Right Door", Orientation.Right),
+        AVDoor("Hangar Inner EW", logic=lambda logic_info: (lambda state: logicfunction.glitchnades(logic_info)(state))),
+        AVDoor("Hangar Inner EU", logic=lambda logic_info: (lambda state: logicfunction.anyupnoceiling(logic_info)(state)))
+    ]
+
+    HANGAR_WEST = "Hangar_West", [
+        AVDoor("Hangar Left Door", Orientation.Left),
+        AVDoor("Hangar Inner WE", logic=lambda logic_info: (lambda state: logicfunction.glitchnades(logic_info)(state)))
+    ]
+
+    HANGAR_UPPER = "Hangar_Upper", [
+        AVDoor("Hangar Upper Door", Orientation.Up),
+        AVDoor("Hangar Inner UE")
+    ]
+
+    #edintokur: 3 regions
+    EDIN_TO_KUR_WEST = "Edin to Kur_West", [
+        AVDoor("Edin to Kur Lower Left Door", Orientation.Left),
+        AVDoor("Edin to Kur Inner WE", logic=lambda logic_info: (lambda state: logicfunction.glitchnades(logic_info)(state)))
+    ]
+
+    EDIN_TO_KUR_EAST = "Edin to Kur_East", [
+        AVDoor("Edin to Kur Right Door", Orientation.Right, bossdoor=BossDoor.Areatrans),
+        AVDoor("Edin to Kur Inner EW", logic=lambda logic_info: (lambda state: logicfunction.glitchnades(logic_info)(state))),
+        AVDoor("Edin to Kur Inner EU", logic=lambda logic_info: (lambda state: logicfunction.dronefly(logic_info)(state) or (logicfunction.glitchnades(logic_info)(state) and (logicfunction.shortdrone(logic_info)(state) or logicfunction.longwarp(logic_info)(state) or (logicfunction.grapple(logic_info)(state) and logicfunction.trenchcoat(logic_info)(state))))))
+    ]
+
+    EDIN_TO_KUR_UPPER = "Edin to Kur_Upper", [
+        AVDoor("Edin to Kur Upper Left Door", Orientation.Left),
+        AVDoor("Edin to Kur Inner UE", logic=lambda logic_info: (lambda state: logicfunction.anyupnoceiling(logic_info)(state)))
+    ]
+
+    HANGAR_ATTIC = "Hangar Attic", [
+        AVDoor("Hangar Attic Right Door", Orientation.Right)
+    ]
+
+    #westtowerlevel1: 2 regions
+    WEST_TOWER_LEVEL1_LOWER = "West Tower Level 1_Lower", [
+        AVDoor("West Tower Level 1 Down Door", Orientation.Down),
+        AVDoor("West Tower Level 1 Lower Left Door", Orientation.Left),
+        AVDoor("West Tower Level 1 Right Door", Orientation.Right),
+        AVDoor("West Tower Level 1 Inner BU", logic=lambda logic_info: (lambda state: logicfunction.anyup(logic_info)(state)))
+    ]
+
+    WEST_TOWER_LEVEL1_UPPER = "West Tower Level 1_Upper", [
+        AVDoor("West Tower Level 1 Upper Left Door", Orientation.Left),
+        AVDoor("West Tower Level 1 Inner UB")
+    ]
+
+    EDIN_SAVE2 = "Edin Save 2", [
+        AVDoor("Edin Save 2 Right Door", Orientation.Right),
+        AVDoor("Edin Save 2 Save", Orientation.Save)
+    ]
+
+    LEVEL1_SECRET = "Level 1 Secret", [
+        AVDoor("Level 1 Secret Left Door", Orientation.Left)
+    ]
 
 class AVDoorID(NamedTuple):
     region: AVRegion
@@ -1706,7 +1807,14 @@ axiom_verge_connections = [
     AVConnection(AVDoorID(AVRegion.EDIN_TO_INDI_MAIN, 3), AVDoorID(AVRegion.EDIN_TO_INDI_SECRET, 1)),
     AVConnection(AVDoorID(AVRegion.HANGAR_BASEMENT_ENTRANCE_WEST, 1), AVDoorID(AVRegion.HANGAR_BASEMENT_ENTRANCE_EAST, 1)),
     AVConnection(AVDoorID(AVRegion.HANGAR_BASEMENT_ENTRANCE_WEST, 2), AVDoorID(AVRegion.HANGAR_BASEMENT_ENTRANCE_UPPER, 1)),
-    AVConnection(AVDoorID(AVRegion.HANGAR_BASEMENT_ENTRANCE_EAST, 2), AVDoorID(AVRegion.HANGAR_BASEMENT_ENTRANCE_UPPER, 2))
+    AVConnection(AVDoorID(AVRegion.HANGAR_BASEMENT_ENTRANCE_EAST, 2), AVDoorID(AVRegion.HANGAR_BASEMENT_ENTRANCE_UPPER, 2)),
+    AVConnection(AVDoorID(AVRegion.WESTERN_HANGAR_ENTRANCE_LOWER, 1), AVDoorID(AVRegion.WESTERN_HANGAR_ENTRANCE_CENTER, 0)),
+    AVConnection(AVDoorID(AVRegion.WESTERN_HANGAR_ENTRANCE_CENTER, 1), AVDoorID(AVRegion.WESTERN_HANGAR_ENTRANCE_UPPER, 1)),
+    AVConnection(AVDoorID(AVRegion.HANGAR_EAST, 1), AVDoorID(AVRegion.HANGAR_WEST, 1)),
+    AVConnection(AVDoorID(AVRegion.HANGAR_EAST, 2), AVDoorID(AVRegion.HANGAR_UPPER, 1)),
+    AVConnection(AVDoorID(AVRegion.EDIN_TO_KUR_EAST, 1), AVDoorID(AVRegion.EDIN_TO_KUR_WEST, 1)),
+    AVConnection(AVDoorID(AVRegion.EDIN_TO_KUR_EAST, 2), AVDoorID(AVRegion.EDIN_TO_KUR_UPPER, 1)),
+    AVConnection(AVDoorID(AVRegion.WEST_TOWER_LEVEL1_LOWER, 3), AVDoorID(AVRegion.WEST_TOWER_LEVEL1_UPPER, 1))
 ]
 
 axiom_verge_doors = [
@@ -1925,7 +2033,21 @@ axiom_verge_doors = [
     AVConnection(AVDoorID(AVRegion.EDIN_TO_UKKINNA_EAST, 0), AVDoorID(AVRegion.EDIN_TO_INDI_MAIN, 2)),
     AVConnection(AVDoorID(AVRegion.EDIN_TO_INDI_SECRET, 0), AVDoorID(AVRegion.EDIN_TO_UKKINNA_SECRET, 0)),
     AVConnection(AVDoorID(AVRegion.EDIN_TO_INDI_MAIN, 0), AVDoorID(AVRegion.INDI_TO_EDIN, 0)),
-    AVConnection(AVDoorID(AVRegion.EDIN_TO_INDI_MAIN, 1), AVDoorID(AVRegion.HANGAR_BASEMENT_ENTRANCE_WEST, 0))
+    AVConnection(AVDoorID(AVRegion.EDIN_TO_INDI_MAIN, 1), AVDoorID(AVRegion.HANGAR_BASEMENT_ENTRANCE_WEST, 0)),
+    AVConnection(AVDoorID(AVRegion.HANGAR_BASEMENT_ENTRANCE_UPPER, 0), AVDoorID(AVRegion.WESTERN_HANGAR_ENTRANCE_LOWER, 0)),
+    AVConnection(AVDoorID(AVRegion.WESTERN_HANGAR_ENTRANCE_UPPER, 0), AVDoorID(AVRegion.HANGAR_FOYER, 0)),
+    AVConnection(AVDoorID(AVRegion.HANGAR_FOYER, 1), AVDoorID(AVRegion.EDIN_SAVE1, 0)),
+    AVConnection(AVDoorID(AVRegion.EDIN_SAVE1, 1), AVDoorID(AVRegion.DEFORMED_TRACE_BOSS_FOYER, 0)),
+    AVConnection(AVDoorID(AVRegion.DEFORMED_TRACE_BOSS_FOYER, 1), AVDoorID(AVRegion.DEFORMED_TRACE_BOSS_ROOM, 0)),
+    AVConnection(AVDoorID(AVRegion.DEFORMED_TRACE_BOSS_ROOM, 1), AVDoorID(AVRegion.HANGAR_ACCESS, 0)),
+    AVConnection(AVDoorID(AVRegion.HANGAR_ACCESS, 1), AVDoorID(AVRegion.HANGAR_UPPER, 0)),
+    AVConnection(AVDoorID(AVRegion.HANGAR_BASEMENT_ENTRANCE_EAST, 0), AVDoorID(AVRegion.HANGAR_WEST, 0)),
+    AVConnection(AVDoorID(AVRegion.HANGAR_EAST, 0), AVDoorID(AVRegion.EDIN_TO_KUR_WEST, 0)),
+    AVConnection(AVDoorID(AVRegion.EDIN_TO_KUR_EAST, 0), AVDoorID(AVRegion.KUR_SHAFT_SECRET, 0)),
+    AVConnection(AVDoorID(AVRegion.EDIN_TO_KUR_UPPER, 0), AVDoorID(AVRegion.HANGAR_ATTIC, 0)),
+    AVConnection(AVDoorID(AVRegion.EDIN_TO_UKKINNA_UPPER, 0), AVDoorID(AVRegion.WEST_TOWER_LEVEL1_LOWER, 0)),
+    AVConnection(AVDoorID(AVRegion.WEST_TOWER_LEVEL1_LOWER, 1), AVDoorID(AVRegion.EDIN_SAVE2, 0)),
+    AVConnection(AVDoorID(AVRegion.WEST_TOWER_LEVEL1_LOWER, 2), AVDoorID(AVRegion.LEVEL1_SECRET, 0))
 ]
 
 region_name_to_connection: Dict[str, List[AVConnection]] = {}

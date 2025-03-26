@@ -86,7 +86,7 @@ axiom_verge_locations = {
     "Ukkin-Na Hidden Item": [AVLocation("Ukkin-Na - Past the Slugs", BASE_ID+69, logic=lambda logic_info: (lambda state: logicfunction.drone(logic_info)(state)))],
     "Trenchcoat Chamber_Upper": [AVLocation("Ukkin-Na - Trenchcoat", BASE_ID+70)],
     "Trenchcoat Chamber_Lower": [AVLocation("Ukkin-Na - Under Trenchcoat", BASE_ID+71, logic=lambda logic_info: (lambda state: logicfunction.trenchcoat(logic_info)(state)))],
-    "Living Room of Illusion": [AVLocation("Ukkin-NA - Floorbreakers", BASE_ID+72, logic=lambda logic_info: (lambda state: logicfunction.anyup(logic_info)(state) and logicfunction.drone(logic_info)(state) and (logicfunction.redcoat(logic_info)(state) or logicfunction.glitch2(logic_info)(state))))],
+    "Living Room of Illusion": [AVLocation("Ukkin-Na - Floorbreakers", BASE_ID+72, logic=lambda logic_info: (lambda state: logicfunction.anyup(logic_info)(state) and logicfunction.drone(logic_info)(state) and (logicfunction.redcoat(logic_info)(state) or logicfunction.glitch2(logic_info)(state))))],
     "Vision_Lower": [AVLocation("Ukkin-Na - Definetely a Boss Room", BASE_ID+73, logic=lambda logic_info: (lambda state: logicfunction.trenchcoat(logic_info)(state) and logicfunction.drone(logic_info)(state)))],
     "Peak": [AVLocation("Ukkin-Na - Turbine Pulse", BASE_ID+74, logic=lambda logic_info: (lambda state: logicfunction.drill(logic_info)(state)))],
     "Bioflux Shaft 1_Upper": [AVLocation("Mar-Uru - After Sentinel", BASE_ID+75, logic=lambda logic_info: (lambda state: logicfunction.anyup(logic_info)(state)))],
@@ -103,7 +103,17 @@ axiom_verge_locations = {
     "Edin to Ukkin-Na_East": [AVLocation("Edin - Shards", BASE_ID+84, logic=lambda logic_info: (lambda state: logicfunction.glitchnades(logic_info)(state)))],
     "Edin to Ukkin-Na_Center": [AVLocation("Edin - Upper Bioflux Accellerator", BASE_ID+85, logic=lambda logic_info: (lambda state: logicfunction.tempup(logic_info)(state)))],
     "Edin to Ukkin-Na_Secret": [AVLocation("Edin - Near Indi", BASE_ID+86)],
-    "Hangar Basement Entrance_Upper": [AVLocation("Edin - Near Hangar", BASE_ID+87, logic=lambda logic_info: (lambda state: logicfunction.redcoat(logic_info)(state) or (logicfunction.anyglitch(logic_info)(state) and logicfunction.sevenblockup(logic_info)(state))))]
+    "Hangar Basement Entrance_Upper": [AVLocation("Edin - Near Hangar", BASE_ID+87, logic=lambda logic_info: (lambda state: logicfunction.redcoat(logic_info)(state) or (logicfunction.anyglitch(logic_info)(state) and logicfunction.sevenblockup(logic_info)(state))))],
+    "Western Hangar Entrance_Upper": [AVLocation("Edin - West of Distortion Field Upper", BASE_ID+88, logic=lambda logic_info: (lambda state: logicfunction.dronefly(logic_info)(state) or (logicfunction.grapple(logic_info)(state) and logicfunction.trenchcoat(logic_info)(state))))],
+    "Western Hangar Entrance_Center": [AVLocation("Edin - West of Distortion Field Lower", BASE_ID+89, logic=lambda logic_info: (lambda state: logicfunction.drill(logic_info)(state)))],
+    "Hangar Foyer": [AVLocation("Edin - Distortion Field", BASE_ID+90, logic=lambda logic_info: (lambda state: logicfunction.anyglitch(logic_info)(state) and logicfunction.trenchcoat(logic_info)(state) and (logicfunction.dronefly(logic_info)(state) or (logicfunction.grapple(logic_info)(state) and logicfunction.shortdrone(logic_info)(state) and (logicfunction.redcoat(logic_info)(state) or logicfunction.longdrone(logic_info)(state))))))], # item not present sometimes? maybe give command related?
+    "Hangar_East": [AVLocation("Edin - Address Bomb", BASE_ID+91)],
+    "Hangar Attic Right Door": [
+        AVLocation("Edin - Wisp Chamber Right Item", BASE_ID+92, logic=lambda logic_info: (lambda state: logicfunction.trenchcoat(logic_info)(state))), # these both need combat logic realistically
+        AVLocation("Edin - Wisp Chamber Left Item", BASE_ID+93, logic=lambda logic_info: (lambda state: logicfunction.trenchcoat(logic_info)(state)))
+    ],
+    "West Tower Level 1_Upper": [AVLocation("Edin - Hidden Ceiling", BASE_ID+94, logic=lambda logic_info: (lambda state: logicfunction.trenchcoat(logic_info)(state) and logicfunction.shortdrone(logic_info)(state)))],
+    "Level 1 Secret": [AVLocation("Edin - Very Real Wall", BASE_ID+95)]
 }
 
 av_locations_unpacked = {}
