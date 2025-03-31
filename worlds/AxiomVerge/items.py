@@ -80,6 +80,10 @@ item_name_groups = {
     "RangeWeapon": {
         "Axiom Disruptor", "Inertial Pulse", "Data Bomb", "Ion Beam", "Turbine Pulse",
         "Heat Seekers", "Nova", "Orbital Discharge", "Hypo-Atomizer", "Reflector", "Fat Beam"
+    },
+    "GirTabWeapon": {
+        "Nova",
+        "Fat Beam"
     }
 }
 

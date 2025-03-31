@@ -113,7 +113,13 @@ axiom_verge_locations = {
         AVLocation("Edin - Wisp Chamber Left Item", BASE_ID+93, logic=lambda logic_info: (lambda state: logicfunction.trenchcoat(logic_info)(state)))
     ],
     "West Tower Level 1_Upper": [AVLocation("Edin - Hidden Ceiling", BASE_ID+94, logic=lambda logic_info: (lambda state: logicfunction.trenchcoat(logic_info)(state) and logicfunction.shortdrone(logic_info)(state)))],
-    "Level 1 Secret": [AVLocation("Edin - Very Real Wall", BASE_ID+95)]
+    "Level 1 Secret": [AVLocation("Edin - Very Real Wall", BASE_ID+95)],
+    "Distortion Field Room": [AVLocation("Edin - Drone Teleport Challenge", BASE_ID+96, logic=lambda logic_info: (lambda state: logicfunction.trenchcoat(logic_info)(state) and logicfunction.shortdrone(logic_info)(state)))],
+    "West Tower Level 3_East": [AVLocation("Edin - Hole in the Wall", BASE_ID+97, logic=lambda logic_info: (lambda state: logicfunction.redcoat(logic_info)(state) or (logicfunction.trenchcoat(logic_info)(state) and logicfunction.shortdrone(logic_info)(state))))],
+    "Drone Teleport Room_Lower": [AVLocation("Edin - Drone Teleport", BASE_ID+98)],
+    "Thorn Maze Secret": [AVLocation("Kur - Hypo Atomizer", BASE_ID+99)],
+    "High Jump Room_Main": [AVLocation("Kur - Field Disruptor", BASE_ID+100)],
+    "Lair Vestibule": [AVLocation("Kur - Laser Friend", BASE_ID+101, logic=lambda logic_info: (lambda state: logicfunction.drone(logic_info)(state) and (logicfunction.anyglitch(logic_info)(state) or logicfunction.redcoat(logic_info)(state)) and (logicfunction.grapple(logic_info)(state) or logicfunction.shortdrone(logic_info)(state) or logicfunction.longwarp(logic_info)(state))))]
 }
 
 av_locations_unpacked = {}

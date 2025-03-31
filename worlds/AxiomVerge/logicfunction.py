@@ -221,6 +221,11 @@ def cornercut(logic_info: LogicInfo) -> Callable[[CollectionState], bool]:
         return state.has_group("CornerCut", logic_info.player)
     return _cornercut
 
+def girtabweapon(logic_info: LogicInfo) -> Callable[[CollectionState], bool]:
+    def _girtabweapon(state: CollectionState) -> bool:
+        return state.has_group("GirTabWeapon", logic_info.player)
+    return _girtabweapon
+
 
 def no(logic_info: LogicInfo) -> Callable[[CollectionState], bool]:
     def _no(state: CollectionState) -> bool:

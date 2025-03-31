@@ -1546,7 +1546,7 @@ class AVRegion(enum.Enum):
     ]
 
     EDIN_TO_UKKINNA_UPPER = "Edin to Ukkin-Na_Upper", [
-        AVDoor("Edin to Ukkin-Na Upper Door", Orientation.Up),
+        AVDoor("Edin to Ukkin-Na Up Door", Orientation.Up),
         AVDoor("Edin to Ukkin-Na Inner UC", logic=lambda logic_info: (lambda state: logicfunction.redcoat(logic_info)(state) or logicfunction.glitchnades(logic_info)(state)))
     ]
 
@@ -1624,7 +1624,7 @@ class AVRegion(enum.Enum):
     ]
 
     DEFORMED_TRACE_BOSS_ROOM = "Deformed Trace Boss Room", [
-        AVDoor("Deformed Trace Boss Room Upper Door", Orientation.Up, bossdoor=BossDoor.Inner, logic=lambda logic_info: (lambda state: logicfunction.anyweapon(logic_info)(state) and (logicfunction.trenchcoat(logic_info)(state) and logicfunction.dronefly(logic_info)(state)) or (logicfunction.longdrone(logic_info)(state) and logicfunction.redcoat(logic_info)(state)))),
+        AVDoor("Deformed Trace Boss Room Up Door", Orientation.Up, bossdoor=BossDoor.Inner, logic=lambda logic_info: (lambda state: logicfunction.anyweapon(logic_info)(state) and (logicfunction.trenchcoat(logic_info)(state) and logicfunction.dronefly(logic_info)(state)) or (logicfunction.longdrone(logic_info)(state) and logicfunction.redcoat(logic_info)(state)))),
         AVDoor("Deformed Trace Boss Room Left Door", Orientation.Left, bossdoor=BossDoor.Inner)
     ]
 
@@ -1646,7 +1646,7 @@ class AVRegion(enum.Enum):
     ]
 
     HANGAR_UPPER = "Hangar_Upper", [
-        AVDoor("Hangar Upper Door", Orientation.Up),
+        AVDoor("Hangar Up Door", Orientation.Up),
         AVDoor("Hangar Inner UE")
     ]
 
@@ -1691,6 +1691,145 @@ class AVRegion(enum.Enum):
 
     LEVEL1_SECRET = "Level 1 Secret", [
         AVDoor("Level 1 Secret Left Door", Orientation.Left)
+    ]
+
+    WEST_TOWER_LEVEL2 = "West Tower Level 2", [
+        AVDoor("West Tower Level 2 Right Door", Orientation.Right),
+        AVDoor("West Tower Level 2 Left Door", Orientation.Left),
+        AVDoor("West Tower Level 2 Up Door", Orientation.Up, logic=lambda logic_info: (lambda state: logicfunction.anyupnoceiling(logic_info)(state)))
+    ]
+
+    DistortionFieldRoom = "Distortion Field Room", [
+        AVDoor("Distortion Field Room Right Door", Orientation.Right)
+    ]
+
+    #westtowerlevel3: 4 regions
+    WEST_TOWER_LEVEL3_LOWER = "West Tower Level 3_Lower", [
+        AVDoor("West Tower Level 3 Down Door", Orientation.Down),
+        AVDoor("West Tower level 3 Inner BE", logic=lambda logic_info: (lambda state: logicfunction.anyupnoceiling(logic_info)(state)))
+    ]
+
+    WEST_TOWER_LEVEL3_EAST = "West Tower Level 3_East", [
+        AVDoor("West Tower Level 3 Inner EB"),
+        AVDoor("West Tower Level 3 Inner EU", logic=lambda logic_info: (lambda state: logicfunction.trenchcoat(logic_info)(state)))
+    ]
+
+    WEST_TOWER_LEVEL3_UPPER = "West Tower Level 3_Upper", [
+        AVDoor("West Tower Level 3 Right Door", Orientation.Right, logic=lambda logic_info: (lambda state: logicfunction.trenchcoat(logic_info)(state) or logicfunction.fielddisruptor(logic_info)(state))),
+        AVDoor("West Tower Level 3 Inner UE", logic=lambda logic_info: (lambda state: logicfunction.trenchcoat(logic_info)(state))),
+        AVDoor("West Tower Level 3 Inner UW", logic=lambda logic_info: (lambda state: logicfunction.trenchcoat(logic_info)(state) and logicfunction.shortdrone(logic_info)(state)))
+    ]
+
+    WEST_TOWER_LEVEL3_WEST = "West Tower Level 3_West", [
+        AVDoor("West Tower Level 3 Left Door", Orientation.Left),
+        AVDoor("West Tower Level 3 Inner WU", logic=lambda logic_info: (lambda state: logicfunction.trenchcoat(logic_info)(state) and logicfunction.shortdrone(logic_info)(state)))
+    ]
+
+    SPITBUG_BOSS_FOYER = "Spitbug Boss Foyer", [
+        AVDoor("Spitbug Boss Foyer Down Door", Orientation.Down),
+        AVDoor("Spitbug Boss Foyer Right Door", Orientation.Right),
+        AVDoor("Spitbug Boss Foyer Left Door", Orientation.Left, bossdoor=BossDoor.Outer)
+    ]
+
+    EDIN_SAVE3 = "EDIN Save 3", [
+        AVDoor("EDIN Save 3 Left Door", Orientation.Left),
+        AVDoor("EDIN Save 3 Save", Orientation.Save)
+    ]
+
+    SPITBUG_BOSS_ROOM = "Spitbug Boss Room", [
+        AVDoor("Spitbug Boss Room Right Door", Orientation.Right, bossdoor=BossDoor.Inner, logic=lambda logic_info: (lambda state: logicfunction.rangeweapon(logic_info)(state))), # this room DEFINITELY needs combat logic
+        AVDoor("Spitbug Boss Room Left Door", Orientation.Left, bossdoor=BossDoor.Inner, logic=lambda logic_info: (lambda state: logicfunction.rangeweapon(logic_info)(state)))
+    ]
+
+    #droneteleportroom: 2 regions
+    DRONE_TELEPORT_ROOM_UPPER = "Drone Teleport Room_Upper", [
+        AVDoor("Drone Teleport Room Upper Right Door", Orientation.Right, bossdoor=BossDoor.Outer),
+        AVDoor("Drone Teleport Room Inner UB", logic=lambda logic_info: (lambda state: logicfunction.dronequest(logic_info)(state)))
+    ]
+
+    DRONE_TELEPORT_ROOM_LOWER = "Drone Teleport Room_Lower", [
+        AVDoor("Drone Teleport Room Lower Right Door", Orientation.Right),
+        AVDoor("Drone Teleport Room Inner BU", logic=lambda logic_info: (lambda state: logicfunction.dronequest(logic_info)(state)))
+    ]
+
+    #foothills: 5 regions?
+
+    FOOTHILLS_WEST = "Foothills_West", [
+        AVDoor("Foothills Down Door", Orientation.Down),
+        AVDoor("Foothills Inner WM", logic=lambda logic_info: (lambda state: logicfunction.trenchcoat(logic_info)(state) or (logicfunction.anycoat(logic_info)(state) and logicfunction.drill(logic_info)(state)) or logicfunction.shortdrone(logic_info)(state) or (logicfunction.grapple(logic_info)(state) and logicfunction.fielddisruptor(logic_info)(state)))),
+        AVDoor("Foothills Inner WU", logic=lambda logic_info: (lambda state: logicfunction.no(logic_info)(state)))
+    ]
+
+    FOOTHILLS_MAIN = "Foothills_Main", [
+        AVDoor("Foothills Inner MW", logic=lambda logic_info: (lambda state: logicfunction.trenchcoat(logic_info)(state) or (logicfunction.anycoat(logic_info)(state) and logicfunction.drill(logic_info)(state)) or logicfunction.shortdrone(logic_info)(state) or logicfunction.fielddisruptor(logic_info)(state) or logicfunction.grapple(logic_info)(state))),
+        AVDoor("Foothills Inner ME", logic=lambda logic_info: (lambda state: logicfunction.glitch2(logic_info)(state) or logicfunction.trenchcoat(logic_info)(state))),
+        AVDoor("Foothills Inner MS", logic=lambda logic_info: (lambda state: logicfunction.anyup(logic_info)(state) and logicfunction.dronequest(logic_info)(state))),
+        AVDoor("Foothills Inner MU", logic=lambda logic_info: (lambda state: logicfunction.anyup(logic_info)(state)))
+    ]
+
+    FOOTHILLS_UPPER = "Foothills Upper", [
+        AVDoor("Foothills Up Door", Orientation.Up),
+        AVDoor("Foothills Inner UM"),
+        AVDoor("Foothills Inner UW"),
+        AVDoor("Foothills Inner US", logic=lambda logic_info: (lambda state: logicfunction.dronequest(logic_info)(state)))
+    ]
+    
+    FOOTHILLS_SECRET = "Foothills_Secret", [
+        AVDoor("Foothills Upper Right Door", Orientation.Right),
+        AVDoor("Foothills Inner SM", logic=lambda logic_info: (lambda state: logicfunction.dronequest(logic_info)(state))),
+        AVDoor("Foothills Inner SU", logic=lambda logic_info: (lambda state: logicfunction.no(logic_info)(state)))
+    ]
+    
+    FOOTHILLS_EAST = "Foothills_East", [
+        AVDoor("Foothills Lower Right Door", Orientation.Right),
+        AVDoor("Foothills Inner EM", logic=lambda logic_info: (lambda state: logicfunction.glitch2(logic_info)(state) or logicfunction.trenchcoat(logic_info)(state)))
+    ]
+
+    THORN_MAZE = "Thorn Maze", [
+        AVDoor("Thorn Maze Left Door", Orientation.Left),
+        AVDoor("Thorn Maze Right Door", Orientation.Right)
+    ]
+
+    THORN_MAZE_SECRET = "Thorn Maze Secret", [
+        AVDoor("Thorn Maze Secret Left Door", Orientation.Left)
+    ]
+
+    LAIR_ENTRANCE = "Lair Entrance", [
+        AVDoor("Lair Entrance Left Door", Orientation.Left),
+        AVDoor("Lair Entrance Right Door", Orientation.Right)
+    ]
+
+    ELEVATED_POOLS = "Elevated Pools", [
+        AVDoor("Elevated Pools Left Door", Orientation.Left, logic=lambda logic_info: (lambda state: logicfunction.anyup(logic_info)(state))),
+        AVDoor("Elevated Pools Right Door", Orientation.Right, logic=lambda logic_info: (lambda state: logicfunction.trenchcoat(logic_info)(state) or logicfunction.shortdrone(logic_info)(state) or (logicfunction.fielddisruptor(logic_info)(state) and logicfunction.anyglitch(logic_info)(state))))
+    ]
+
+    LAIR_VESTIBULE = "Lair Vestibule", [
+        AVDoor("Lair Vestibule Left Door", Orientation.Left), # probably needs combat logic
+        AVDoor("Lair Vestibule Right Door", Orientation.Right)
+    ]
+
+    #girtabfoyer: 2 rooms
+    GIRTAB_FOYER_LOWER = "Gir-Tab Foyer_Lower", [
+        AVDoor("Gir-Tab Foyer Lower Left Door", Orientation.Left),
+        AVDoor("Gir-Tab Foyer Inner BU", logic=lambda logic_info: (lambda state: logicfunction.anyup(logic_info)(state)))
+    ]
+
+    GIRTAB_FOYER_UPPER = "Gir=Tab Foyer_Upper", [
+        AVDoor("Gir-Tab Foyer Upper Left Door", Orientation.Left),
+        AVDoor("Gir-Tab Foyer Right Door", Orientation.Right, bossdoor=BossDoor.Outer, logic=lambda logic_info: (lambda state: logicfunction.anyupnoceiling(logic_info)(state))),
+        AVDoor("Gir-Tab Foyer Innner UB")
+    ]
+
+    KUR_SAVE2 = "Kur Save 2", [
+        AVDoor("Kur Save 2 Right Door", Orientation.Right),
+        AVDoor("Kur Save 2 Save", Orientation.Save)
+    ]
+
+    GIRTAB = "Gir-Tab", [
+        AVDoor("Gir-Tab Left Door", Orientation.Left, bossdoor=BossDoor.Inner, logic=lambda logic_info: (lambda state: logicfunction.girtabweapon(logic_info)(state))),
+        AVDoor("Gir-Tab Right Door", Orientation.Right, bossdoor=BossDoor.Inner, logic=lambda logic_info: (lambda state: logicfunction.girtabweapon(logic_info)(state))),
+        AVDoor("Gir-Tab Up Door", Orientation.Up, bossdoor=BossDoor.Inner, logic=lambda logic_info: (lambda state: logicfunction.girtabweapon(logic_info)(state) and logicfunction.no(logic_info)(state))) # this is possible but i cannot be bothered to figure out how right now
     ]
 
 class AVDoorID(NamedTuple):
@@ -1814,7 +1953,18 @@ axiom_verge_connections = [
     AVConnection(AVDoorID(AVRegion.HANGAR_EAST, 2), AVDoorID(AVRegion.HANGAR_UPPER, 1)),
     AVConnection(AVDoorID(AVRegion.EDIN_TO_KUR_EAST, 1), AVDoorID(AVRegion.EDIN_TO_KUR_WEST, 1)),
     AVConnection(AVDoorID(AVRegion.EDIN_TO_KUR_EAST, 2), AVDoorID(AVRegion.EDIN_TO_KUR_UPPER, 1)),
-    AVConnection(AVDoorID(AVRegion.WEST_TOWER_LEVEL1_LOWER, 3), AVDoorID(AVRegion.WEST_TOWER_LEVEL1_UPPER, 1))
+    AVConnection(AVDoorID(AVRegion.WEST_TOWER_LEVEL1_LOWER, 3), AVDoorID(AVRegion.WEST_TOWER_LEVEL1_UPPER, 1)),
+    AVConnection(AVDoorID(AVRegion.WEST_TOWER_LEVEL3_LOWER, 1), AVDoorID(AVRegion.WEST_TOWER_LEVEL3_EAST, 0)),
+    AVConnection(AVDoorID(AVRegion.WEST_TOWER_LEVEL3_EAST, 1), AVDoorID(AVRegion.WEST_TOWER_LEVEL3_UPPER, 1)),
+    AVConnection(AVDoorID(AVRegion.WEST_TOWER_LEVEL3_UPPER, 2), AVDoorID(AVRegion.WEST_TOWER_LEVEL3_WEST, 1)),
+    AVConnection(AVDoorID(AVRegion.DRONE_TELEPORT_ROOM_UPPER, 1), AVDoorID(AVRegion.DRONE_TELEPORT_ROOM_LOWER, 1)),
+    AVConnection(AVDoorID(AVRegion.FOOTHILLS_WEST, 1), AVDoorID(AVRegion.FOOTHILLS_MAIN, 0)),
+    AVConnection(AVDoorID(AVRegion.FOOTHILLS_EAST, 1), AVDoorID(AVRegion.FOOTHILLS_MAIN, 1)),
+    AVConnection(AVDoorID(AVRegion.FOOTHILLS_SECRET, 1), AVDoorID(AVRegion.FOOTHILLS_MAIN, 2)),
+    AVConnection(AVDoorID(AVRegion.FOOTHILLS_UPPER, 1), AVDoorID(AVRegion.FOOTHILLS_MAIN, 3)),
+    AVConnection(AVDoorID(AVRegion.FOOTHILLS_UPPER, 2), AVDoorID(AVRegion.FOOTHILLS_WEST, 2), False),
+    AVConnection(AVDoorID(AVRegion.FOOTHILLS_UPPER, 3), AVDoorID(AVRegion.FOOTHILLS_SECRET, 2), False),
+    AVConnection(AVDoorID(AVRegion.GIRTAB_FOYER_LOWER, 1), AVDoorID(AVRegion.GIRTAB_FOYER_UPPER, 2))
 ]
 
 axiom_verge_doors = [
@@ -2047,7 +2197,24 @@ axiom_verge_doors = [
     AVConnection(AVDoorID(AVRegion.EDIN_TO_KUR_UPPER, 0), AVDoorID(AVRegion.HANGAR_ATTIC, 0)),
     AVConnection(AVDoorID(AVRegion.EDIN_TO_UKKINNA_UPPER, 0), AVDoorID(AVRegion.WEST_TOWER_LEVEL1_LOWER, 0)),
     AVConnection(AVDoorID(AVRegion.WEST_TOWER_LEVEL1_LOWER, 1), AVDoorID(AVRegion.EDIN_SAVE2, 0)),
-    AVConnection(AVDoorID(AVRegion.WEST_TOWER_LEVEL1_LOWER, 2), AVDoorID(AVRegion.LEVEL1_SECRET, 0))
+    AVConnection(AVDoorID(AVRegion.WEST_TOWER_LEVEL1_LOWER, 2), AVDoorID(AVRegion.LEVEL1_SECRET, 0)),
+    AVConnection(AVDoorID(AVRegion.WEST_TOWER_LEVEL1_UPPER, 0), AVDoorID(AVRegion.WEST_TOWER_LEVEL2, 0)),
+    AVConnection(AVDoorID(AVRegion.WEST_TOWER_LEVEL2, 1), AVDoorID(AVRegion.DistortionFieldRoom, 0)),
+    AVConnection(AVDoorID(AVRegion.WEST_TOWER_LEVEL2, 2), AVDoorID(AVRegion.WEST_TOWER_LEVEL3_LOWER, 0)),
+    AVConnection(AVDoorID(AVRegion.WEST_TOWER_LEVEL3_UPPER, 0), AVDoorID(AVRegion.SPITBUG_BOSS_FOYER, 0)),
+    AVConnection(AVDoorID(AVRegion.SPITBUG_BOSS_FOYER, 1), AVDoorID(AVRegion.EDIN_SAVE3, 0)),
+    AVConnection(AVDoorID(AVRegion.SPITBUG_BOSS_FOYER, 2), AVDoorID(AVRegion.SPITBUG_BOSS_ROOM, 0)),
+    AVConnection(AVDoorID(AVRegion.SPITBUG_BOSS_ROOM, 1), AVDoorID(AVRegion.DRONE_TELEPORT_ROOM_UPPER, 0)),
+    AVConnection(AVDoorID(AVRegion.WEST_TOWER_LEVEL3_WEST, 0), AVDoorID(AVRegion.DRONE_TELEPORT_ROOM_LOWER, 0)),
+    AVConnection(AVDoorID(AVRegion.KUR_SHAFT_UPPER, 0), AVDoorID(AVRegion.FOOTHILLS_WEST, 0)),
+    AVConnection(AVDoorID(AVRegion.FOOTHILLS_SECRET, 0), AVDoorID(AVRegion.THORN_MAZE, 0)),
+    AVConnection(AVDoorID(AVRegion.THORN_MAZE, 1), AVDoorID(AVRegion.THORN_MAZE_SECRET, 0)),
+    AVConnection(AVDoorID(AVRegion.FOOTHILLS_EAST, 0), AVDoorID(AVRegion.LAIR_ENTRANCE, 0)),
+    AVConnection(AVDoorID(AVRegion.LAIR_ENTRANCE, 1), AVDoorID(AVRegion.ELEVATED_POOLS, 0)),
+    AVConnection(AVDoorID(AVRegion.ELEVATED_POOLS, 1), AVDoorID(AVRegion.LAIR_VESTIBULE, 0)),
+    AVConnection(AVDoorID(AVRegion.LAIR_VESTIBULE, 1), AVDoorID(AVRegion.GIRTAB_FOYER_LOWER, 0)),
+    AVConnection(AVDoorID(AVRegion.GIRTAB_FOYER_UPPER, 0), AVDoorID(AVRegion.KUR_SAVE2, 0)),
+    AVConnection(AVDoorID(AVRegion.GIRTAB_FOYER_UPPER, 1), AVDoorID(AVRegion.GIRTAB, 0))
 ]
 
 region_name_to_connection: Dict[str, List[AVConnection]] = {}
