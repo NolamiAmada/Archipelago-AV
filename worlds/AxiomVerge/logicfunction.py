@@ -38,7 +38,7 @@ def drone(logic_info: LogicInfo) -> Callable[[CollectionState], bool]:
 
 def dronelaunch(logic_info: LogicInfo) -> Callable[[CollectionState], bool]:
     def _dronelaunch(state: CollectionState) -> bool:
-        return state.has("Enhanced Drone Launch", logic_info.player) or state.has("Progressive Drone", logic_info.player, count=2)
+        return (state.has("Enhanced Drone Launch", logic_info.player) and state.has("Remote Drone", logic_info.player)) or state.has("Progressive Drone", logic_info.player, count=2)
     return _dronelaunch
 
 

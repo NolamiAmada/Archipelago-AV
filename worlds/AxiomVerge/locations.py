@@ -119,7 +119,13 @@ axiom_verge_locations = {
     "Drone Teleport Room_Lower": [AVLocation("Edin - Drone Teleport", BASE_ID+98)],
     "Thorn Maze Secret": [AVLocation("Kur - Hypo Atomizer", BASE_ID+99)],
     "High Jump Room_Main": [AVLocation("Kur - Field Disruptor", BASE_ID+100)],
-    "Lair Vestibule": [AVLocation("Kur - Laser Friend", BASE_ID+101, logic=lambda logic_info: (lambda state: logicfunction.drone(logic_info)(state) and (logicfunction.anyglitch(logic_info)(state) or logicfunction.redcoat(logic_info)(state)) and (logicfunction.grapple(logic_info)(state) or logicfunction.shortdrone(logic_info)(state) or logicfunction.longwarp(logic_info)(state))))]
+    "Lair Vestibule": [AVLocation("Kur - Laser Friend", BASE_ID+101, logic=lambda logic_info: (lambda state: logicfunction.drone(logic_info)(state) and (logicfunction.anyglitch(logic_info)(state) or logicfunction.redcoat(logic_info)(state)) and (logicfunction.grapple(logic_info)(state) or logicfunction.shortdrone(logic_info)(state) or logicfunction.longwarp(logic_info)(state))))],
+    "Mountain Back_East": [
+        AVLocation("Kur - Grapple", BASE_ID+102),
+        AVLocation("Kur - Hidden Above Grapple", BASE_ID+103, logic=lambda logic_info: (lambda state: logicfunction.anyupnoceiling(logic_info)(state)))
+    ],
+    "Mountain Back_Upper": [AVLocation("Kur - Grapple Room Ledge", BASE_ID+104, logic=lambda logic_info: (lambda state: logicfunction.grapple(logic_info)(state) or logicfunction.dronelaunch(logic_info)(state) or (logicfunction.shortdrone(logic_info)(state) and logicfunction.anycoat(logic_info)(state) and (logicfunction.anyupnodrone(logic_info)(state) or logicfunction.dronefly(logic_info)(state)))))],
+    "Secret Lair Shortcut": [AVLocation("Kur - Gir-Tab Bypass", BASE_ID+105, logic=lambda logic_info: (lambda state: logicfunction.anyup(logic_info)(state)))]
 }
 
 av_locations_unpacked = {}
