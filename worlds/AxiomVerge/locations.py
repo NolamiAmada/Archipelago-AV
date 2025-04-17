@@ -30,7 +30,7 @@ axiom_verge_locations = {
     "Bubblewrap": [AVLocation("Eribu - Path to Absu", BASE_ID+13)],
     "Secret Chamber_Upper": [AVLocation("Eribu - Outside Lower Passcode Room", BASE_ID+14)],
     "Discharge Chamber": [AVLocation("Eribu - Lower Passcode Room", BASE_ID+15, logic=lambda logic_info: (lambda state: logicfunction.grapple(logic_info)(state) or logicfunction.shortdrone(logic_info)(state) or logicfunction.longwarp(logic_info)(state)))],
-    "Slug": [AVLocation("Glitch a Slug", BASE_ID+16, logic=lambda logic_info: (lambda state: logicfunction.anyglitch(logic_info)(state)))],
+    "Slug": [AVLocation("Glitched Slug Item", BASE_ID+16, logic=lambda logic_info: (lambda state: logicfunction.anyglitch(logic_info)(state)))],
     "Absu Shaft_Upper": [AVLocation("Absu - Entrance Shaft", BASE_ID+17, logic=lambda logic_info: (lambda state: logicfunction.drill(logic_info)(state)))],
     "Ventilation_Center": [AVLocation("Absu - Switch Cage", BASE_ID+18, logic=lambda logic_info: (lambda state: logicfunction.anycoat(logic_info)(state) or logicfunction.shortpierce(logic_info)(state)))],
     "Upper Shaft Basement": [AVLocation("Absu - Under Entrance Shaft", BASE_ID+19)],
