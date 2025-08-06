@@ -1171,7 +1171,7 @@ class AVRegion(enum.Enum):
     )]
 
     LEFT_LEG_SHAFT_TRANSIT = "Left Leg Shaft_Transit", [
-        AVDoor("Left Leg Shaft Inner TLu", logic=lambda logic_info: (lambda state: logicfunction.trenchcoat(logic_info)(state))),
+        AVDoor("Left Leg Shaft Inner TLU", logic=lambda logic_info: (lambda state: logicfunction.trenchcoat(logic_info)(state))),
         AVDoor("Left Leg Shaft Inner TUl", logic=lambda logic_info: (lambda state: logicfunction.dronefly(logic_info)(state) and logicfunction.redcoat(logic_info)(state) and logicfunction.grapple(logic_info)(state))
     )]
 
@@ -1752,8 +1752,7 @@ class AVRegion(enum.Enum):
         AVDoor("Drone Teleport Room Inner BU", logic=lambda logic_info: (lambda state: logicfunction.dronequest(logic_info)(state)))
     ]
 
-    #foothills: 5 regions?
-
+    #foothills: 5 regions
     FOOTHILLS_WEST = "Foothills_West", [
         AVDoor("Foothills Down Door", Orientation.Down),
         AVDoor("Foothills Inner WM", logic=lambda logic_info: (lambda state: logicfunction.trenchcoat(logic_info)(state) or (logicfunction.anycoat(logic_info)(state) and logicfunction.drill(logic_info)(state)) or logicfunction.shortdrone(logic_info)(state) or (logicfunction.grapple(logic_info)(state) and logicfunction.fielddisruptor(logic_info)(state)))),
@@ -1809,7 +1808,7 @@ class AVRegion(enum.Enum):
         AVDoor("Lair Vestibule Right Door", Orientation.Right)
     ]
 
-    #girtabfoyer: 2 rooms
+    #girtabfoyer: 2 regions
     GIRTAB_FOYER_LOWER = "Gir-Tab Foyer_Lower", [
         AVDoor("Gir-Tab Foyer Lower Left Door", Orientation.Left),
         AVDoor("Gir-Tab Foyer Inner BU", logic=lambda logic_info: (lambda state: logicfunction.anyup(logic_info)(state)))
@@ -1945,6 +1944,51 @@ class AVRegion(enum.Enum):
     DRONE_ROOM_EAST = "Drone Room_East", [
         AVDoor("Drone Room Right Door", Orientation.Right),
         AVDoor("Drone Room Inner EC", logic=lambda logic_info: (lambda state: logicfunction.drill(logic_info)(state)))
+    ]
+
+    #mountainslope: 6 regions
+    MOUNTAIN_SLOPE_LOWER = "Mountain Slope_Lower", [
+        AVDoor("Mountain Slope Down Door", Orientation.Down),
+        AVDoor("Mountain Slope Lower Right Door", Orientation.Right),
+        AVDoor("Mountain Slope Inner BM", logic=lambda logic_info: (lambda state: logicfunction.anyup(logic_info)(state))),
+        AVDoor("Mountain Slope Inner BE", logic=lambda logic_info: (lambda state: logicfunction.trenchcoat(logic_info)(state) or logicfunction.shortdrone(logic_info)(state) or (logicfunction.fielddisruptor(logic_info)(state) and (logicfunction.drone(logic_info)(state) or logicfunction.longpierce(logic_info)(state))))),
+        AVDoor("Mountain Slope Inner BU", logic=lambda logic_info: (lambda state: logicfunction.no(logic_info)(state)))
+    ]
+
+    MOUNTAIN_SLOPE_MAIN = "Mountain Slope_Main", [
+        AVDoor("Mountain Slope Inner MS", logic=lambda logic_info: (lambda state: logicfunction.anyup(logic_info)(state))),
+        AVDoor("Mountain Slope Inner MB"),
+        AVDoor("Mountain Slope Inner ME"),
+        AVDoor("Mountain Slope Inner MU", logic=lambda logic_info: (lambda state: logicfunction.verylongwarp(logic_info)(state) or logicfunction.shortdrone(logic_info)(state) or (logicfunction.anyupnoceiling(logic_info)(state) and logicfunction.grapple(logic_info)(state)))),
+        AVDoor("Mountain Slope Inner MI", logic=lambda logic_info: (lambda state: logicfunction.grapple(logic_info)(state) or logicfunction.shortdrone(logic_info)(state) or logicfunction.redcoat(logic_info)(state) or (logicfunction.trenchcoat(logic_info)(state) and logicfunction.drone(logic_info)(state))))
+    ]
+
+    MOUNTAIN_SLOPE_SECRET = "Mountain Slope_Secret", [
+        AVDoor("Mountain Slope Upper Right Door", Orientation.Right, logic=lambda logic_info: (lambda state: logicfunction.anyup(logic_info)(state))),
+        AVDoor("Mountain Slope Inner SM", logic=lambda logic_info: (lambda state: logicfunction.anyup(logic_info)(state)))
+    ]
+
+    MOUNTAIN_SLOPE_EAST = "Mountain Slope_East", [
+        AVDoor("Mountain Slope Center Right Door", Orientation.Right),
+        AVDoor("Mountain Slope Inner EM", logic=lambda logic_info: (lambda state: logicfunction.anyupnoceiling(logic_info)(state))),
+        AVDoor("Mountain Slope Inner EB", logic=lambda logic_info: (lambda state: logicfunction.trenchcoat(logic_info)(state) or logicfunction.breakblock(logic_info)(state)))
+    ]
+
+    MOUNTAIN_SLOPE_UPPER = "Mountain Slope_Upper", [
+        AVDoor("Mountain Slope Up Door", Orientation.Up),
+        AVDoor("Mountain Slope Inner UM", logic=lambda logic_info: (lambda state: logicfunction.drill(logic_info)(state))),
+        AVDoor("Mountain Slope Inner UB"),
+        AVDoor("Mountain Slope Inner UI", logic=lambda logic_info: (lambda state: logicfunction.drone(logic_info)(state)))
+    ]
+
+    MOUNTAIN_SLOPE_ITEM = "Mountain Slope_Item", [
+        AVDoor("Mountain Slope IU", logic=lambda logic_info: (lambda state: logicfunction.no(logic_info)(state))),
+        AVDoor("Mountain Slope IM", logic=lambda logic_info: (lambda state: logicfunction.no(logic_info)(state)))
+    ]
+
+    KUR_SAVE3 = "Kur Save 3", [
+        AVDoor("Kur Save 3 Left Door", Orientation.Left),
+        AVDoor("Kur Save 3 Save", Orientation.Save)
     ]
 
 class AVDoorID(NamedTuple):
@@ -2092,7 +2136,15 @@ axiom_verge_connections = [
     AVConnection(AVDoorID(AVRegion.DRONE_ROOM_WEST, 2), AVDoorID(AVRegion.DRONE_ROOM_CENTER, 1)),
     AVConnection(AVDoorID(AVRegion.DRONE_ROOM_LOWER, 1), AVDoorID(AVRegion.DRONE_ROOM_SECRET, 1)),
     AVConnection(AVDoorID(AVRegion.DRONE_ROOM_LOWER, 2), AVDoorID(AVRegion.DRONE_ROOM_CENTER, 0)),
-    AVConnection(AVDoorID(AVRegion.DRONE_ROOM_CENTER, 2), AVDoorID(AVRegion.DRONE_ROOM_EAST, 1))
+    AVConnection(AVDoorID(AVRegion.DRONE_ROOM_CENTER, 2), AVDoorID(AVRegion.DRONE_ROOM_EAST, 1)),
+    AVConnection(AVDoorID(AVRegion.MOUNTAIN_SLOPE_LOWER, 2), AVDoorID(AVRegion.MOUNTAIN_SLOPE_MAIN, 1)),
+    AVConnection(AVDoorID(AVRegion.MOUNTAIN_SLOPE_LOWER, 3), AVDoorID(AVRegion.MOUNTAIN_SLOPE_EAST, 2)),
+    AVConnection(AVDoorID(AVRegion.MOUNTAIN_SLOPE_UPPER, 2), AVDoorID(AVRegion.MOUNTAIN_SLOPE_LOWER, 4), False),
+    AVConnection(AVDoorID(AVRegion.MOUNTAIN_SLOPE_MAIN, 0), AVDoorID(AVRegion.MOUNTAIN_SLOPE_SECRET, 1)),
+    AVConnection(AVDoorID(AVRegion.MOUNTAIN_SLOPE_MAIN, 2), AVDoorID(AVRegion.DRONE_ROOM_EAST, 1)),
+    AVConnection(AVDoorID(AVRegion.MOUNTAIN_SLOPE_MAIN, 3), AVDoorID(AVRegion.MOUNTAIN_SLOPE_UPPER, 1)),
+    AVConnection(AVDoorID(AVRegion.MOUNTAIN_SLOPE_MAIN, 4), AVDoorID(AVRegion.MOUNTAIN_SLOPE_ITEM, 1), False),
+    AVConnection(AVDoorID(AVRegion.MOUNTAIN_SLOPE_UPPER, 3), AVDoorID(AVRegion.MOUNTAIN_SLOPE_ITEM, 0), False)
 ]
 
 axiom_verge_doors = [
@@ -2352,7 +2404,11 @@ axiom_verge_doors = [
     AVConnection(AVDoorID(AVRegion.SECRET_LAIR_RUINS_LOWER, 0), AVDoorID(AVRegion.GIRTAB, 2)),
     AVConnection(AVDoorID(AVRegion.MAINTENANCE_ENTRANCE_UPPER, 1), AVDoorID(AVRegion.SECRET_LAIR_RUINS_EAST, 0)),
     AVConnection(AVDoorID(AVRegion.SECRET_LAIR_RUINS_WEST, 0), AVDoorID(AVRegion.SECRET_LAIR_SHORTCUT, 0)),
-    AVConnection(AVDoorID(AVRegion.SECRET_LAIR_SHORTCUT, 1), AVDoorID(AVRegion.DRONE_ROOM_EAST, 0))
+    AVConnection(AVDoorID(AVRegion.SECRET_LAIR_SHORTCUT, 1), AVDoorID(AVRegion.DRONE_ROOM_EAST, 0)),
+    AVConnection(AVDoorID(AVRegion.FOOTHILLS_UPPER, 0), AVDoorID(AVRegion.MOUNTAIN_SLOPE_LOWER, 0)),
+    AVConnection(AVDoorID(AVRegion.MOUNTAIN_SLOPE_EAST, 0), AVDoorID(AVRegion.DRONE_ROOM_SECRET, 0)),
+    AVConnection(AVDoorID(AVRegion.MOUNTAIN_SLOPE_SECRET, 0), AVDoorID(AVRegion.DRONE_ROOM_WEST, 0)),
+    AVConnection(AVDoorID(AVRegion.MOUNTAIN_SLOPE_LOWER, 1), AVDoorID(AVRegion.KUR_SAVE3, 0))
 ]
 
 region_name_to_connection: Dict[str, List[AVConnection]] = {}
