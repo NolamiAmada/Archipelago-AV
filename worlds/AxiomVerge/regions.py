@@ -1991,6 +1991,77 @@ class AVRegion(enum.Enum):
         AVDoor("Kur Save 3 Save", Orientation.Save)
     ]
 
+    #icecrags: 12 regions dear god
+    ICECRAGS_LOWERWEST = "Ice Crags_LowerWest", [
+        AVDoor("Ice Crags Down Door", Orientation.Down),
+        AVDoor("Ice Crags Inner BwW", logic=lambda logic_info: (lambda state: logicfunction.shortdrone(logic_info)(state) or (logicfunction.grapple(logic_info)(state) and logicfunction.trenchcoat(logic_info)(state)) or (logicfunction.fielddisruptor(logic_info)(state) and (logicfunction.trenchcoat(logic_info)(state) or logicfunction.grapple(logic_info)(state))))),
+        AVDoor("Ice Crags Inner BwBe", logic=lambda logic_info: (lambda state: logicfunction.redcoat(logic_info)(state)))
+    ]
+
+    ICECRAGS_WEST = "Ice Crags_West", [
+        AVDoor("Ice Crags Inner WBw"),
+        AVDoor("Ice Crags Inner WE", logic=lambda logic_info: (lambda state: logicfunction.sevenblockup(logic_info)(state) and logicfunction.anycoat(logic_info)(state))),
+        AVDoor("Ice Crags Inner WC"),
+        AVDoor("Ice Crags Inner WUw", logic=lambda logic_info: (lambda state: logicfunction.shortdrone(logic_info)(state) or (logicfunction.grapple(logic_info)(state) and logicfunction.trenchcoat(logic_info)(state)) or (logicfunction.fielddisruptor(logic_info)(state) and (logicfunction.trenchcoat(logic_info)(state) or logicfunction.grapple(logic_info)(state))))),
+        AVDoor("Ice Crags Inner WSw", logic=lambda logic_info: (lambda state: logicfunction.dronefly(logic_info)(state) or (logicfunction.shortdrone(logic_info)(state) and logicfunction.grapple(logic_info)(state))))
+    ]
+
+    ICECRAGS_LOWEREAST = "Ice Crags_LowerEast", [
+        AVDoor("Ice Crags Inner BeBw", logic=lambda logic_info: (lambda state: logicfunction.redcoat(logic_info)(state))),
+        AVDoor("Ice Crags Inner BeE", logic=lambda logic_info: (lambda state: logicfunction.anyupnoceiling(logic_info)(state))),
+        AVDoor("Ice Crags Inner BeSe", logic=lambda logic_info: (lambda state: logicfunction.dronequest(logic_info)(state)))
+    ]
+
+    ICECRAGS_EAST = "Ice Crags_East", [
+        AVDoor("Ice Crags Inner EBe"),
+        AVDoor("Ice Crags Inner EW", logic=lambda logic_info: (lambda state: logicfunction.anycoat(logic_info)(state))),
+        AVDoor("Ice Crags Inner EC", logic=lambda logic_info: (lambda state: logicfunction.grapple(logic_info)(state) or logicfunction.longdrone(logic_info)(state) or ((logicfunction.shortdrone(logic_info)(state) and logicfunction.longwarp(logic_info)(state)))))
+    ]
+
+    ICECRAGS_SECRETEAST = "Ice Crags_SecretEast", [
+        AVDoor("Ice Crags Inner SeBe", logic=lambda logic_info: (lambda state: logicfunction.shortdrone(logic_info)(state))),
+        AVDoor("Ice Crags Inner SeSb")
+    ]
+
+    ICECRAGS_SECRETLOWER = "Ice Crags_SecretLower", [
+        AVDoor("Ice Crags Lower Right Door", Orientation.Right),
+        AVDoor("Ice Crags Inner SbSe", logic=lambda logic_info: (lambda state: logicfunction.grapple(logic_info)(state) or (logicfunction.drone(logic_info)(state) and (logicfunction.anyupnodrone(logic_info)(state) or logicfunction.dronelaunch(logic_info)(state)))))
+    ]
+
+    ICECRAGS_UPPER = "Ice Crags_Upper", [
+        AVDoor("Ice Crags Up Door", Orientation.Up, logic=lambda logic_info: (lambda state: logicfunction.anyupnodrone(logic_info)(state))),
+        AVDoor("Ice Crags Upper Right Door", Orientation.Right),
+        AVDoor("Ice Crags Inner UUe")
+    ]
+
+    ICECRAGS_CENTER = "Ice Crags_Center", [
+        AVDoor("Ice Crags Inner CE"),
+        AVDoor("Ice Crags Inner CW", logic=lambda logic_info: (lambda state: logicfunction.anyupnoceiling(logic_info)(state))),
+        AVDoor("Ice Crags Inner CUe", logic=lambda logic_info: (lambda state: logicfunction.trenchcoat(logic_info)(state) or logicfunction.shortdrone(logic_info)(state) or (logicfunction.fielddisruptor(logic_info)(state) and logicfunction.grapple(logic_info)(state))))
+    ]
+
+    ICECRAGS_UPPEREAST = "Ice Crags_UpperEast", [
+        AVDoor("Ice Crags Inner UeU", logic=lambda logic_info: (lambda state: logicfunction.anyup(logic_info)(state))),
+        AVDoor("Ice Crags Inner UeC"),
+        AVDoor("Ice Crags Inner UeUw", logic=lambda logic_info: (lambda state: logicfunction.shortdrone(logic_info)(state) or (logicfunction.grapple(logic_info)(state) and logicfunction.trenchcoat(logic_info)(state)) or (logicfunction.fielddisruptor(logic_info)(state) and (logicfunction.trenchcoat(logic_info)(state) or logicfunction.grapple(logic_info)(state)))))
+    ]
+
+    ICECRAGS_UPPERWEST = "Ice Crags_UpperWest", [
+        AVDoor("Ice Crags Inner UwW"),
+        AVDoor("Ice Crags Inner UwUe", logic=lambda logic_info: (lambda state: logicfunction.sevenblockup(logic_info)(state))),
+        AVDoor("Ice Crags Inner UwSu", logic=lambda logic_info: (lambda state: logicfunction.glitch2(logic_info)(state) and (logicfunction.grapple(logic_info)(state) or (logicfunction.drill(logic_info)(state) and (logicfunction.shortdrone(logic_info)(state) or (logicfunction.trenchcoat(logic_info)(state) and logicfunction.fielddisruptor(logic_info)(state)))))))
+    ]
+
+    ICECRAGS_SECRETUPPER = "Ice Crags_SecretUpper", [
+        AVDoor("Ice Crags Inner SuSw"),
+        AVDoor("Ice Crags Inner SuUw", logic=lambda logic_info: (lambda state: logicfunction.no(logic_info)(state)))
+    ]
+
+    ICECRAGS_SECRETWEST = "Ice Crags_SecretWest", [
+        AVDoor("Ice Crags Inner SwSu", logic=lambda logic_info: (lambda state: logicfunction.dronefly(logic_info)(state) or logicfunction.longdrone(logic_info)(state) or ((logicfunction.shortdrone(logic_info)(state) or logicfunction.redcoat(logic_info)(state)) and logicfunction.grapple(logic_info)(state)))),
+        AVDoor("Ice Crags Inner SwW")
+    ]
+
 class AVDoorID(NamedTuple):
     region: AVRegion
     index: int
@@ -2141,10 +2212,25 @@ axiom_verge_connections = [
     AVConnection(AVDoorID(AVRegion.MOUNTAIN_SLOPE_LOWER, 3), AVDoorID(AVRegion.MOUNTAIN_SLOPE_EAST, 2)),
     AVConnection(AVDoorID(AVRegion.MOUNTAIN_SLOPE_UPPER, 2), AVDoorID(AVRegion.MOUNTAIN_SLOPE_LOWER, 4), False),
     AVConnection(AVDoorID(AVRegion.MOUNTAIN_SLOPE_MAIN, 0), AVDoorID(AVRegion.MOUNTAIN_SLOPE_SECRET, 1)),
-    AVConnection(AVDoorID(AVRegion.MOUNTAIN_SLOPE_MAIN, 2), AVDoorID(AVRegion.DRONE_ROOM_EAST, 1)),
+    AVConnection(AVDoorID(AVRegion.MOUNTAIN_SLOPE_MAIN, 2), AVDoorID(AVRegion.MOUNTAIN_SLOPE_EAST, 1)),
     AVConnection(AVDoorID(AVRegion.MOUNTAIN_SLOPE_MAIN, 3), AVDoorID(AVRegion.MOUNTAIN_SLOPE_UPPER, 1)),
     AVConnection(AVDoorID(AVRegion.MOUNTAIN_SLOPE_MAIN, 4), AVDoorID(AVRegion.MOUNTAIN_SLOPE_ITEM, 1), False),
-    AVConnection(AVDoorID(AVRegion.MOUNTAIN_SLOPE_UPPER, 3), AVDoorID(AVRegion.MOUNTAIN_SLOPE_ITEM, 0), False)
+    AVConnection(AVDoorID(AVRegion.MOUNTAIN_SLOPE_UPPER, 3), AVDoorID(AVRegion.MOUNTAIN_SLOPE_ITEM, 0), False),
+    AVConnection(AVDoorID(AVRegion.ICECRAGS_LOWERWEST, 1), AVDoorID(AVRegion.ICECRAGS_WEST, 0)),
+    AVConnection(AVDoorID(AVRegion.ICECRAGS_LOWERWEST, 2), AVDoorID(AVRegion.ICECRAGS_LOWEREAST, 0)),
+    AVConnection(AVDoorID(AVRegion.ICECRAGS_WEST, 1), AVDoorID(AVRegion.ICECRAGS_EAST, 1)),
+    AVConnection(AVDoorID(AVRegion.ICECRAGS_WEST, 2), AVDoorID(AVRegion.ICECRAGS_CENTER, 1)),
+    AVConnection(AVDoorID(AVRegion.ICECRAGS_WEST, 3), AVDoorID(AVRegion.ICECRAGS_UPPERWEST, 0)),
+    AVConnection(AVDoorID(AVRegion.ICECRAGS_WEST, 4), AVDoorID(AVRegion.ICECRAGS_SECRETWEST, 1)),
+    AVConnection(AVDoorID(AVRegion.ICECRAGS_LOWEREAST, 1), AVDoorID(AVRegion.ICECRAGS_EAST, 0)),
+    AVConnection(AVDoorID(AVRegion.ICECRAGS_LOWEREAST, 2), AVDoorID(AVRegion.ICECRAGS_SECRETEAST, 0)),
+    AVConnection(AVDoorID(AVRegion.ICECRAGS_EAST, 2), AVDoorID(AVRegion.ICECRAGS_CENTER, 0)),
+    AVConnection(AVDoorID(AVRegion.ICECRAGS_SECRETEAST, 1), AVDoorID(AVRegion.ICECRAGS_SECRETLOWER, 1)),
+    AVConnection(AVDoorID(AVRegion.ICECRAGS_UPPER, 2), AVDoorID(AVRegion.ICECRAGS_UPPEREAST, 0)),
+    AVConnection(AVDoorID(AVRegion.ICECRAGS_CENTER, 2), AVDoorID(AVRegion.ICECRAGS_UPPEREAST, 1)),
+    AVConnection(AVDoorID(AVRegion.ICECRAGS_UPPEREAST, 2), AVDoorID(AVRegion.ICECRAGS_UPPERWEST, 1)),
+    AVConnection(AVDoorID(AVRegion.ICECRAGS_UPPERWEST, 2), AVDoorID(AVRegion.ICECRAGS_SECRETUPPER, 1)),
+    AVConnection(AVDoorID(AVRegion.ICECRAGS_SECRETUPPER, 0), AVDoorID(AVRegion.ICECRAGS_SECRETWEST, 0))
 ]
 
 axiom_verge_doors = [
@@ -2406,9 +2492,10 @@ axiom_verge_doors = [
     AVConnection(AVDoorID(AVRegion.SECRET_LAIR_RUINS_WEST, 0), AVDoorID(AVRegion.SECRET_LAIR_SHORTCUT, 0)),
     AVConnection(AVDoorID(AVRegion.SECRET_LAIR_SHORTCUT, 1), AVDoorID(AVRegion.DRONE_ROOM_EAST, 0)),
     AVConnection(AVDoorID(AVRegion.FOOTHILLS_UPPER, 0), AVDoorID(AVRegion.MOUNTAIN_SLOPE_LOWER, 0)),
-    AVConnection(AVDoorID(AVRegion.MOUNTAIN_SLOPE_EAST, 0), AVDoorID(AVRegion.DRONE_ROOM_SECRET, 0)),
-    AVConnection(AVDoorID(AVRegion.MOUNTAIN_SLOPE_SECRET, 0), AVDoorID(AVRegion.DRONE_ROOM_WEST, 0)),
-    AVConnection(AVDoorID(AVRegion.MOUNTAIN_SLOPE_LOWER, 1), AVDoorID(AVRegion.KUR_SAVE3, 0))
+    AVConnection(AVDoorID(AVRegion.MOUNTAIN_SLOPE_EAST, 0), AVDoorID(AVRegion.DRONE_ROOM_WEST, 0)),
+    AVConnection(AVDoorID(AVRegion.MOUNTAIN_SLOPE_SECRET, 0), AVDoorID(AVRegion.DRONE_ROOM_SECRET, 0)),
+    AVConnection(AVDoorID(AVRegion.MOUNTAIN_SLOPE_LOWER, 1), AVDoorID(AVRegion.KUR_SAVE3, 0)),
+    AVConnection(AVDoorID(AVRegion.MOUNTAIN_SLOPE_UPPER, 0), AVDoorID(AVRegion.ICECRAGS_LOWERWEST, 0))
 ]
 
 region_name_to_connection: Dict[str, List[AVConnection]] = {}

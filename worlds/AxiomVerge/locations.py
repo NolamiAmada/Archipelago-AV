@@ -128,7 +128,10 @@ axiom_verge_locations = {
     "Secret Lair Shortcut": [AVLocation("Kur - Gir-Tab Upper Entrance", BASE_ID+105, logic=lambda logic_info: (lambda state: logicfunction.anyup(logic_info)(state)))],
     "Mountain Slope_Item": [AVLocation("Kur - Watch for Rolling Rocks", BASE_ID+106)],
     "Mountain Slope_East": [AVLocation("Kur - Inside Cliff", BASE_ID+107, logic=lambda logic_info: (lambda state: logicfunction.redcoat(logic_info)(state)))],
-    "Drone Room_Lower": [AVLocation("Kur - Above Twin Save Rooms", BASE_ID+108)]
+    "Drone Room_Lower": [AVLocation("Kur - Above Twin Save Rooms", BASE_ID+108)],
+    "Ice Crags_SecretEast": [AVLocation("Kur - Shrine Before Drone Odyssey", BASE_ID+109)],
+    "Ice Crags_SecretWest": [AVLocation("Kur - Snowy Cliffs Ledge Lower", BASE_ID+110)],
+    "Ice Crags_SecretUpper": [AVLocation("Kur - Snowy Cliffs Ledge Upper", BASE_ID+111)]
 }
 
 av_locations_unpacked = {}
