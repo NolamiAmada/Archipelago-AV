@@ -2062,6 +2062,93 @@ class AVRegion(enum.Enum):
         AVDoor("Ice Crags Inner SwW")
     ]
 
+    CAVERN_OF_THE_ROSES1 = "Cavern of the Roses", [
+        AVDoor("Cavern of the Roses Left Door", Orientation.Left),
+        AVDoor("Cavern of the Roses Right Door", Orientation.Right)
+    ]
+
+    FLORAL_CLOSET = "Floral Closet", [
+        AVDoor("Floral Closet Left Door", Orientation.Left),
+        AVDoor("Floral Closet Up Door", Orientation.Up)
+    ]
+
+    HIDDEN_STALAGMITE = "Hidden Stalagmite", [
+        AVDoor("Hidden Stalagmite Down Door", Orientation.Down),
+        AVDoor("Hidden Stalagmite Right Door", Orientation.Right)
+    ]
+
+    SUSPENSION_OF_THE_GILL = "Suspension of the Gill", [
+        AVDoor("Suspension of the Gill Left Door", Orientation.Left),
+        AVDoor("Suspension of the Gill Up Door", Orientation.Up)
+    ]
+
+    REFLECTOR_ROOM = "Reflector Room", [
+        AVDoor("Reflector Room Down Door", Orientation.Down)
+    ]
+
+    IMPROVED_LAUNCH_ROOM = "Improved Launch Room", [
+        AVDoor("Improved Launch Room Left Door", Orientation.Left)
+    ]
+
+    #kurtoekurmah: 2 regions
+
+    KUR_TO_EKURMAH_WEST = "Kur to E-Kur-Mah_West", [
+        AVDoor("Kur to E-Kur-Mah Down Door", Orientation.Down),
+        AVDoor("Kur to E-Kur-Mah Left Door", Orientation.Left),
+        AVDoor("Kur to E-Kur-Mah Inner WE", logic=lambda logic_info: (lambda state: (logicfunction.verylongwarp(logic_info)(state) and logicfunction.shortdrone(logic_info)(state)) or ((logicfunction.longdrone(logic_info)(state) or logicfunction.dronefly(logic_info)(state)) and logicfunction.trenchcoat(logic_info)(state))))
+    ]
+
+    KUR_TO_EKURMAH_EAST = "Kur to E-Kur-Mah_East", [
+        AVDoor("Kur to E-Kur-Mah Right Door", Orientation.Right),
+        AVDoor("Kur to E-Kur-Mah Inner EW", logic=lambda logic_info: (lambda state: logicfunction.trenchcoat(logic_info)(state) and logicfunction.shortdrone(logic_info)(state)))
+    ]
+
+    KUR_SAVE4 = "Kur Save 4", [
+        AVDoor("Kur Save 4 Right Door", Orientation.Right),
+        AVDoor("Kur Save 4 Save", Orientation.Save)
+    ]
+
+    #ekurmahtokur: 5 regions
+    EKURMAH_TO_KUR_WEST = "E-Kur-Mah to Kur_West", [
+        AVDoor("E-Kur-Mah to Kur Left Door", Orientation.Left),
+        AVDoor("E-Kur-Mah to Kur Inner WC", logic=lambda logic_info: (lambda state: logicfunction.trenchcoat(logic_info)(state))),
+        AVDoor("E-Kur-Mah to Kur Inner WU", logic=lambda logic_info: (lambda state: logicfunction.trenchcoat(logic_info)(state) and (logicfunction.longdrone(logic_info)(state) or logicfunction.dronefly(logic_info)(state) or (logicfunction.fielddisruptor(logic_info)(state) and logicfunction.shortdrone(logic_info)(state)))))
+    ]
+
+    EKURMAH_TO_KUR_CENTER = "E-Kur-Mah to Kur_Center", [
+        AVDoor("E-Kur-Mah to Kur Inner CW", logic=lambda logic_info: (lambda state: logicfunction.trenchcoat(logic_info)(state))),
+        AVDoor("E-Kur-Mah to Kur Inner CE", logic=lambda logic_info: (lambda state: logicfunction.trenchcoat(logic_info)(state) and (logicfunction.shortdrone(logic_info)(state) or logicfunction.grapple(logic_info)(state) or logicfunction.verylongwarp(logic_info)(state)))),
+        AVDoor("E-Kur-Mah to Kur Inner CU", logic=lambda logic_info: (lambda state: (logicfunction.trenchcoat(logic_info)(state) and logicfunction.grapple(logic_info)(state)) or logicfunction.redcoat(logic_info)(state)))
+    ]
+
+    EKURMAH_TO_KUR_EAST = "E-Kur-Mah to Kur_East", [
+        AVDoor("E-Kur-Mah to Kur Inner EC", logic=lambda logic_info: (lambda state: logicfunction.trenchcoat(logic_info)(state))),
+        AVDoor("E-Kur-Mah to Kur Inner EU", logic=lambda logic_info: (lambda state: ((logicfunction.trenchcoat(logic_info)(state) or logicfunction.shortdrone(logic_info)(state)) and logicfunction.grapple(logic_info)(state)) or (logicfunction.longwarp(logic_info)(state) and logicfunction.shortdrone(logic_info)(state)) or logicfunction.longdrone(logic_info)(state) or logicfunction.dronefly(logic_info)(state))),
+        AVDoor("E-Kur-Mah to Kur Inner EB", logic=lambda logic_info: (lambda state: logicfunction.sudrankey(logic_info)(state)))
+    ]
+
+    EKURMAH_TO_KUR_UPPER = "E-Kur-Mah to Kur_Upper", [
+        AVDoor("E-Kur-Mah to Kur Up Door", Orientation.Up),
+        AVDoor("E-Kur-Mah to Kur Inner UE", logic=lambda logic_info: (lambda state: logicfunction.shortdrone(logic_info)(state))),
+        AVDoor("E-Kur-Mah to Kur Inner UW", logic=lambda logic_info: (lambda state: logicfunction.trenchcoat(logic_info)(state))),
+        AVDoor("E-Kur-Mah to Kur Inner UC", logic=lambda logic_info: (lambda state: logicfunction.redcoat(logic_info)(state)))
+    ]
+
+    EKURMAH_TO_KUR_LOWER = "E-Kur-Mah to Kur_Lower", [
+        AVDoor("E-Kur-Mah to Kur Right Door", Orientation.Right),
+        AVDoor("E-Kur-Mah to Kur Inner BE", logic=lambda logic_info: (lambda state: logicfunction.sudrankey(logic_info)(state) and (logicfunction.longwarp(logic_info)(state) or logicfunction.shortdrone(logic_info)(state))))
+    ]
+
+    ARCADE_ATTIC = "Arcade Attic", [
+        AVDoor("Arcade Attic Down Door", Orientation.Down, logic=lambda logic_info: (lambda state: logicfunction.trenchcoat(logic_info)(state))),
+        AVDoor("Arcade Attic Up Door", Orientation.Up, logic=lambda logic_info: (lambda state: logicfunction.trenchcoat(logic_info)(state) and (logicfunction.longwarp(logic_info)(state) or logicfunction.grapple(logic_info)(state) or logicfunction.shortdrone(logic_info)(state)))),
+    ]
+
+    TRANSITION_ROOM = "Transition Room", [
+        AVDoor("Transition Room Down Door", Orientation.Down),
+        AVDoor("Transition Room Right Door", Orientation.Right)
+    ]
+
 class AVDoorID(NamedTuple):
     region: AVRegion
     index: int
@@ -2230,7 +2317,14 @@ axiom_verge_connections = [
     AVConnection(AVDoorID(AVRegion.ICECRAGS_CENTER, 2), AVDoorID(AVRegion.ICECRAGS_UPPEREAST, 1)),
     AVConnection(AVDoorID(AVRegion.ICECRAGS_UPPEREAST, 2), AVDoorID(AVRegion.ICECRAGS_UPPERWEST, 1)),
     AVConnection(AVDoorID(AVRegion.ICECRAGS_UPPERWEST, 2), AVDoorID(AVRegion.ICECRAGS_SECRETUPPER, 1)),
-    AVConnection(AVDoorID(AVRegion.ICECRAGS_SECRETUPPER, 0), AVDoorID(AVRegion.ICECRAGS_SECRETWEST, 0))
+    AVConnection(AVDoorID(AVRegion.ICECRAGS_SECRETUPPER, 0), AVDoorID(AVRegion.ICECRAGS_SECRETWEST, 0)),
+    AVConnection(AVDoorID(AVRegion.KUR_TO_EKURMAH_WEST, 2), AVDoorID(AVRegion.KUR_TO_EKURMAH_EAST, 1)),
+    AVConnection(AVDoorID(AVRegion.EKURMAH_TO_KUR_WEST, 1), AVDoorID(AVRegion.EKURMAH_TO_KUR_CENTER, 0)),
+    AVConnection(AVDoorID(AVRegion.EKURMAH_TO_KUR_WEST, 2), AVDoorID(AVRegion.EKURMAH_TO_KUR_UPPER, 2)),
+    AVConnection(AVDoorID(AVRegion.EKURMAH_TO_KUR_CENTER, 1), AVDoorID(AVRegion.EKURMAH_TO_KUR_EAST, 0)),
+    AVConnection(AVDoorID(AVRegion.EKURMAH_TO_KUR_CENTER, 2), AVDoorID(AVRegion.EKURMAH_TO_KUR_UPPER, 3)),
+    AVConnection(AVDoorID(AVRegion.EKURMAH_TO_KUR_EAST, 1), AVDoorID(AVRegion.EKURMAH_TO_KUR_UPPER, 1)),
+    AVConnection(AVDoorID(AVRegion.EKURMAH_TO_KUR_EAST, 2), AVDoorID(AVRegion.EKURMAH_TO_KUR_LOWER, 1))
 ]
 
 axiom_verge_doors = [
@@ -2495,7 +2589,18 @@ axiom_verge_doors = [
     AVConnection(AVDoorID(AVRegion.MOUNTAIN_SLOPE_EAST, 0), AVDoorID(AVRegion.DRONE_ROOM_WEST, 0)),
     AVConnection(AVDoorID(AVRegion.MOUNTAIN_SLOPE_SECRET, 0), AVDoorID(AVRegion.DRONE_ROOM_SECRET, 0)),
     AVConnection(AVDoorID(AVRegion.MOUNTAIN_SLOPE_LOWER, 1), AVDoorID(AVRegion.KUR_SAVE3, 0)),
-    AVConnection(AVDoorID(AVRegion.MOUNTAIN_SLOPE_UPPER, 0), AVDoorID(AVRegion.ICECRAGS_LOWERWEST, 0))
+    AVConnection(AVDoorID(AVRegion.MOUNTAIN_SLOPE_UPPER, 0), AVDoorID(AVRegion.ICECRAGS_LOWERWEST, 0)),
+    AVConnection(AVDoorID(AVRegion.ICECRAGS_SECRETLOWER, 0), AVDoorID(AVRegion.CAVERN_OF_THE_ROSES1, 0)),
+    AVConnection(AVDoorID(AVRegion.CAVERN_OF_THE_ROSES1, 1), AVDoorID(AVRegion.FLORAL_CLOSET, 0)),
+    AVConnection(AVDoorID(AVRegion.FLORAL_CLOSET, 1), AVDoorID(AVRegion.HIDDEN_STALAGMITE, 0)),
+    AVConnection(AVDoorID(AVRegion.HIDDEN_STALAGMITE, 1), AVDoorID(AVRegion.SUSPENSION_OF_THE_GILL, 0)),
+    AVConnection(AVDoorID(AVRegion.SUSPENSION_OF_THE_GILL, 1), AVDoorID(AVRegion.REFLECTOR_ROOM, 0)),
+    AVConnection(AVDoorID(AVRegion.ICECRAGS_UPPER, 1), AVDoorID(AVRegion.IMPROVED_LAUNCH_ROOM, 0)),
+    AVConnection(AVDoorID(AVRegion.ICECRAGS_UPPER, 0), AVDoorID(AVRegion.KUR_TO_EKURMAH_WEST, 0)),
+    AVConnection(AVDoorID(AVRegion.KUR_TO_EKURMAH_WEST, 1), AVDoorID(AVRegion.KUR_SAVE4, 0)),
+    AVConnection(AVDoorID(AVRegion.KUR_TO_EKURMAH_EAST, 0), AVDoorID(AVRegion.EKURMAH_TO_KUR_WEST, 0)),
+    AVConnection(AVDoorID(AVRegion.EKURMAH_TO_KUR_UPPER, 0), AVDoorID(AVRegion.ARCADE_ATTIC, 0)),
+    AVConnection(AVDoorID(AVRegion.ARCADE_ATTIC, 1), AVDoorID(AVRegion.TRANSITION_ROOM, 0))
 ]
 
 region_name_to_connection: Dict[str, List[AVConnection]] = {}

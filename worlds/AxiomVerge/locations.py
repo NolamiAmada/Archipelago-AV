@@ -131,7 +131,13 @@ axiom_verge_locations = {
     "Drone Room_Lower": [AVLocation("Kur - Above Twin Save Rooms", BASE_ID+108)],
     "Ice Crags_SecretEast": [AVLocation("Kur - Shrine Before Drone Odyssey", BASE_ID+109)],
     "Ice Crags_SecretWest": [AVLocation("Kur - Snowy Cliffs Ledge Lower", BASE_ID+110)],
-    "Ice Crags_SecretUpper": [AVLocation("Kur - Snowy Cliffs Ledge Upper", BASE_ID+111)]
+    "Ice Crags_SecretUpper": [AVLocation("Kur - Snowy Cliffs Ledge Upper", BASE_ID+111)],
+    "Reflector Room": [AVLocation("Kur - Drone Odyssey Reward", BASE_ID+112)],
+    "Hidden Stalagmite": [AVLocation("Kur - Drone Odyssey Secret", BASE_ID+113, logic=lambda logic_info: (lambda state: logicfunction.drill(logic_info)(state)))],
+    "Improved Launch Room": [AVLocation("Kur - Loop Room", BASE_ID+114)],
+    "Kur to E-Kur-Mah_West": [AVLocation("Kur - Peak Cliff Ledge", BASE_ID+115, logic=lambda logic_info: (lambda state: (logicfunction.longdrone(logic_info)(state) or logicfunction.dronefly(logic_info)(state)) or (logicfunction.grapple(logic_info)(state) and (logicfunction.verylongwarp(logic_info)(state) or (logicfunction.trenchcoat(logic_info)(state) or logicfunction.fielddisruptor(logic_info)(state))))))],
+    "E-Kur-Mah to Kur_Center": [AVLocation("E-Kur-Mah - Entry Chamber Breakable Wall", BASE_ID+116, logic=lambda logic_info: (lambda state: logicfunction.drill(logic_info)(state)))],
+    "Transition Room": [AVLocation("E-Kur-Mah - Key Door on Quarry Path", BASE_ID+117, logic=lambda logic_info: (lambda state: logicfunction.sudrankey(logic_info)(state)))]
 }
 
 av_locations_unpacked = {}
