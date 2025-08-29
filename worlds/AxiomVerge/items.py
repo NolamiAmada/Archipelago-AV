@@ -47,6 +47,7 @@ axiom_verge_items = [
     AVItem("Power Node Fragment", ItemClassification.filler, BASE_ID + 42, 18),  # should be 18
     AVItem("Range Node", ItemClassification.filler, BASE_ID + 43, 6),  # should be 6
     AVItem("Size Node", ItemClassification.filler, BASE_ID + 44, 6),  # should be 6
+    AVItem("FIXME", ItemClassification.filler, BASE_ID + 48, 6)  # REPLACE WITH DYNAMIC LOOP OF REAL FILLER
 ]
 
 # Items can be grouped using their names to allow easy checking if any item
