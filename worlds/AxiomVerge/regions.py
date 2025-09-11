@@ -2099,7 +2099,7 @@ class AVRegion(enum.Enum):
     ]
 
     KUR_TO_EKURMAH_EAST = "Kur to E-Kur-Mah_East", [
-        AVDoor("Kur to E-Kur-Mah Right Door", Orientation.Right),
+        AVDoor("Kur to E-Kur-Mah Right Door", Orientation.Right, bossdoor=BossDoor.Areatrans),
         AVDoor("Kur to E-Kur-Mah Inner EW", logic=lambda logic_info: (lambda state: logicfunction.trenchcoat(logic_info)(state) and logicfunction.shortdrone(logic_info)(state)))
     ]
 
@@ -2110,7 +2110,7 @@ class AVRegion(enum.Enum):
 
     #ekurmahtokur: 5 regions
     EKURMAH_TO_KUR_WEST = "E-Kur-Mah to Kur_West", [
-        AVDoor("E-Kur-Mah to Kur Left Door", Orientation.Left),
+        AVDoor("E-Kur-Mah to Kur Left Door", Orientation.Left, bossdoor=BossDoor.Areatrans),
         AVDoor("E-Kur-Mah to Kur Inner WC", logic=lambda logic_info: (lambda state: logicfunction.trenchcoat(logic_info)(state))),
         AVDoor("E-Kur-Mah to Kur Inner WU", logic=lambda logic_info: (lambda state: logicfunction.trenchcoat(logic_info)(state) and (logicfunction.longdrone(logic_info)(state) or logicfunction.dronefly(logic_info)(state) or (logicfunction.fielddisruptor(logic_info)(state) and logicfunction.shortdrone(logic_info)(state)))))
     ]
@@ -2147,6 +2147,96 @@ class AVRegion(enum.Enum):
     TRANSITION_ROOM = "Transition Room", [
         AVDoor("Transition Room Down Door", Orientation.Down),
         AVDoor("Transition Room Right Door", Orientation.Right)
+    ]
+
+    TOP_LEFT_CORNER = "Top Left Corner", [
+        AVDoor("Top Left Corner Left Door", Orientation.Left),
+        AVDoor("Top Left Corner Right Door", Orientation.Right, logic=lambda logic_info: (lambda state: logicfunction.shortdrone(logic_info)(state) or logicfunction.longwarp(logic_info)(state) or (logicfunction.trenchcoat(logic_info)(state) and logicfunction.grapple(logic_info)(state))))
+    ]
+
+    ATTIC_EKM = "E-Kur-Mah Attic", [
+        AVDoor("E-Kur-Mah Attic Left Door", Orientation.Left, logic=lambda logic_info: (lambda state: logicfunction.shortdrone(logic_info)(state))),
+        AVDoor("E-Kur-Mah Attic Right Door", Orientation.Right, logic=lambda logic_info: (lambda state: logicfunction.shortdrone(logic_info)(state)))
+    ]
+
+    KEY_CHAMBER = "Key Chamber", [
+        AVDoor("Key Chamber Up Door", Orientation.Up, logic=lambda logic_info: (lambda state: logicfunction.shortdrone(logic_info)(state) or logicfunction.trenchcoat(logic_info)(state) or (logicfunction.grapple(logic_info)(state) and logicfunction.fielddisruptor(logic_info)(state)))),
+        AVDoor("Key Chamber Left Door", Orientation.Left)
+    ]
+
+    EKURMAH_SAVE1 = "E-Kur-Mah Save 1", [
+        AVDoor("E-Kur-Mah Save 1 Right Door", Orientation.Right),
+        AVDoor("E-Kur-Mah Save 1 Save", Orientation.Save)
+    ]
+
+    CELLAR = "Cellar", [
+        AVDoor("Cellar Left Door", Orientation.Left),
+        AVDoor("Cellar Down Door", Orientation.Down),
+        AVDoor("Cellar Right Door", Orientation.Right)
+    ]
+
+    EKURMAH_SAVE2 = "E-Kur-Mah Save 2", [
+        AVDoor("E-Kur-Mah Save 2 Left Door", Orientation.Left),
+        AVDoor("E-Kur-Mah Save 2 Save", Orientation.Save)
+    ]
+
+    #basementaccess1: 2 regions
+    BASEMENT_ACCESS1_UPPER = "Basement Access 1_Upper", [
+        AVDoor("Basement Access 1 Up Door", Orientation.Left),
+        AVDoor("Basement Access 1 Inner UB", logic=lambda logic_info: (lambda state: (logicfunction.trenchcoat(logic_info)(state) and (logicfunction.shortdrone(logic_info)(state) or logicfunction.grapple(logic_info)(state)) or (logicfunction.shortdrone(logic_info)(state) and logicfunction.grapple(logic_info)(state))) or logicfunction.dronefly(logic_info)(state) or logicfunction.longdrone(logic_info)(state)))
+    ]
+
+    BASEMENT_ACCESS1_LOWER = "Basement Access 1_Lower", [
+        AVDoor("Basement Access 1 Right Door", Orientation.Right),
+        AVDoor("Basement Access 1 Inner BU", logic=lambda logic_info: (lambda state: (logicfunction.trenchcoat(logic_info)(state) and (logicfunction.shortdrone(logic_info)(state) or logicfunction.grapple(logic_info)(state)) or (logicfunction.shortdrone(logic_info)(state) and logicfunction.grapple(logic_info)(state))) or logicfunction.dronefly(logic_info)(state) or logicfunction.longdrone(logic_info)(state)))
+    ]
+
+    BASEMENT_ACCESS2 = "Basement Access 2", [
+        AVDoor("Basement Access 2 Upper Left Door", Orientation.Left, logic=lambda logic_info: (lambda state: logicfunction.longdrone(logic_info)(state) or logicfunction.dronefly(logic_info)(state) or (logicfunction.shortdrone(logic_info)(state) and logicfunction.trenchcoat(logic_info)(state)))),
+        AVDoor("Basement Access 2 Lower Left Door", Orientation.Left)
+    ]
+
+    BASEMENT_ACCESS3 = "Basement Access 3", [
+        AVDoor("Basement Access 3 Right Door", Orientation.Right, logic=lambda logic_info: (lambda state: logicfunction.longdrone(logic_info)(state) or logicfunction.dronefly(logic_info)(state) or (logicfunction.shortdrone(logic_info)(state) and logicfunction.anyupnodrone(logic_info)(state)) or (logicfunction.trenchcoat(logic_info)(state) and logicfunction.grapple(logic_info)(state)))),
+        AVDoor("Basement Access 3 Left Door", Orientation.Left)
+    ]
+
+    #ekurmahsave3: 2 regions
+    EKURMAH_SAVE3_LOWER = "E-Kur-Mah Save 3_Lower", [
+        AVDoor("E-Kur-Mah Save 3 Right Door", Orientation.Right),
+        AVDoor("E-Kur-Mah Save 3 Lower Left Door", Orientation.Left),
+        AVDoor("E-Kur-Mah Save 3 Inner BU", logic=lambda logic_info: (lambda state: logicfunction.longdrone(logic_info)(state) or logicfunction.dronefly(logic_info)(state) or (logicfunction.shortdrone(logic_info)(state) and logicfunction.anyupnodrone(logic_info)(state)) or (logicfunction.redcoat(logic_info)(state) and (logicfunction.grapple(logic_info)(state) or logicfunction.fielddisruptor(logic_info)(state))))),
+        AVDoor("E-Kur-Mah Save 3 Save", Orientation.Save)
+    ]
+
+    EKURMAH_SAVE3_UPPER = "E-Kur-Mah Save 3_Upper", [
+        AVDoor("E-Kur-Mah Save 3 Upper Right Door", Orientation.Right),
+        AVDoor("E-Kur-Mah Save 3 Inner UB")
+    ]
+
+    SECRET_EKURMAH_TO_KUR = "Secret E-Kur-Mah to Kur", [
+        AVDoor("Secret E-Kur-Mah to Kur Right Door", Orientation.Right),
+        AVDoor("Secret E-Kur-Mah to Kur Left Door", Orientation.Left, bossdoor=BossDoor.Areatrans)
+    ]
+
+    #verdantcavern: 2 regions
+    VERDANT_CAVERN_UPPER = "Verdant Cavern_Upper", [
+        AVDoor("Verdant Cavern Right Door", Orientation.Right, logic=lambda logic_info: (lambda state: logicfunction.longdrone(logic_info)(state) or logicfunction.dronefly(logic_info)(state) or (logicfunction.shortdrone(logic_info)(state) and logicfunction.verylongwarp(logic_info)(state)))),
+        AVDoor("Verdant Cavern Inner UB")
+    ]
+
+    VERDANT_CAVERN_LOWER = "Verdant Cavern_Lower", [
+        AVDoor("Verdant Cavern Down Door", Orientation.Down),
+        AVDoor("Verdant Cavern Inner BU", logic=lambda logic_info: (lambda state: logicfunction.longdrone(logic_info)(state) or logicfunction.dronefly(logic_info)(state) or (logicfunction.shortdrone(logic_info)(state) and logicfunction.longwarp(logic_info)(state))))
+    ]
+
+    SECRET_ACCESS = "Secret Access", [
+        AVDoor("Secret Access Up Door", Orientation.Up, logic=lambda logic_info: (lambda state: logicfunction.grapple(logic_info)(state) or logicfunction.verylongwarp(logic_info)(state))),
+        AVDoor("Secret Access Down Door", Orientation.Down)
+    ]
+
+    RED_COAT_ROOM = "Red Coat Room", [
+        AVDoor("Red Coat Room Up Door", Orientation.Up)
     ]
 
 class AVDoorID(NamedTuple):
@@ -2324,7 +2414,10 @@ axiom_verge_connections = [
     AVConnection(AVDoorID(AVRegion.EKURMAH_TO_KUR_CENTER, 1), AVDoorID(AVRegion.EKURMAH_TO_KUR_EAST, 0)),
     AVConnection(AVDoorID(AVRegion.EKURMAH_TO_KUR_CENTER, 2), AVDoorID(AVRegion.EKURMAH_TO_KUR_UPPER, 3)),
     AVConnection(AVDoorID(AVRegion.EKURMAH_TO_KUR_EAST, 1), AVDoorID(AVRegion.EKURMAH_TO_KUR_UPPER, 1)),
-    AVConnection(AVDoorID(AVRegion.EKURMAH_TO_KUR_EAST, 2), AVDoorID(AVRegion.EKURMAH_TO_KUR_LOWER, 1))
+    AVConnection(AVDoorID(AVRegion.EKURMAH_TO_KUR_EAST, 2), AVDoorID(AVRegion.EKURMAH_TO_KUR_LOWER, 1)),
+    AVConnection(AVDoorID(AVRegion.BASEMENT_ACCESS1_UPPER, 1), AVDoorID(AVRegion.BASEMENT_ACCESS1_LOWER, 1)),
+    AVConnection(AVDoorID(AVRegion.EKURMAH_SAVE3_LOWER, 2), AVDoorID(AVRegion.EKURMAH_SAVE3_UPPER, 1)),
+    AVConnection(AVDoorID(AVRegion.VERDANT_CAVERN_LOWER, 1), AVDoorID(AVRegion.VERDANT_CAVERN_UPPER, 1))
 ]
 
 axiom_verge_doors = [
@@ -2600,7 +2693,22 @@ axiom_verge_doors = [
     AVConnection(AVDoorID(AVRegion.KUR_TO_EKURMAH_WEST, 1), AVDoorID(AVRegion.KUR_SAVE4, 0)),
     AVConnection(AVDoorID(AVRegion.KUR_TO_EKURMAH_EAST, 0), AVDoorID(AVRegion.EKURMAH_TO_KUR_WEST, 0)),
     AVConnection(AVDoorID(AVRegion.EKURMAH_TO_KUR_UPPER, 0), AVDoorID(AVRegion.ARCADE_ATTIC, 0)),
-    AVConnection(AVDoorID(AVRegion.ARCADE_ATTIC, 1), AVDoorID(AVRegion.TRANSITION_ROOM, 0))
+    AVConnection(AVDoorID(AVRegion.ARCADE_ATTIC, 1), AVDoorID(AVRegion.TRANSITION_ROOM, 0)),
+    AVConnection(AVDoorID(AVRegion.TRANSITION_ROOM, 1), AVDoorID(AVRegion.TOP_LEFT_CORNER, 0)),
+    AVConnection(AVDoorID(AVRegion.TOP_LEFT_CORNER, 1), AVDoorID(AVRegion.ATTIC_EKM, 0)),
+    AVConnection(AVDoorID(AVRegion.ATTIC_EKM, 1), AVDoorID(AVRegion.KEY_CHAMBER, 0)),
+    AVConnection(AVDoorID(AVRegion.KEY_CHAMBER, 1), AVDoorID(AVRegion.EKURMAH_SAVE1, 0)),
+    AVConnection(AVDoorID(AVRegion.EKURMAH_TO_KUR_LOWER, 0), AVDoorID(AVRegion.CELLAR, 0)),
+    AVConnection(AVDoorID(AVRegion.CELLAR, 2), AVDoorID(AVRegion.EKURMAH_SAVE2, 0)),
+    AVConnection(AVDoorID(AVRegion.CELLAR, 1), AVDoorID(AVRegion.BASEMENT_ACCESS1_UPPER, 0)),
+    AVConnection(AVDoorID(AVRegion.BASEMENT_ACCESS1_LOWER, 0), AVDoorID(AVRegion.BASEMENT_ACCESS2, 0)),
+    AVConnection(AVDoorID(AVRegion.BASEMENT_ACCESS2, 1), AVDoorID(AVRegion.BASEMENT_ACCESS3, 0)),
+    AVConnection(AVDoorID(AVRegion.BASEMENT_ACCESS3, 1), AVDoorID(AVRegion.EKURMAH_SAVE3_LOWER, 0)),
+    AVConnection(AVDoorID(AVRegion.EKURMAH_SAVE3_UPPER, 0), AVDoorID(AVRegion.SECRET_EKURMAH_TO_KUR, 0)),
+    AVConnection(AVDoorID(AVRegion.SECRET_EKURMAH_TO_KUR, 1), AVDoorID(AVRegion.SECRET_KUR_TO_EKURMAH_EAST, 0)),
+    AVConnection(AVDoorID(AVRegion.EKURMAH_SAVE3_LOWER, 1), AVDoorID(AVRegion.VERDANT_CAVERN_UPPER, 0)),
+    AVConnection(AVDoorID(AVRegion.VERDANT_CAVERN_LOWER, 0), AVDoorID(AVRegion.SECRET_ACCESS, 0)),
+    AVConnection(AVDoorID(AVRegion.SECRET_ACCESS, 1), AVDoorID(AVRegion.RED_COAT_ROOM, 0))
 ]
 
 region_name_to_connection: Dict[str, List[AVConnection]] = {}

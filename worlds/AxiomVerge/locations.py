@@ -137,7 +137,18 @@ axiom_verge_locations = {
     "Improved Launch Room": [AVLocation("Kur - Loop Room", BASE_ID+114)],
     "Kur to E-Kur-Mah_West": [AVLocation("Kur - Peak Cliff Ledge", BASE_ID+115, logic=lambda logic_info: (lambda state: (logicfunction.longdrone(logic_info)(state) or logicfunction.dronefly(logic_info)(state)) or (logicfunction.grapple(logic_info)(state) and (logicfunction.verylongwarp(logic_info)(state) or (logicfunction.trenchcoat(logic_info)(state) or logicfunction.fielddisruptor(logic_info)(state))))))],
     "E-Kur-Mah to Kur_Center": [AVLocation("E-Kur-Mah - Entry Chamber Breakable Wall", BASE_ID+116, logic=lambda logic_info: (lambda state: logicfunction.drill(logic_info)(state)))],
-    "Transition Room": [AVLocation("E-Kur-Mah - Key Door on Quarry Path", BASE_ID+117, logic=lambda logic_info: (lambda state: logicfunction.sudrankey(logic_info)(state)))]
+    "Transition Room": [AVLocation("E-Kur-Mah - Key Door on Quarry Path", BASE_ID+117, logic=lambda logic_info: (lambda state: logicfunction.sudrankey(logic_info)(state)))],
+    "Key Chamber": [
+        AVLocation("E-Kur-Mah - Quarry Upper", BASE_ID+118, logic=lambda logic_info: (lambda state: logicfunction.drill(logic_info)(state) and logicfunction.trenchcoat(logic_info)(state))),
+        AVLocation("E-Kur-Mah - Quarry Lower", BASE_ID+119, logic=lambda logic_info: (lambda state: logicfunction.drill(logic_info)(state) and logicfunction.trenchcoat(logic_info)(state)))
+    ],
+    "Basement Access 1_Upper": [AVLocation("E-Kur-Mah - East Shaft Wall Alcove", BASE_ID+120, logic=lambda logic_info: (lambda state: logicfunction.redcoat(logic_info)(state)))],
+    "Verdant Cavern_Upper": [AVLocation("E-Kur-Mah - Passcode Alcove", BASE_ID+121, logic=lambda logic_info: (lambda state: logicfunction.anycoat(logic_info)(state) and (logicfunction.longdrone(logic_info)(state) or logicfunction.dronefly(logic_info)(state) or (logicfunction.shortdrone(logic_info)(state) and logicfunction.longwarp(logic_info)(state) and logicfunction.grapple(logic_info)(state)))))],
+    "Verdant Cavern_Lower": [AVLocation("E-Kur-Mah - Hidden Drone Tunnel", BASE_ID+122, logic=lambda logic_info: (lambda state: logicfunction.dronelaunch(logic_info)(state) or logicfunction.dronefly(logic_info)(state) or (logicfunction.shortdrone(logic_info)(state) and logicfunction.grapple(logic_info)(state)) or (logicfunction.drone(logic_info)(state) and logicfunction.longwarp(logic_info)(state))))],
+    "Red Coat Room": [
+        AVLocation("E-Kur-Mah - Final Chamber Lower", BASE_ID+123, logic=lambda logic_info: (lambda state: logicfunction.redcoat(logic_info)(state))),
+        AVLocation("E-Kur-Mah - Final Chamber Upper", BASE_ID+124, logic=lambda logic_info: (lambda state: logicfunction.drill(logic_info)(state) and (logicfunction.longdrone(logic_info)(state) or logicfunction.dronefly(logic_info)(state) or (logicfunction.anyupnodrone(logic_info)(state) and logicfunction.drone(logic_info)(state)) or (logicfunction.trenchcoat(logic_info)(state) and logicfunction.grapple(logic_info)(state)))))
+    ]
 }
 
 av_locations_unpacked = {}
